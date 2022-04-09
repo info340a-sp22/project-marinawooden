@@ -1,0 +1,9 @@
+footer h4, .copyright{
+    text-align: center;
+}
+
+ul.references {
+    margin: 0;
+    padding: 0;
+    line-height: 2;    
+}
