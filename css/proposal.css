@@ -44,6 +44,10 @@ body > main > section:hover {
     transform: scale(1.05);
 }
 
+section > article {
+    padding: 10px;
+}
+
 footer {
     width: 100%;
     border-top: 1px solid #00000012;
