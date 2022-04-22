@@ -1,0 +1,81 @@
+/* general rules */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: black;
+    color: whitesmoke;
+}
+header {
+    background-color: #5D3FD3;
+}
+.text_center {
+    text-align: center;
+}
+/* reccomended posts */
+.rec_singers_sec {
+    margin-top: 100px;
+  }
+#rounded {
+    border-radius: 15%;
+}
+.rec_singer_wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.rec_singer_row {
+    display: flex;
+    justify-content: center;
+}
+.prof_img {
+    width: 150px;
+    height: 150px;
+    flex: 0 1 auto;
+    opacity: 1;
+    transition: opacity 0.5s;
+    position: relative;
+    padding: 2rem;
+}
+.song_image {
+    width: 100%;
+    height: 100%;
+}
+@media (min-width: 768px) {
+    .prof_img {
+        width: 374px;
+        height: 374px;
+    }
+}
+
+/* Resize images */
+.container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Reccomended Singers */
+.prof_img2 {
+    width: 150px;
+    height: 150px;
+    flex: 0 1 auto;
+    opacity: 1;
+    transition: opacity 0.5s;
+    position: relative;
+    margin: 1rem 1rem 0;
+}
+.rec_singer_row2 {
+    display: flex;
+    justify-content: center;
+}
+#crcl {
+    border-radius: 50%;
+}
+h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+}
