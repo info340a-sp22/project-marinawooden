@@ -1,23 +1,5 @@
-:root {
-  --bs-dark-rgb: 0, 0, 0;
-  --bs-primary-rgb: 93, 62, 211;
-}
-
-body {
-  background-size: 100% 100%;
-  background-attachment: fixed;
-  max-height: 100vh;
-  overflow: hidden;
-  width: 100%;
-  font-size: 1.25rem;
-}
-
 ul {
   list-style-type: none;
-}
-
-h1, h2 {
-  font-family: 'Exo 2', sans-serif;
 }
 
 aside {
@@ -50,15 +32,10 @@ aside .search {
 .tags {
   list-style-type: none;
   width: 50%;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  flex-wrap: wrap;
   font-size: 1rem;
 }
 
 .tags li {
-  display: inline-block;
   border-radius: 25px;
   padding: 0 5px;
   margin: 5px;
@@ -154,7 +131,7 @@ main > header {
   margin: 0 auto;
 }
 
-#profile-img, .album {
+.circle {
   border-radius: 50%;
   background-size: cover;
   background-position: center;
@@ -197,8 +174,24 @@ main > header {
   text-decoration: none;
 }
 
+.post,
+.about {
+  background-color: transparent;
+}
+
+.post img {
+  border-radius: 5px;
+}
+
 @media (min-width: 768px) {
   main > header {
     background-image: linear-gradient(transparent, black 75%), url('../img/header.jpeg');
+  }
+}
+
+@media (min-width: 900px) {
+  .post {
+    width: 45%;
+    background-color: rgb(93, 62, 211);
   }
 }
