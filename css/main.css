@@ -89,4 +89,9 @@ body {
     margin-bottom: 2rem;
 }
 
+/* For the navbar mobile hamburger menu */
+.material-symbols-outlined {
+    font-size: 3rem;
+    color: white;
+}
 /* end of for you page */
