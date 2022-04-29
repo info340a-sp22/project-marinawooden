@@ -2,5 +2,30 @@
 box-sizing: border-box;
 margin: 0;
 padding: 0;
-background-color: black;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.container {
+    display: flex;
+}
+
+.flexbox-container {
+    display: flex;
+    width: 50%;
+    flex-wrap: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flexbox-item {
+    /* flex-grow: 1;
+    flex-basis: auto;
+    width: 50%;
+    float: left; */
+    flex: 1;
+    margin: 10px;
 }

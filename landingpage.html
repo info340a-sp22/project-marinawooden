@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="landingpage.css">
+
     <title>Welcome to MusicRoom</title>
 
     <!-- Bootstrap -->
@@ -13,26 +14,64 @@
 </head>
 
 <body>
-<nav class="navbar" style="background-color:#000000;">
-    <a class="logo" href="#"><img src="img/logo.png" class="img-responsive" alt="MusicRoom logo" width="50" height="50"></a>
-    <span class="navbar-text" style="color:yellow;">Collaboration creates innovation</span>
-    <ul class="nav justify-content-end" aria-label="navigation">
-        <li class="nav-item mx-2 mt-2 p-1">
-            <a class="navLink" href="about.html">About Us</a>
-        </li>
-        <li class="nav-item mx-2 mt-2 p-1" >
-            <a class="navLink" href="features.html">Features</a>
-        </li>
-        <li class="nav-item mx-2 mt-2 p-1">
-            <a class="navLink" href="foryoupage.html">For You</a>
-        </li>
-        <li class="nav-item mx-2 mt-1 p-1">
-            <button class="btn btn-light">Sign In</button>
-        </li>
-    </ul>
-</nav>
-<header>
-    
-</header>
+    <nav class="navbar" style="background-color:#000000;">
+        <a class="logo" href="#"><img src="img/logo.png" class="img-responsive ml-3 p-2" alt="MusicRoom logo" width="60" height="60"></a>
+        <ul class="nav justify-content-end" aria-label="navigation">
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="#about" style="color:white">About Us</a>
+            </li>
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="features.html" style="color:white">Features</a>
+            </li>
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="foryoupage.html" style="color:white">For You</a>
+            </li>
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="search.html" style="color:white">Search</a>
+            <li class="nav-item mx-2 mt-1 p-1">
+                <button class="btn btn-light">Sign In</button>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="container-fluid text-white py-5" style="background-color:#5D3FD3">
+        <a class="logo"><img src="img/logo.png" class="img-responsive position-relative top-0 start-50 translate-middle-x mb-4" alt="MusicRoom logo" width="100" height="100"></a>
+        <h1 class="text-center" style="color:gold">MusicRoom</h1>
+        <p class="lead text-center">
+            <span style="color:white">Where</span>
+            <span style="color:gold">collaboration</span>
+            <span style="color:white">creates</span>
+            <span style="color:gold">innovation.</span>
+        </p>
+    </header>
+
+    <div class="container">
+        <section id="#about" class="flexbox-container hello-box">
+            <div class="flexbox-item hello-text">
+                <p>
+                Welcome to <em>MusicRoom</em>!  We're a <em>music-sharing platform</em>for <em>college creatives</em> looking to share their music and collaborate with other musicians in their area! We know how hard it can be to find other musicians and network. We aim to provide a <em>user-friendly interface</em> and platform to provoke collaboration &#8212; after all, <em>collaboration creates innovation.</em>
+                </p>
+            </div>
+            <div class="flexbox-item hello-image">
+                <img src="img/Music_Isometric.svg">
+            </div>
+        </section>
+        <section class="flexbox-container about-us-box">
+            <div class="flexbox-item"></div>
+        </section>
+        <section class="flexbox-container our-purpose-box">
+            <div class="flexbox-item"></div>
+
+        </section>
+        <section class="flexbox-container features-box">
+            <div class="flexbox-item"></div>
+        </section>
+    </div>
+
+    <footer class="footer mt-auto py-5" style="background-color:black">
+        <div class="container">
+            <span class="text-muted" style="color:white">Copyright &copy;2022 MusicRoom</span>
+        </div>
+    </footer>
 </body>
 </html>
