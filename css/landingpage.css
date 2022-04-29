@@ -1,7 +1,7 @@
 * {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -11,21 +11,12 @@ body {
 
 .container {
     display: flex;
+    margin: 20px;
 }
 
-.flexbox-container {
+.row {
     display: flex;
-    width: 50%;
-    flex-wrap: row;
-    justify-content: space-around;
     align-items: center;
-}
-
-.flexbox-item {
-    /* flex-grow: 1;
-    flex-basis: auto;
-    width: 50%;
-    float: left; */
-    flex: 1;
-    margin: 10px;
+    flex-wrap: wrap;
+    margin: 20px;
 }
