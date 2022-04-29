@@ -1,0 +1,56 @@
+body {
+    background-color: black;
+}
+header {
+    background-color: #5D3FD3;
+}
+.tags {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+.tags > li {
+    display: inline-block;
+    border: 1px solid #393254;
+    margin: 5px;
+    padding: 0 1em;
+    border-radius: 25px;
+    background-color: #393254;
+}
+
+.filter-item {
+    text-decoration: none;
+    color: white;
+}
+
+.tags li:hover {
+    transform: scale(1.2);
+    color: #5D3FD3;
+}
+
+a:hover {
+    color: white;
+}
+
+.d-flex.filter-btn{
+    justify-content: flex-end;
+}
+
+.profile-img {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.item.container {
+    padding-left: 0;
+}
+
+.school {
+    font-size: 0.75em;
+}

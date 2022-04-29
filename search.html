@@ -16,183 +16,106 @@
 </head>
 
 <body>
-    <header class="container-fluid p-3 mb-3 text-white bg-dark">
+    <nav class="navbar" style="background-color:#000000;">
+        <a class="logo" href="#"><img src="img/logo.png" class="img-responsive ml-3 p-2" alt="MusicRoom logo" width="60" height="60"></a>
+        <ul class="nav justify-content-end" aria-label="navigation">
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="#about" style="color:white">About Us</a>
+            </li>
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="features.html" style="color:white">Features</a>
+            </li>
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="foryoupage.html" style="color:white">For You</a>
+            </li>
+            <li class="nav-item mx-2 mt-2 p-1">
+                <a class="navLink text-decoration-none" href="search.html" style="color:white">Search</a>
+            <li class="nav-item mx-2 mt-1 p-1">
+                <button class="btn btn-light">Sign In</button>
+            </li>
+        </ul>
+    </nav>
+    <header class="container-fluid p-3 mb-3 text-white">
         <div class="container mb-3">
             <h1>Search</h1>
             <form>
                 <input type="search" class="form-control" placeholder="Search skills, genres, or schools...">
             </form>
         </div>
-        <div class="container mb-3">
+        <div class="container mb-3 d-flex filter-btn">
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                 data-bs-target=".multi-collapse">Filter</a>
         </div>
         <div class="container mb-3">
             <div class="collapse multi-collapse">
                 <h2>Skill</h2>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="skillCheckbox1" value="#">
-                    <label class="form-check-label" for="skillCheckbox1">Singer</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="skillCheckbox2" value="#">
-                    <label class="form-check-label" for="skillCheckbox2">Guitar</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="skillCheckbox3" value="#">
-                    <label class="form-check-label" for="skillCheckbox3">Bass</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="skillCheckbox4" value="#">
-                    <label class="form-check-label" for="skillCheckbox4">Producer</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="skillCheckbox5" value="#">
-                    <label class="form-check-label" for="skillCheckbox5">Mastering</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="skillCheckbox6" value="#">
-                    <label class="form-check-label" for="skillCheckbox6">Songwriter</label>
-                </div>
+                <ul class="tags">
+                    <li><a class="filter-item" href="">Singer</a></li>
+                    <li><a class="filter-item" href="">Producer</a></li>
+                    <li><a class="filter-item" href="">Mixing</a></li>
+                    <li><a class="filter-item" href="">Mastering</a></li>
+                    <li><a class="filter-item" href="">Keyboard</a></li>
+                    <li><a class="filter-item" href="">Guitar</a></li>
+                    <li><a class="filter-item" href="">Bass</a></li>
+                </ul>
             </div>
         </div>
         <div class="container mb-3">
             <div class="collapse multi-collapse">
                 <h2>Genre</h2>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="genreCheckbox1" value="#">
-                    <label class="form-check-label" for="genreheckbox2">Pop</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="genreCheckbox2" value="#">
-                    <label class="form-check-label" for="genreCheckbox2">Indie</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="genreCheckbox3" value="#">
-                    <label class="form-check-label" for="genreCheckbox3">Rock</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="genreCheckbox4" value="#">
-                    <label class="form-check-label" for="genreCheckbox4">Jazz</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="genreCheckbox5" value="#">
-                    <label class="form-check-label" for="genreCheckbox5">EDM</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="genreCheckbox6" value="#">
-                    <label class="form-check-label" for="genreCheckbox6">Trap</label>
-                </div>
+                <ul class="tags">
+                    <li><a class="filter-item" href="">EDM</a></li>
+                    <li><a class="filter-item" href="">Rap</a></li>
+                    <li><a class="filter-item" href="">Indie</a></li>
+                    <li><a class="filter-item" href="">Rock</a></li>
+                    <li><a class="filter-item" href="">Pop</a></li>
+                    <li><a class="filter-item" href="">Trap</a></li>
+                    <li><a class="filter-item" href="">Grunge</a></li>
+                </ul>
             </div>
         </div>
         <div class="container">
             <div class="collapse multi-collapse">
                 <h2>School</h2>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="schoolCheckbox1" value="#">
-                    <label class="form-check-label" for="schoolCheckbox1">University of Washington</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="schoolCheckbox2" value="#">
-                    <label class="form-check-label" for="schoolCheckbox2">Washington State University</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="schoolCheckbox3" value="#">
-                    <label class="form-check-label" for="schoolCheckbox3">Bellevue College</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="schoolCheckbox4" value="#">
-                    <label class="form-check-label" for="schoolCheckbox4">Northwest University</label>
-                </div>
+                <ul class="tags">
+                    <li><a class="filter-item" href="">University of Washington</a></li>
+                    <li><a class="filter-item" href="">Seattle University</a></li>
+                    <li><a class="filter-item" href="">Bellevue College</a></li>
+                    <li><a class="filter-item" href="">Seattle Central College</a></li>
+                    <li><a class="filter-item" href="">Western University</a></li>
+                    <li><a class="filter-item" href="">Central Washington</a></li>
+                    <li><a class="filter-item" href="">Wstern washington University</a></li>
+                </ul>
             </div>
         </div>
     </header>
     <main>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-xl-3 d-flex">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-auto col-xl-12">
-                                    <img src="https://i.scdn.co/image/1de049fbe77833cc2a9d1e8c74ab78aefa4b178d" class="card-img-top pb-3">
-                                </div>
-                                <div class="col-sm">
-                                    <h3 class="card-title">Artist Names</h3>
-                                    <p class="card-text text-truncate">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit unde at nam alias exercitationem dolore beatae enim quos minima? Obcaecati praesentium beatae dolores saepe, maxime animi dolor alias iste voluptas?</p>
-                                    <p class="card-text text-truncate">Singer, Producer, Guitar, Bass</p>
-                                </div>
+        <section class="container-fluid">
+            <div class="container">
+                <h3 class="text-white mb-3">Result</h3>
+                <div class="item container">
+                    <div class="row no-gutters">
+                        <div class="col-4 d-flex flex-column align-items-center">
+                            <div class="profile-img mb-3" style="background-image: url('img/woman.jpg')">
                             </div>
+                            <button class="btn btn-light" type="button">Follow</button>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3 d-flex">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-auto col-xl-12">
-                                    <img src="https://i.scdn.co/image/1de049fbe77833cc2a9d1e8c74ab78aefa4b178d" class="card-img-top pb-3">
-                                </div>
-                                <div class="col-sm">
-                                    <h3 class="card-title">Artist Names</h3>
-                                    <p class="card-text text-truncate">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit unde at nam alias exercitationem dolore beatae enim quos minima? Obcaecati praesentium beatae dolores saepe, maxime animi dolor alias iste voluptas?</p>
-                                    <p class="card-text text-truncate">Singer, Producer, Guitar, Bass</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3 d-flex">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-auto col-xl-12">
-                                    <img src="https://i.scdn.co/image/1de049fbe77833cc2a9d1e8c74ab78aefa4b178d" class="card-img-top pb-3">
-                                </div>
-                                <div class="col-sm">
-                                    <h3 class="card-title">Artist Names</h3>
-                                    <p class="card-text text-truncate">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit unde at nam alias exercitationem dolore beatae enim quos minima? Obcaecati praesentium beatae dolores saepe, maxime animi dolor alias iste voluptas?</p>
-                                    <p class="card-text text-truncate">Singer, Producer, Guitar, Bass</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3 d-flex">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-auto col-xl-12">
-                                    <img src="https://i.scdn.co/image/1de049fbe77833cc2a9d1e8c74ab78aefa4b178d" class="card-img-top pb-3">
-                                </div>
-                                <div class="col-sm">
-                                    <h3 class="card-title">Artist Names</h3>
-                                    <p class="card-text text-truncate">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit unde at nam alias exercitationem dolore beatae enim quos minima? Obcaecati praesentium beatae dolores saepe, maxime animi dolor alias iste voluptas?</p>
-                                    <p class="card-text text-truncate">Singer, Producer, Guitar, Bass</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3 d-flex">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-auto col-xl-12">
-                                    <img src="https://i.scdn.co/image/1de049fbe77833cc2a9d1e8c74ab78aefa4b178d" class="card-img-top pb-3">
-                                </div>
-                                <div class="col-sm">
-                                    <h3 class="card-title">Artist Names</h3>
-                                    <p class="card-text text-truncate">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit unde at nam alias exercitationem dolore beatae enim quos minima? Obcaecati praesentium beatae dolores saepe, maxime animi dolor alias iste voluptas?</p>
-                                    <p class="card-text text-truncate">Singer, Producer, Guitar, Bass</p>
-                                </div>
-                            </div>
+                        <div class="col d-flex flex-column text-white">
+                            <p class="mb-0">Crystal Water</p>
+                            <p class="school mb-0 text-secondary">University of Washington</p>
+                            <ul class="tags mb-3">
+                                <li class="ml-0"><a class="filter-item" href="">Singer</a></li>
+                                <li><a class="filter-item" href="">Producer</a></li>                            
+                            </ul>
+                            <p class="d-none d-md-block">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, suscipit dignissimos
+                                officia iusto nihil unde nobis voluptas, doloremque nulla cumque consequatur numquam
+                                qui, incidunt eaque! Totam, laudantium necessitatibus! Nulla, beatae!</p>
+                            <p class="mb-0">16.k Followers</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </section>
     </main>
 </body>
 
