@@ -54,3 +54,8 @@ a:hover {
 .school {
     font-size: 0.75em;
 }
+
+.material-symbols-outlined {
+    font-size: 3rem;
+    color: white;
+}
