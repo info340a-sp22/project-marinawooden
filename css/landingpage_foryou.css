@@ -1,13 +1,21 @@
-/* general rules */
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
+
 body {
     background-color: black;
-    color: whitesmoke;
+    color: white;
 }
+
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+/* !!!for you page!!! */
+
 .fy_header {
     background-color: #b4a6ed;
     margin-bottom: 2rem;
@@ -43,7 +51,10 @@ body {
 }
 
 /* Resize images */
-.container img {
+.fy_profile_img {
+    padding-top: 5px;
+}
+.fy_profile_img img{
     width: 100%;
     height: auto;
 }
@@ -68,3 +79,5 @@ body {
     text-align: center;
     margin-bottom: 2rem;
 }
+
+/* end of for you page */
