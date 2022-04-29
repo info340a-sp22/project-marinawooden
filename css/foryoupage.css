@@ -9,7 +9,7 @@ body {
     color: whitesmoke;
 }
 header {
-    background-color: #5D3FD3;
+    background-color: #b4a6ed;
 }
 .text_center {
     text-align: center;
@@ -19,6 +19,9 @@ header {
     margin-top: 100px;
   }
 #rounded {
+    object-fit: cover;
+    height: 300px;
+    width: 300px;
     border-radius: 15%;
 }
 .rec_singer_wrapper {
@@ -72,6 +75,8 @@ header {
     justify-content: center;
 }
 #crcl {
+    object-fit: cover;
+    height: 150px;
     border-radius: 50%;
 }
 h2 {
