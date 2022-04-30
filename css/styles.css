@@ -1,0 +1,43 @@
+:root {
+  --bs-dark-rgb: 0, 0, 0;
+  --bs-primary-rgb: 93, 62, 211;
+  --bs-secondary-rgb: 255, 215, 0;
+}
+
+body {
+  width: 100%;
+  font-size: 1.25rem;
+  font-family: 'Lato', sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+h1, h2 {
+  font-family: 'Exo 2', sans-serif;
+}
+
+header {
+  background-image: linear-gradient(#5D3FD3, #000000 75%);
+}
+
+.tags {
+  list-style-type: none;
+  width: 50%;
+  font-size: 1rem;
+}
+
+.tags li {
+  border-radius: 25px;
+  padding: 0 5px;
+  margin: 5px;
+  border: 1px solid;
+  transition: transform 0.5s;
+}
+
+.tags li a {
+  text-decoration: none;
+}
+
+.tags li:hover {
+  transform: scale(1.1);
+}

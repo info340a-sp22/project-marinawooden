@@ -1,22 +1,5 @@
-:root {
-  --bs-dark-rgb: 0, 0, 0;
-}
-
-body {
-  background-size: 100% 100%;
-  background-attachment: fixed;
-  max-height: 100vh;
-  overflow: hidden;
-  width: 100%;
-  font-size: 1.25rem;
-}
-
 ul {
   list-style-type: none;
-}
-
-h1, h2, h3, h4 {
-  font-family: 'Exo 2', sans-serif;
 }
 
 aside {
@@ -49,15 +32,10 @@ aside .search {
 .tags {
   list-style-type: none;
   width: 50%;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  flex-wrap: wrap;
   font-size: 1rem;
 }
 
 .tags li {
-  display: inline-block;
   border-radius: 25px;
   padding: 0 5px;
   margin: 5px;
@@ -72,8 +50,20 @@ main, .tags li:not(.highlight) a {
   color: #e2e2e2 !important;
 }
 
-.tags li:hover {
+.tags li,
+.album,
+.links li {
+  transition: transform 0.5s;
+}
+
+.tags li:hover,
+.album:hover,
+.links li:hover {
   transform: scale(1.1);
+}
+
+.desc {
+  transition: opacity 0.5s;
 }
 
 .nav-link,
@@ -108,8 +98,6 @@ main, .tags li:not(.highlight) a {
 }
 
 main {
-  color: white;
-  background-color: #5c3ed3;
   max-height: 100vh;
   overflow: scroll;
 }
@@ -119,7 +107,7 @@ main > * {
 }
 
 main > header {
-  background-image: linear-gradient(transparent, #5c3ed3 75%), url('../img/piano.jpg');
+  background-image: linear-gradient(transparent, black 75%), url('../img/header.jpeg');
   background-size: 100% auto;
   background-position: top;
 }
@@ -143,7 +131,7 @@ main > header {
   margin: 0 auto;
 }
 
-#profile-img, .album {
+.circle {
   border-radius: 50%;
   background-size: cover;
   background-position: center;
@@ -164,7 +152,7 @@ main > header {
 }
 
 .desc {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .desc p {
@@ -172,7 +160,13 @@ main > header {
 }
 
 .album:hover + .desc {
-  visibility: visible;
+  opacity: 1;
+}
+
+.post,
+.about,
+.desc {
+  font-size: .9rem;
 }
 
 .links a {
@@ -180,23 +174,24 @@ main > header {
   text-decoration: none;
 }
 
-@media (min-width: 598px) {
+.post,
+.about {
+  background-color: transparent;
 }
 
-@media (max-width: 768px) {
+.post img {
+  border-radius: 5px;
 }
 
 @media (min-width: 768px) {
   main > header {
-    background-image: linear-gradient(transparent, #5c3ed3 75%), url('../img/piano.jpg');
+    background-image: linear-gradient(transparent, black 75%), url('../img/header.jpeg');
   }
 }
 
-@media (min-width: 992px) {
-}
-
-/* @media (min-width: 1200px) {
-  body {
-    background-image: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(139,0,255,1) 100%);
+@media (min-width: 900px) {
+  .post {
+    width: 45%;
+    background-color: rgb(93, 62, 211);
   }
-} */
+}
