@@ -41,3 +41,8 @@ header {
 .tags li:hover {
   transform: scale(1.1);
 }
+
+.material-symbols-outlined {
+  font-size: 3rem;
+  color: white;
+}
