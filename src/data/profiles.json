@@ -2,5 +2,5 @@
     {"id": 1, "name": "Crystal Water", "school": "University of Washington", "desc": "I am a Singer-Producer", "skill":["Singer", "Producer"], "follower": 16487, "follow":[2, 3, 4]},
     {"id": 2, "name": "Moola", "school": "University of Washington", "desc": "I make money move", "skill":["Rapper"], "follower": 1452, "follow":[1, 3, 4]},
     {"id": 3, "name": "Juice Justice", "school": "University of Washington", "desc": "Sad", "skill":["Mixing", "Keyboard"], "follower": 1722, "follow":[1, 4]},
-    {"id": 4, "name": "Dan the Person", "school": "University of Washington", "desc": "I'm a human.", "skill":["Drum", "Keyboard"], "follower": 72, "follow":[2, 3]},
+    {"id": 4, "name": "Dan the Person", "school": "University of Washington", "desc": "I'm a human.", "skill":["Drum", "Keyboard"], "follower": 72, "follow":[2, 3]}
 ]
