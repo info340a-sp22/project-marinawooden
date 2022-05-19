@@ -9,8 +9,6 @@ body {
     color: white;
 }
 
-/* !!!landing page!!! */
-
 .container {
     display: flex;
     margin: 20px;
@@ -24,7 +22,9 @@ body {
 }
 
 /* !!!for you page!!! */
-
+.posts {
+    margin-bottom: 2rem;
+}
 .fy_header {
     background-color: #b4a6ed;
     margin-bottom: 2rem;
@@ -35,9 +35,15 @@ body {
 /* reccomended posts */
 #rounded {
     object-fit: cover;
-    height: 300px;
-    width: 300px;
+    height: 100px;
+    width: 100px;
     border-radius: 15%;
+}
+@media (min-width: 768px) {
+    #rounded {
+        height: 350px;
+        width: 350px;
+    }
 }
 .fy_row {
     display: flex;
@@ -70,23 +76,37 @@ body {
 
 /* Reccomended Singers */
 .prof_img2 {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100x;
     flex: 0 1 auto;
     opacity: 1;
     transition: opacity 0.5s;
     position: relative;
     margin: 1rem 1rem 0;
 }
+@media (min-width: 768px) {
+    .prof_img2 {
+        width: 150px;
+        height: 150px;
+        margin: 1rem 1rem 0;
+    }
+}
 #crcl {
     object-fit: cover;
-    height: 150px;
+    height: 50px;
     border-radius: 50%;
+}
+@media (min-width: 768px) {
+    #crcl {
+        width: 150px;
+        height: 150px;
+    }
 }
 .fy_h2 {
     color: white;
     text-align: center;
     margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 
 /* For the navbar mobile hamburger menu */
