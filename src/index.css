@@ -3,7 +3,7 @@
     --bs-primary-rgb: 93, 62, 211;
     --bs-secondary-rgb: 255, 215, 0;
 }
-  
+
 body {
     width: 100%;
     font-size: 1.25rem;
@@ -15,17 +15,22 @@ body {
 h1, h2 {
     font-family: 'Exo 2', sans-serif;
 }
-  
+
 header {
     background-image: linear-gradient(#5D3FD3, #000000 75%);
 }
-  
+
 .tags {
     list-style-type: none;
     width: 50%;
     font-size: 1rem;
 }
-  
+
+.tags-skill {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .tags li {
     border-radius: 25px;
     padding: 0 5px;
@@ -33,11 +38,18 @@ header {
     border: 1px solid;
     transition: transform 0.5s;
 }
-  
+
+.tags-skill > li {
+    display: inline-block;
+    padding: 0 1rem;
+    border-color: #393254;
+    background-color: #393254;
+}
+
 .tags li a {
     text-decoration: none;
 }
-  
+
 .tags li:hover {
     transform: scale(1.1);
 }
@@ -59,4 +71,12 @@ header {
 
 .school {
     font-size: 0.75em;
+}
+
+.filter-item {
+    color: white;
+}
+
+.follower-count {
+    font-size: 1rem;
 }

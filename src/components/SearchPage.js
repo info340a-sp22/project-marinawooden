@@ -49,7 +49,7 @@ function SearchResult({ profile }) {
         backgroundImage: "url('" + profile.img + "')"
     }
     return (
-        <div className="item container mt-1">
+        <div className="item container mb-3">
             <div className="row no-gutters">
                 <div className="col-4 d-flex flex-column align-items-center">
                     <a href="profile.html">
@@ -63,7 +63,7 @@ function SearchResult({ profile }) {
                     <p className="school mb-0 text-secondary">{profile.school}</p>
                     <SearchTagList skills={profile.skill} />
                     <p className="d-none d-md-block">{profile.desc}</p>
-                    <p className="mb-0">{profile.follower} Follwers</p>
+                    <p className="mb-0 follower-count">{profile.follower} Followers</p>
                 </div>
             </div>
         </div>
@@ -72,10 +72,10 @@ function SearchResult({ profile }) {
 
 function SearchTagList({ skills }) {
     const skillItems = skills.map((skill) => {
-        return <li key={skill}><a className="filter-item" href="">{skill}</a></li>
+        return <li className="ms-0" key={skill}><a className="filter-item" href="">{skill}</a></li>
     })
     return (
-        <ul className="tags mb-3">
+        <ul className="tags tags-skill mb-3 ps-0">
             {skillItems}
         </ul>
     )
