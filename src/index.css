@@ -65,6 +65,8 @@ header {
     background-size: cover;
 }
 
+
+
 .item.container {
     padding-left: 0;
 }
@@ -79,4 +81,11 @@ header {
 
 .follower-count {
     font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .profile-img-small {
+        width: 4em;
+        height: 4em;
+    }
 }

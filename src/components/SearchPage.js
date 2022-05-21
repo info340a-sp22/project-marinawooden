@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 
 export function SearchPage({ searchTerms, dataSet }) {
-    // if (searchTerms) {
-    //     for (const index in searchTerms) {
-    //         const obj = searchTerms[index];
-    //         const key = Object.keys(obj)[0];
-    //         const value = obj[key];
-    //         if(key === "skill") {
-    //             console.log({dataSet});
-    //         }
-    //     }
-    // }
     const searchResultData = dataSet.filter((e) => {
         if (searchTerms) {
             for (const index in searchTerms) {
@@ -51,9 +41,9 @@ function SearchResult({ profile }) {
     return (
         <div className="item container mb-3">
             <div className="row no-gutters">
-                <div className="col-4 d-flex flex-column align-items-center">
+                <div className="col-4 col-md-2 d-flex flex-column align-items-center justify-md-content-between">
                     <a href="profile.html">
-                        <div className="profile-img circle mb-3" style={img}>
+                        <div className="profile-img profile-img-small my-3" style={img}>
                         </div>
                     </a>
                     <button className="btn btn-light" type="button">Follow</button>
@@ -62,8 +52,10 @@ function SearchResult({ profile }) {
                     <p className="mb-0">{profile.name}</p>
                     <p className="school mb-0 text-secondary">{profile.school}</p>
                     <SearchTagList skills={profile.skill} />
-                    <p className="d-none d-md-block">{profile.desc}</p>
-                    <p className="mb-0 follower-count">{profile.follower} Followers</p>
+                    <div className="d-none d-md-block mb-3">
+                        <p className="text-wrap text-break fs-6 fw-lighter text-truncate">{profile.desc}</p>
+                    </div>
+                    <p className="follower-count">{profile.follower} Followers</p>
                 </div>
             </div>
         </div>

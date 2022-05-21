@@ -15,12 +15,16 @@ export default function App(props) {
         <div className="bg-dark">
             <header className="container-fluid p-3 mb-3 text-white">
                 <div className="container">
-                    <h1>Search</h1>
-                    <SearchBar placeholder="Search skills, genres, or schools..." criteria={props.criteria} applySearchCallback={applySearch} />
+                    <div className="justify-content-md-start">
+                        <h1>Search</h1>
+                        <SearchBar placeholder="Search skills, genres, or schools..." criteria={props.criteria} applySearchCallback={applySearch} />
+                    </div>
                 </div>
             </header>
             <main>
-                <SearchPage searchTerms={searchTerms} dataSet={props.dataSet} />
+                <section className="container-fluid">
+                    <SearchPage searchTerms={searchTerms} dataSet={props.dataSet} />
+                </section>
             </main>
         </div>
     )
