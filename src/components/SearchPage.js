@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 import { SearchResult } from "./SearchResult";
 
 export function SearchPage(props) {
     const [searchParam, setParam] = useSearchParams();
-    const [searchTerms, setTerms] = useState(null);
-    function applySearch() {
-        setTerms("termKeys");
-    }
     function getSearchQuery(query) {
         setParam({ "search_query": [query] });
     }

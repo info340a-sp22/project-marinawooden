@@ -9,7 +9,7 @@ export default function App(props) {
     return (
         <Routes>
             <Route path="profile" element={<ProfilePage />} />
-            <Route path="search" element={
+            <Route path="*" element={
                 <SearchPage criteria={props.criteria} dataSet={props.dataSet} />
             } />
         </Routes>

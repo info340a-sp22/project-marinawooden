@@ -1,6 +1,7 @@
 import React from "react";
 
 export function SearchResult({ queryString, dataSet, criteria}) {
+
     const termList = queryString.split(" ");
     let fullTerm = "";
     const searchTerms = termList.map((term) => {
@@ -23,6 +24,7 @@ export function SearchResult({ queryString, dataSet, criteria}) {
     }).filter((e) => {
         return e != null;
     });
+
     console.log(searchTerms);
     const searchResultData = dataSet.filter((e) => {
         let categories = {
@@ -58,6 +60,7 @@ export function SearchResult({ queryString, dataSet, criteria}) {
         }
         return include;
     })
+
     const resultList = searchResultData.map((e) => {
         return (
             <SearchItem key={e["id"]} profile={e} />
