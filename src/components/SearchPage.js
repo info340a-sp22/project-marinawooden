@@ -7,7 +7,6 @@ export function SearchPage(props) {
     const [searchParam, setParam] = useSearchParams();
     const [searchTerms, setTerms] = useState(null);
     function applySearch() {
-
         setTerms("termKeys");
     }
     function getSearchQuery(query) {
