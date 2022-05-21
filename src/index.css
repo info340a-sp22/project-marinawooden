@@ -87,3 +87,11 @@ header {
 .follower-count {
     font-size: 1rem;
 }
+
+aside ul {
+    list-style-type: none;
+}
+
+.side-nav {
+    height: 100vh;
+}
