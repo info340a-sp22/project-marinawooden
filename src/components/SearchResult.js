@@ -1,24 +1,62 @@
 import React from "react";
 
-export function SearchResult({ searchTerms, dataSet }) {
+export function SearchResult({ queryString, dataSet, criteria}) {
+    const termList = queryString.split(" ");
+    let fullTerm = "";
+    const searchTerms = termList.map((term) => {
+        if (fullTerm.length > 0){
+            fullTerm += (" " + term );
+        } else {
+            fullTerm = term;
+        }
+        for (const key in criteria) {
+            for (const item of criteria[key]) {
+                if (item.toLocaleLowerCase() === fullTerm.toLocaleLowerCase()) {
+                    fullTerm = "";
+                    let result = {};
+                    result[key] = item;
+                    return result;
+                }
+            }
+        }
+        return null;
+    }).filter((e) => {
+        return e != null;
+    });
+    console.log(searchTerms);
     const searchResultData = dataSet.filter((e) => {
+        let categories = {
+            skill: null,
+            school: null,
+            genre: null,
+            name: null
+        }
+        let include = true;
         if (searchTerms) {
             for (const index in searchTerms) {
                 const obj = searchTerms[index];
                 const key = Object.keys(obj)[0];
                 const value = obj[key];
                 if (key === "skill") {
-                    if (e[key].includes(value)) {
-                        return true;
-                    }
-                } else {
-                    if (e[key] === value) {
-                        return true;
-                    }
+                    categories['skill'] = e[key].includes(value);
+                }
+                if (key === "genre") {
+                    categories['genre'] = e[key].includes(value)
+                }
+                if (key === "name") {
+                    categories['name'] = (e[key] === value);
+                }
+                if (key === "school") {
+                    categories['school'] = (e[key] === value);
                 }
             }
         }
-        return false;
+        for (const topic in categories) {
+            if (categories[topic] === false) {
+                include = false;
+            }
+        }
+        return include;
     })
     const resultList = searchResultData.map((e) => {
         return (
