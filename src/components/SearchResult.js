@@ -33,7 +33,7 @@ export function SearchResult({ queryString, dataSet, criteria}) {
             genre: null,
             name: null
         }
-        let include = true;
+        let include = false;
         if (searchTerms) {
             for (const index in searchTerms) {
                 const obj = searchTerms[index];
@@ -55,7 +55,10 @@ export function SearchResult({ queryString, dataSet, criteria}) {
         }
         for (const topic in categories) {
             if (categories[topic] === false) {
-                include = false;
+                return false;
+            }
+            if (categories[topic] === true) {
+                include = true;
             }
         }
         return include;
