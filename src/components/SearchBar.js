@@ -32,7 +32,7 @@ export function SearchBar(props) {
     });
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.applySearchCallback(termKeys);
+        props.getSearchQueryCallback(searchTerm);
     }
     return (
         <form className="form-inline" onSubmit={handleSubmit}>
