@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@800&family=Lato&display=swap');
+
 :root {
     --bs-dark-rgb: 0, 0, 0;
     --bs-primary-rgb: 93, 62, 211;
@@ -7,12 +9,17 @@
 body {
     width: 100%;
     font-size: 1.25rem;
-    font-family: 'Lato', sans-serif;
     background-color: #000;
     color: #fff;
 }
 
-h1, h2 {
+body,
+button,
+input {
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4 {
     font-family: 'Exo 2', sans-serif;
 }
 

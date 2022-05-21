@@ -3,6 +3,7 @@ import { SearchBar } from "./SearchBar";
 import { SearchPage } from "./SearchPage";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Routes, Route } from 'react-router-dom';
+import { ProfilePage } from "./ProfilePage";
 
 
 export default function App(props) {
@@ -13,11 +14,7 @@ export default function App(props) {
     console.log(searchTerms);
     return (
         <Routes>
-            <Route path="profile" element={
-                <div>
-                    <h1>Profile Page to Be Implemented</h1>
-                </div>
-            } />
+            <Route path="profile" element={<ProfilePage />} />
             <Route path="*" element={
                 <div className="bg-dark">
                     <header className="container-fluid p-3 mb-3 text-white">
