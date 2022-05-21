@@ -4,16 +4,11 @@ import { SearchBar } from "./SearchBar";
 import { SearchResult } from "./SearchResult";
 
 export function SearchPage(props) {
-    const [searchParam, setParam] = useSearchParams();
-    const [searchTerms, setTerms] = useState(null);
-    function applySearch() {
-
-        setTerms("termKeys");
-    }
+    const [searchParam, setParam] = useSearchParams({ "search_query": "" });
     function getSearchQuery(query) {
         setParam({ "search_query": [query] });
     }
-    console.log(searchParam.get('search_query'));
+    console.log(searchParam.get('search_query'))
     return (
         <div className="bg-dark">
             <header className="container-fluid p-3 mb-3 text-white">

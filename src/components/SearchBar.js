@@ -8,28 +8,6 @@ export function SearchBar(props) {
     const handleChange = (event) => {
         setTerm(event.target.value);
     }
-    const termList = searchTerm.split(" ");
-    let fullTerm = "";
-    const termKeys = termList.map((term) => {
-        if (fullTerm.length > 0){
-            fullTerm += (" " + term );
-        } else {
-            fullTerm = term;
-        }
-        for (const key in props.criteria) {
-            for (const item of props.criteria[key]) {
-                if (item.toLocaleLowerCase() === fullTerm.toLocaleLowerCase()) {
-                    fullTerm = "";
-                    let result = {};
-                    result[key] = item;
-                    return result;
-                }
-            }
-        }
-        return null;
-    }).filter((e) => {
-        return e != null;
-    });
     const handleSubmit = (e) => {
         e.preventDefault();
         props.getSearchQueryCallback(searchTerm);
