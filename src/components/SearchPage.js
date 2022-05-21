@@ -4,11 +4,7 @@ import { SearchBar } from "./SearchBar";
 import { SearchResult } from "./SearchResult";
 
 export function SearchPage(props) {
-<<<<<<< HEAD
-    const [searchParam, setParam] = useSearchParams();
-=======
     const [searchParam, setParam] = useSearchParams({ "search_query": "" });
->>>>>>> work
     function getSearchQuery(query) {
         setParam({ "search_query": [query] });
     }
