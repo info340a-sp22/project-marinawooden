@@ -39,12 +39,13 @@ export function Login(props) {
 
         // Compare user info
         if (userData) {
-        if (userData.password !== pass.value) {
-            // Invalid password
-            setErrorMessages({ name: "pass", message: errors.pass });
-        } else {
-            setIsSubmitted(true);            
-        }
+          if (userData.password !== pass.value) {
+              // Invalid password
+              setErrorMessages({ name: "pass", message: errors.pass });
+          } else {
+              props.loginCallback();
+              setIsSubmitted(true);            
+          }
         } else {
         // Username not found
         setErrorMessages({ name: "uname", message: errors.uname });
