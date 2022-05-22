@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Route, Redirect } from 'react-router';
-import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import "../index.css";
 
@@ -44,10 +43,7 @@ export function Login(props) {
             // Invalid password
             setErrorMessages({ name: "pass", message: errors.pass });
         } else {
-            setIsSubmitted(true);
-            console.log('WHAAAT, is supposed to go to profile page, but idk how');
-            <Link to = "google.com"/>
-            
+            setIsSubmitted(true);            
         }
         } else {
         // Username not found
@@ -87,7 +83,7 @@ export function Login(props) {
     <div className="app">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <div>You have successfully logged in</div> : renderForm}
+        {isSubmitted ? <Navigate to="/profile" />  : renderForm}
       </div>
     </div>
   );
