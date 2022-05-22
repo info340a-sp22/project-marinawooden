@@ -19,7 +19,7 @@ input {
     font-family: 'Lato', sans-serif;
 }
 
-h1, h2, h3, h4 {
+h1, h2 {
      font-family: 'Exo 2', sans-serif;
 }
 
@@ -105,6 +105,18 @@ header {
     border: none;
 }
 
+.post {
+    width: 45%;
+    max-width: 500px;
+    overflow: hidden;
+    background-color: rgb(var(--bs-dark-rgb));
+    border: 1px solid;
+}
+
+.post-text {
+    text-overflow: ellipsis;
+}
+
 #profile .desc {
     transition: opacity 0.5s;
 }
@@ -146,13 +158,6 @@ header {
 
 #profile ul {
     list-style-type: none;
-}
-
-@media (max-width: 768px) {
-    .profile-img-small {
-        width: 4em;
-        height: 4em;
-    }
 }
 
 
@@ -219,4 +224,22 @@ input[type="submit"]:hover {
   flex-direction: column;
   gap: 8px;
   margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .profile-img-small {
+        width: 4em;
+        height: 4em;
+    }
+
+    .post {
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .post {
+        background-color: rgb(var(--bs-primary-rgb));
+        border: none;
+    }
 }

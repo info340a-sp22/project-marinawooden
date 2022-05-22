@@ -1,11 +1,19 @@
 import React from 'react';
 import RELEASES from "../data/releases.json";
 import PROFILES from "../data/profiles.json";
+import POSTS from "../data/posts.json"
 
 export default function ProfilePage(props) {
   let releases = RELEASES.filter(elem => elem.artistId === props.artist);
+  let posts = POSTS.filter(elem => elem.user === props.artist);
   let profileInfo = PROFILES.find(elem => elem.id === props.artist);
   let tags = (profileInfo.skill).concat(profileInfo.genre);
+
+  let postCards = posts.map((elem) => {
+    return (
+      <PostCard key={elem.id} post={elem}/>
+    )
+  });
 
   let releaseDiscs = releases.map((elem) => {
     return (
@@ -44,12 +52,21 @@ export default function ProfilePage(props) {
           {interestTags}
         </ul>
       </header>
-      <section className="px-5 py-2 text-center">
+      <section className="px-m-5 py-2 text-center">
         <h2>Snippets</h2>
         <div className='d-flex flex-wrap justify-content-center'>{releaseDiscs}</div>
       </section>
-      <section className="px-5 py-2">
+      <section className="px-m-5 py-2">
         <h2>Recent Posts</h2>
+        <div className='d-flex justify-content-center flex-wrap flex-shrink-1 flex-grow-1 px-m-5'>
+          {postCards}
+        </div>
+      </section>
+      <section className="px-m-5 py-2">
+        <h2>About Me</h2>
+        <p>
+          {profileInfo.desc}
+        </p>
       </section>
     </div>
   )
@@ -81,8 +98,26 @@ export function AlbumDisc(props) {
 }
 
 export function PostCard(props) {
-  // Input in the form {"title": "dasf", "text": "sadfds"}
-  
+  let myPost = props.post;
+  return (
+    <div className='card post p-3 m-3'>
+      <h3>
+        {myPost.title}
+      </h3>
+      <div className='row h-100'>
+        {(myPost.img) ? <div className='col-5'>
+          <img src={"img/" + myPost.img} alt={myPost.title} className="mw-100"/>
+        </div> : ""}
+        <div className='post-text col d-flex flex-column justify-content-between'>
+          <p>{myPost.text.substring(0, 120) + (myPost.text.length > 100 ? "..." : "")}</p>
+          <div class="d-flex align-items-center">
+          <svg class="mr-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="#fff" clip-rule="evenodd"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"></path></svg>
+            <p class="m-0 p-1">{myPost.like}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export function LinkTag(props) {
