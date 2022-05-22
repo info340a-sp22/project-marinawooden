@@ -14,12 +14,14 @@ export function Login(props) {
     // example database
     const database = [
         {
-        username: "user1",
-        password: "pass1"
+          userid: "1",
+          username: "user1",
+          password: "pass1"
         },
         {
-        username: "user2",
-        password: "pass2"
+          userid: "2",
+          username: "user2",
+          password: "pass2"
         }
     ];
 
@@ -43,7 +45,7 @@ export function Login(props) {
               // Invalid password
               setErrorMessages({ name: "pass", message: errors.pass });
           } else {
-              props.loginCallback();
+              props.loginCallback(userData.userid); // replace with user id
               setIsSubmitted(true);            
           }
         } else {

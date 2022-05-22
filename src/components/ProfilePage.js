@@ -13,7 +13,7 @@ export default function ProfilePage(props) {
     <>
       <section className="px-5 py-2 text-center">
         <h2>Snippets</h2>
-        <div className='d-flex flex-wrap'>{releaseDiscs}</div>
+        <div className='d-flex flex-wrap justify-content-center'>{releaseDiscs}</div>
       </section>
     </>
   )
