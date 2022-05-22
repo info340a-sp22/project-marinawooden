@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import USERS from "../data/users.json";
 
 import "../index.css";
 
@@ -10,20 +11,6 @@ export function Login(props) {
     // States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-
-    // example database
-    const database = [
-        {
-          userid: "1",
-          username: "user1",
-          password: "pass1"
-        },
-        {
-          userid: "2",
-          username: "user2",
-          password: "pass2"
-        }
-    ];
 
     const errors = {
         uname: "invalid username",
@@ -37,7 +24,7 @@ export function Login(props) {
         var { uname, pass } = document.forms[0];
 
         // Find user login info
-        const userData = database.find((user) => user.username === uname.value);
+        const userData = USERS.find((user) => user.username === uname.value);
 
         // Compare user info
         if (userData) {

@@ -80,7 +80,7 @@ export function SearchResult({ queryString, dataSet, criteria}) {
 // d-flex flex-column align-items-center justify-md-content-between
 function SearchItem({ profile }) {
     const img = {
-        backgroundImage: "url('" + profile.img + "')"
+        backgroundImage: "url('img/" + profile.img + "')"
     }
     return (
         <div className="item container mb-3">

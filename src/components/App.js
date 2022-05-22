@@ -11,7 +11,6 @@ export default function App(props) {
     const [userId, setUserId] = useState(null);
 
     const handleLogin = (userData) => {
-        console.log(userData);
         setUserId(userData);
         setLoggedIn(true);
     };

@@ -69,10 +69,12 @@ header {
     border-radius: 50%;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
 }
 
-
+.profile-img,
+#profile header {
+    background-size: cover;
+}
 
 .item.container {
     padding-left: 0;
@@ -92,31 +94,58 @@ header {
 
 .circle {
     border-radius: 50%;
-    max-width: 200px;
+    padding-bottom: 100%;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
 }
 
-.desc {
+.tags li.bg-feature {
+    background-image: linear-gradient(0deg, rgba(0,50,126,1) 0%, rgba(0,209,255,1) 100%);
+    border: none;
+}
+
+#profile .desc {
     transition: opacity 0.5s;
 }
 
-.album {
+#profile .album,
+#profile .links li {
     transition: transform 0.5s;
 }
 
-.desc > div {
+#profile .album {
+    max-width: 275px;
+}
+
+#profile .desc > div {
     height: 24px;
 }
 
-.album .desc {
+#profile .album .desc {
     opacity: 0;
 }
 
-.album:hover .desc {
+#profile .album:hover .desc {
     opacity: 1;
 }
 
-.album:hover {
+#profile .album:hover,
+#profile .links li:hover {
     transform: scale(1.1);
+}
+
+#profile header > .circle {
+    width: 15%;
+    padding-bottom: 15%;
+}
+
+#profile a {
+    text-decoration: none;
+}
+
+#profile ul {
+    list-style-type: none;
 }
 
 @media (max-width: 768px) {
