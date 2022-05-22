@@ -1,82 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSearchParams } from "react-router-dom";
+import { SearchBar } from "./SearchBar";
+import { SearchResult } from "./SearchResult";
 
-export function SearchPage({ searchTerms, dataSet }) {
-    // if (searchTerms) {
-    //     for (const index in searchTerms) {
-    //         const obj = searchTerms[index];
-    //         const key = Object.keys(obj)[0];
-    //         const value = obj[key];
-    //         if(key === "skill") {
-    //             console.log({dataSet});
-    //         }
-    //     }
-    // }
-    const searchResultData = dataSet.filter((e) => {
-        if (searchTerms) {
-            for (const index in searchTerms) {
-                const obj = searchTerms[index];
-                const key = Object.keys(obj)[0];
-                const value = obj[key];
-                if (key === "skill") {
-                    if (e[key].includes(value)) {
-                        return true;
-                    }
-                } else {
-                    if (e[key] === value) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    })
-    const resultList = searchResultData.map((e) => {
-        return (
-            <SearchResult key={e["id"]}profile={e} />
-        )
-    })
-
-    return (
-        <div className="container">
-            <h3 className="text-white mb-3">Results</h3>
-            {resultList}
-        </div>
-    )
-}
-
-function SearchResult({ profile }) {
-    const img = {
-        backgroundImage: "url('" + profile.img + "')"
+export function SearchPage(props) {
+    const [searchParam, setParam] = useSearchParams({ "search_query": "" });
+    function getSearchQuery(query) {
+        setParam({ "search_query": [query] });
     }
+    console.log(searchParam.get('search_query'))
     return (
-        <div className="item container mb-3">
-            <div className="row no-gutters">
-                <div className="col-4 d-flex flex-column align-items-center">
-                    <a href="profile.html">
-                        <div className="profile-img circle mb-3" style={img}>
-                        </div>
-                    </a>
-                    <button className="btn btn-light" type="button">Follow</button>
+        <div className="bg-dark">
+            <header className="container-fluid p-3 mb-3 text-white">
+                <div className="container">
+                    <div className="justify-content-md-start">
+                        <h1>Search</h1>
+                        <SearchBar placeholder="Search skills, genres, or schools..."  getSearchQueryCallback={getSearchQuery} />
+                    </div>
                 </div>
-                <div className="col d-flex flex-column text-white">
-                    <p className="mb-0">{profile.name}</p>
-                    <p className="school mb-0 text-secondary">{profile.school}</p>
-                    <SearchTagList skills={profile.skill} />
-                    <p className="d-none d-md-block">{profile.desc}</p>
-                    <p className="mb-0 follower-count">{profile.follower} Followers</p>
-                </div>
-            </div>
+            </header>
+            <main>
+                <section className="container-fluid">
+                    <SearchResult queryString={searchParam.get('search_query')} dataSet={props.dataSet} criteria={props.criteria}/>
+                </section>
+            </main>
         </div>
-    )
-}
-
-function SearchTagList({ skills }) {
-    const skillItems = skills.map((skill) => {
-        return <li className="ms-0" key={skill}><a className="filter-item" href="">{skill}</a></li>
-    })
-    return (
-        <ul className="tags tags-skill mb-3 ps-0">
-            {skillItems}
-        </ul>
     )
 }

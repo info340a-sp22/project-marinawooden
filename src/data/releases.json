@@ -1,0 +1,18 @@
+[
+  {
+    "releaseId": 1,
+    "artistId": 1,
+    "title": "Song Title One",
+    "img": "album.jpeg",
+    "listeners": 10471,
+    "likes": 9221
+  },
+  {
+    "releaseId": 2,
+    "artistId": 1,
+    "title": "Song Title Two",
+    "img": "album2.jpeg",
+    "listeners": 12903,
+    "likes": 9191
+  }
+]

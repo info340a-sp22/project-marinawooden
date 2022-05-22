@@ -72,6 +72,8 @@ header {
     background-size: cover;
 }
 
+
+
 .item.container {
     padding-left: 0;
 }
@@ -88,10 +90,38 @@ header {
     font-size: 1rem;
 }
 
-aside ul {
-    list-style-type: none;
+.circle {
+    border-radius: 50%;
+    max-width: 200px;
 }
 
-.side-nav {
-    height: 100vh;
+.desc {
+    transition: opacity 0.5s;
+}
+
+.album {
+    transition: transform 0.5s;
+}
+
+.desc > div {
+    height: 24px;
+}
+
+.album .desc {
+    opacity: 0;
+}
+
+.album:hover .desc {
+    opacity: 1;
+}
+
+.album:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .profile-img-small {
+        width: 4em;
+        height: 4em;
+    }
 }
