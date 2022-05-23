@@ -2,6 +2,7 @@ import React from "react";
 import {  Link } from "react-router-dom";
 
 function NavBar(){
+
     return (
     <nav className="navbar" style={{backgroundColor: "black"}} aria-label="navigation">
         <a className="logo" href="#"><img src="img/logo.png" className="img-responsive ml-3 p-2"
