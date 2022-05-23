@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import RELEASES from "../data/releases.json";
 import PROFILES from "../data/profiles.json";
-import POSTS from "../data/posts.json";
+import POSTS from "../data/posts.json"
+import NavBar from './NavBar';
 
 export default function ProfilePage(props) {
 
@@ -49,6 +50,7 @@ export default function ProfilePage(props) {
 
   return (
     <div id="profile">
+      <NavBar/>
       <header className='d-flex flex-column align-items-center justify-content-end pt-3' style={
         {backgroundImage: "linear-gradient(transparent, black 75%), url('../img/" + profileInfo.header + "')"}
       }>

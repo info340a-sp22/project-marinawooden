@@ -46,18 +46,18 @@ header {
     transition: transform 0.5s;
   }
   
-  .tags li a {
-    text-decoration: none;
-  }
-  
-  .tags li:hover {
-    transform: scale(1.1);
-  }
-  
-  .material-symbols-outlined {
-    font-size: 3rem;
-    color: white;
-  }
+.tags li a {
+  text-decoration: none;
+}
+
+.tags li:hover {
+  transform: scale(1.1);
+}
+
+.material-symbols-outlined {
+  font-size: 3rem;
+  color: white;
+}
 
 .tags-skill > li {
     display: inline-block;
@@ -172,7 +172,6 @@ header {
 #profile ul {
     list-style-type: none;
 }
-
 
 /* for login */
 .login {
