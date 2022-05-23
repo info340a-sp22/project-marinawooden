@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-import { SearchBar } from "./SearchBar";
 import { SearchPage } from "./SearchPage";
 import 'bootstrap/dist/css/bootstrap.css';
-
+import { Routes, Route, Navigate } from 'react-router-dom';
+import ProfilePage from "./ProfilePage";
+import { Login } from "./Login";
+import { NavBar } from "./NavBar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../index.css";
 
 
 export default function App(props) {
-    const [searchTerms, setTerms] = useState(null);
-    function applySearch(termKeys) {
-        setTerms(termKeys);
+    const [userId, setUserId] = useState(null);
+    const handleLogin = (user) => {
+        setUserId(user);
     }
-    console.log(searchTerms);
     return (
-        <div className="bg-dark">
-            <header className="container-fluid p-3 mb-3 text-white">
-                <div className="container">
-                    <h1>Search</h1>
-                    <SearchBar placeholder="Search skills, genres, or schools..." criteria={props.criteria} applySearchCallback={applySearch} />
-                </div>
-            </header>
-            <main>
-                <SearchPage searchTerms={searchTerms} dataSet={props.dataSet} />
-            </main>
-        </div>
+        <Routes>
+            <Route path="/login" element={userId !== null ? <Navigate to={"/profile/" + userId} /> : <Login uname={props.uname} loginCallback={handleLogin}/>} />
+            <Route path="/profile/:artistId" element={<ProfilePage />} />
+            <Route path="*" element={
+                <SearchPage criteria={props.criteria} dataSet={props.dataSet} />
+            } />
+        </Routes>
     )
 }

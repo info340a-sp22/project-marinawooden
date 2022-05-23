@@ -1,0 +1,42 @@
+[
+  {
+    "releaseId": 1,
+    "artistId": 1,
+    "title": "Song Title One",
+    "img": "album.jpeg",
+    "listeners": 10471,
+    "like": 9221
+  },
+  {
+    "releaseId": 2,
+    "artistId": 1,
+    "title": "Song Title Two",
+    "img": "album2.jpeg",
+    "listeners": 12903,
+    "like": 9191
+  },
+  {
+    "releaseId": 3,
+    "artistId": 1,
+    "title": "Song Title Three",
+    "img": "album3.jpeg",
+    "listeners": 12352,
+    "like": 8091
+  },
+  {
+    "releaseId": 4,
+    "artistId": 1,
+    "title": "Song Title Four",
+    "img": "album4.jpeg",
+    "listeners": 11241,
+    "like": 7564
+  },
+  {
+    "releaseId": 5,
+    "artistId": 1,
+    "title": "Song Title Five",
+    "img": "album5.jpeg",
+    "listeners": 9862,
+    "like": 6032
+  }
+]
