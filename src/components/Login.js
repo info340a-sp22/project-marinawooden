@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import USERS from "../data/users.json";
+import NavBar from "./NavBar";
+
+let loggedIn = false;
 
 export function Login(props) {
     // States
@@ -8,6 +11,7 @@ export function Login(props) {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [username, setUsername] = useState(null);
 
+    
     const errors = {
         uname: "invalid username",
         pass: "invalid password"
@@ -31,6 +35,9 @@ export function Login(props) {
               setUsername(userData.userid);
               setIsSubmitted(true);
               props.loginCallback(userData.userid);
+              loggedIn = true;
+             
+              
           }
         } else {
         // Username not found
@@ -47,6 +54,7 @@ export function Login(props) {
   // JSX code for login form
     const renderForm = (
     <div className="form">
+
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label>Username </label>
@@ -62,16 +70,18 @@ export function Login(props) {
           <input type="submit" />
         </div>
       </form>
+      
     </div>
   );
-// <div>You have successfully logged in</div>
-// {isSubmitted ? <div>You have successfully logged in</div> : renderForm} ??????
+
   return (
     <div className="app">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <Navigate to={"/profile/" + username} />  : renderForm}
+        {isSubmitted ? <Navigate to={"/profile/" + username} />  : renderForm} 
       </div>
     </div>
   );
 }
+
+export {loggedIn};
