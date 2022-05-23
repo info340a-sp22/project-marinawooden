@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import RELEASES from "../data/releases.json";
 import PROFILES from "../data/profiles.json";
 import POSTS from "../data/posts.json"
+import NavBar from './NavBar';
 
 export default function ProfilePage(props) {
   let releases = RELEASES.filter(elem => elem.artistId === props.artist);
@@ -43,6 +44,7 @@ export default function ProfilePage(props) {
 
   return (
     <div id="profile">
+      <NavBar/>
       <header className='d-flex flex-column align-items-center justify-content-end pt-3' style={
         {backgroundImage: "linear-gradient(transparent, black 75%), url('../img/" + profileInfo.header + "')"}
       }>
