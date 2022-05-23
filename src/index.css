@@ -44,7 +44,7 @@ header {
     margin: 5px;
     border: 1px solid;
     transition: transform 0.5s;
-  }
+}
   
 .tags li a {
   text-decoration: none;
@@ -172,7 +172,6 @@ header {
 #profile ul {
     list-style-type: none;
 }
-
 
 /* for login */
 .login {

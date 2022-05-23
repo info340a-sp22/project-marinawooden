@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import RELEASES from "../data/releases.json";
 import PROFILES from "../data/profiles.json";
 import POSTS from "../data/posts.json"
+import NavBar from './NavBar';
 
 export default function ProfilePage(props) {
-  let releases = RELEASES.filter(elem => elem.artistId === props.artist);
-  let posts = POSTS.filter(elem => elem.user === props.artist);
-  let profileInfo = PROFILES.find(elem => elem.id === props.artist);
-  let tags = (profileInfo.skill).concat(profileInfo.genre);
 
+  let prms = useParams();
+  let artist = parseInt(prms.artistId);
+
+  let releases = RELEASES.filter(elem => elem.artistId === artist);
+  // console.log(releases);
+  let posts = POSTS.filter(elem => elem.user === artist);
+  let profileInfo = PROFILES.find(elem => elem.id === artist);
+  let tags = (profileInfo.skill).concat(profileInfo.genre);
   let postCards = posts.map((elem) => {
     return (
       <PostCard key={elem.id} post={elem}/>
@@ -43,6 +50,7 @@ export default function ProfilePage(props) {
 
   return (
     <div id="profile">
+      <NavBar/>
       <header className='d-flex flex-column align-items-center justify-content-end pt-3' style={
         {backgroundImage: "linear-gradient(transparent, black 75%), url('../img/" + profileInfo.header + "')"}
       }>
@@ -112,7 +120,7 @@ export function PostCard(props) {
       </h3>
       <div className='row h-100'>
         {(myPost.img) ? <div className='col-5'>
-          <img src={"img/" + myPost.img} alt={myPost.title} className="mw-100"/>
+          <img src={"../img/" + myPost.img} alt={myPost.title} className="mw-100"/>
         </div> : ""}
         <div className='post-text col d-flex flex-column justify-content-between'>
           <p>{myPost.text.substring(0, 120) + (myPost.text.length > 100 ? "..." : "")}</p>
@@ -160,6 +168,6 @@ export function LinkTag(props) {
 
 function DiscCircle(props) {
   return (
-    <div className="circle" role="img" alt={props.title} style={{backgroundImage: "url(img/" + props.imageSrc + ")"}}/>
+    <div className="circle" role="img" alt={props.title} style={{backgroundImage: "url('../img/" + props.imageSrc + "')"}}/>
   );
 }
