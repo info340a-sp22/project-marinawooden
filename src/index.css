@@ -19,8 +19,9 @@ input {
     font-family: 'Lato', sans-serif;
 }
 
-h1, h2 {
-     font-family: 'Exo 2', sans-serif;
+h1,
+h2 {
+    font-family: 'Exo 2', sans-serif;
 }
 
 header {
@@ -45,21 +46,21 @@ header {
     border: 1px solid;
     transition: transform 0.5s;
 }
-  
+
 .tags li a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .tags li:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .material-symbols-outlined {
-  font-size: 3rem;
-  color: white;
+    font-size: 3rem;
+    color: white;
 }
 
-.tags-skill > li {
+.tags-skill>li {
     display: inline-block;
     padding: 0 1rem;
     border-color: #393254;
@@ -114,7 +115,7 @@ header {
 }
 
 .tags li.bg-feature {
-    background-image: linear-gradient(0deg, rgba(0,50,126,1) 0%, rgba(0,209,255,1) 100%);
+    background-image: linear-gradient(0deg, rgba(0, 50, 126, 1) 0%, rgba(0, 209, 255, 1) 100%);
     border: none;
 }
 
@@ -143,7 +144,7 @@ header {
     max-width: 275px;
 }
 
-#profile .desc > div {
+#profile .desc>div {
     height: 24px;
 }
 
@@ -160,7 +161,7 @@ header {
     transform: scale(1.1);
 }
 
-#profile header > .circle {
+#profile header>.circle {
     width: 15%;
     padding-bottom: 15%;
 }
@@ -183,59 +184,61 @@ header {
     height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     color: #7316ff;
-  }
+}
 
 input[type="text"],
 input[type="password"] {
-  height: 25px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+    line-height: 25px;
+    /* padding: 10px 5px; */
+    /* height: 25px; */
+    border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 input[type="submit"] {
-  margin-top: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  background: #7316ff;
-  border: 2px solid #000000;
-  color: #fff;
-  padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    background: #7316ff;
+    border: 2px solid #000000;
+    color: #fff;
+    padding: 10px 20px;
 }
 
 input[type="submit"]:hover {
-  background: #8833ff;
+    background: #8833ff;
 }
 
 .button-container {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .login-form {
     width: 300px;
-  background-color: rgb(81, 81, 81);
-  padding: 2rem;
-  box-shadow: 0 4px 8px 0 rgba(105, 0, 126, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgb(81, 81, 81);
+    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(105, 0, 126, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .list-container {
-  display: flex;
+    display: flex;
 }
 
 .error {
-  color: red;
-  font-size: 12px;
+    color: red;
+    font-size: 12px;
 }
 
 .title {
-  font-size: 25px;
-  margin-bottom: 20px;
+    font-size: 25px;
+    margin-bottom: 20px;
 }
 
 .input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px;
 }
 
 @media (max-width: 768px) {
