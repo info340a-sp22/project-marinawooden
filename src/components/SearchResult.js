@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export function SearchResult({ queryString, dataSet, criteria}) {
+export function SearchResult({ queryString, dataSet, criteria }) {
 
     const termList = queryString.split(" ");
     let fullTerm = "";
     const searchTerms = termList.map((term) => {
-        if (fullTerm.length > 0){
-            fullTerm += (" " + term );
+        if (fullTerm.length > 0) {
+            fullTerm += (" " + term);
         } else {
             fullTerm = term;
         }
@@ -87,10 +88,10 @@ function SearchItem({ profile }) {
             <div className="row no-gutters">
                 <div className="col-4 col-md-2">
                     <div className="d-flex flex-column align-items-center justify-md-content-between">
-                        <a href="profile.html">
+                        <Link to="profile">
                             <div className="profile-img profile-img-small my-3" style={img}>
                             </div>
-                        </a>
+                        </Link>
                         <button className="col-auto btn btn-light" type="button">Follow</button>
                     </div>
                 </div>
