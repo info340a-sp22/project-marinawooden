@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import USERS from "../data/users.json";
 
 import "../index.css";
 
 export function Login(props) {
-    const uname = props.uname;
-    const pass = props.pass;
-
     // States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [username, setUsername] = useState(null);
 
     const errors = {
         uname: "invalid username",
@@ -32,8 +30,9 @@ export function Login(props) {
               // Invalid password
               setErrorMessages({ name: "pass", message: errors.pass });
           } else {
-              props.loginCallback(userData.userid); // replace with user id
-              setIsSubmitted(true);            
+              setUsername(userData.userid);
+              setIsSubmitted(true);
+              props.loginCallback(userData.userid);
           }
         } else {
         // Username not found
@@ -73,7 +72,7 @@ export function Login(props) {
     <div className="app">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <Navigate to="/profile" />  : renderForm}
+        {isSubmitted ? <Navigate to={"/profile/" + username} />  : renderForm}
       </div>
     </div>
   );
