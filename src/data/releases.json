@@ -5,7 +5,7 @@
     "title": "Song Title One",
     "img": "album.jpeg",
     "listeners": 10471,
-    "likes": 9221
+    "like": 9221
   },
   {
     "releaseId": 2,
@@ -13,7 +13,7 @@
     "title": "Song Title Two",
     "img": "album2.jpeg",
     "listeners": 12903,
-    "likes": 9191
+    "like": 9191
   },
   {
     "releaseId": 3,
@@ -21,7 +21,7 @@
     "title": "Song Title Three",
     "img": "album3.jpeg",
     "listeners": 12352,
-    "likes": 8091
+    "like": 8091
   },
   {
     "releaseId": 4,
@@ -29,7 +29,7 @@
     "title": "Song Title Four",
     "img": "album4.jpeg",
     "listeners": 11241,
-    "likes": 7564
+    "like": 7564
   },
   {
     "releaseId": 5,
@@ -37,6 +37,6 @@
     "title": "Song Title Five",
     "img": "album5.jpeg",
     "listeners": 9862,
-    "likes": 6032
+    "like": 6032
   }
 ]
