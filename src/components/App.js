@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import ProfilePage from "./ProfilePage";
 import { Login } from "./Login";
-import { NavBar } from "./NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../index.css";
 
