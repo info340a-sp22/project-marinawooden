@@ -1,5 +1,7 @@
 [
-    {"id":1, "text":"My first post.", "date":"2022-05-16", "like":400, "user":1, "reply":null},
-    {"id":2, "text":"My first reply.", "date":"2022-05-16", "like":3, "user":3, "reply":1},
-    {"id":3, "text":"My better first post.", "date":"2022-05-17", "like":6, "user":2, "reply":null}
+    {"id":1, "title": "Post One", "text":"My first post.  For the purpose of testing, this is a very loooong post.  I talk a lot in this post- more that 120 character's worth.  This is a long post.  A very long post.  So long that it's going to mess up the json file.", "img": "venue.jpg",  "date":"2022-05-16", "like":400, "user":1, "reply":null},
+    {"id":2, "title": "Post Two", "text":"My first reply.", "img": null, "date":"2022-05-16", "like":3, "user":3, "reply":1},
+    {"id":3, "title": "PoSt ThReE","text":"My better first post.", "img": null, "date":"2022-05-17", "like":6, "user":2, "reply":null},
+    {"id":4, "title": "Post Two","text":"Awesome cool post.", "img": null, "date":"2022-05-17", "like":300, "user":1, "reply":null},
+    {"id":5, "title": "Post Three","text":"Another awesome cool post", "img": null, "date":"2022-05-17", "like":350, "user":1, "reply":null}
 ]

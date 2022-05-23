@@ -1,14 +1,14 @@
 import React from "react";
-import { ReactDOM } from "react";
+import ReactDOM from 'react-dom/client';
+import App from './components/App';
 
 //imported css
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter } from 'react-router-dom'
 
-//sources
-const picture = 'public/logo.png'
-const pic = <img src="picture" alt="MusicRoom logo"/>;
-//defined elements
+import CRITERIA from "./data/criteria.json";
+import PROFILES from "./data/profiles.json";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -27,6 +27,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 //render root
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(pic);
+root.render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <App criteria={CRITERIA} dataSet={PROFILES}/>
+        </BrowserRouter>
+    </React.StrictMode>
+)

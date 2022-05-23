@@ -1,32 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@800&family=Lato&display=swap');
+
 :root {
     --bs-dark-rgb: 0, 0, 0;
     --bs-primary-rgb: 93, 62, 211;
     --bs-secondary-rgb: 255, 215, 0;
-  }
-  
-  body {
+}
+
+body {
     width: 100%;
     font-size: 1.25rem;
-    font-family: 'Lato', sans-serif;
     background-color: #000;
     color: #fff;
-  }
-  
-  h1, h2 {
-    font-family: 'Exo 2', sans-serif;
-  }
-  
-  header {
+}
+
+body,
+button,
+input {
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2 {
+     font-family: 'Exo 2', sans-serif;
+}
+
+header {
     background-image: linear-gradient(#5D3FD3, #000000 75%);
-  }
-  
-  .tags {
+}
+
+.tags {
     list-style-type: none;
     width: 50%;
     font-size: 1rem;
-  }
-  
-  .tags li {
+}
+
+.tags-skill {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tags li {
     border-radius: 25px;
     padding: 0 5px;
     margin: 5px;
@@ -46,3 +58,202 @@
     font-size: 3rem;
     color: white;
   }
+}
+
+.tags-skill > li {
+    display: inline-block;
+    padding: 0 1rem;
+    border-color: #393254;
+    background-color: #393254;
+}
+
+.tags li a {
+    text-decoration: none;
+}
+
+.tags li:hover {
+    transform: scale(1.1);
+}
+
+
+.profile-img {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.profile-img,
+#profile header {
+    background-size: cover;
+}
+
+.item.container {
+    padding-left: 0;
+}
+
+.school {
+    font-size: 0.75em;
+}
+
+.filter-item {
+    color: white;
+}
+
+.follower-count {
+    font-size: 1rem;
+}
+
+.circle {
+    border-radius: 50%;
+    padding-bottom: 100%;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}
+
+.tags li.bg-feature {
+    background-image: linear-gradient(0deg, rgba(0,50,126,1) 0%, rgba(0,209,255,1) 100%);
+    border: none;
+}
+
+.post {
+    width: 45%;
+    max-width: 500px;
+    overflow: hidden;
+    background-color: rgb(var(--bs-dark-rgb));
+    border: 1px solid;
+}
+
+.post-text {
+    text-overflow: ellipsis;
+}
+
+#profile .desc {
+    transition: opacity 0.5s;
+}
+
+#profile .album,
+#profile .links li {
+    transition: transform 0.5s;
+}
+
+#profile .album {
+    max-width: 275px;
+}
+
+#profile .desc > div {
+    height: 24px;
+}
+
+#profile .album .desc {
+    opacity: 0;
+}
+
+#profile .album:hover .desc {
+    opacity: 1;
+}
+
+#profile .album:hover,
+#profile .links li:hover {
+    transform: scale(1.1);
+}
+
+#profile header > .circle {
+    width: 15%;
+    padding-bottom: 15%;
+}
+
+#profile a {
+    text-decoration: none;
+}
+
+#profile ul {
+    list-style-type: none;
+}
+
+
+/* for login */
+.login {
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    color: #7316ff;
+  }
+
+input[type="text"],
+input[type="password"] {
+  height: 25px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #7316ff;
+  border: 2px solid #000000;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+input[type="submit"]:hover {
+  background: #8833ff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-form {
+    width: 300px;
+  background-color: rgb(81, 81, 81);
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(105, 0, 126, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.list-container {
+  display: flex;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.title {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .profile-img-small {
+        width: 4em;
+        height: 4em;
+    }
+
+    .post {
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .post {
+        background-color: rgb(var(--bs-primary-rgb));
+        border: none;
+    }
+}

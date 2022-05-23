@@ -1,0 +1,6 @@
+{
+    "skill": ["Singer", "Songwriter", "Composer", "Producer", "Mixing", "Rapper", "Guitar", "Drum", "Keyboard", "Bass"],
+    "genre": ["Country", "EDM", "Jazz", "Pop", "Jazz", "Indie", "Rock", "Punk", "Metal", "Rap"],
+    "school": ["University of Washington", "Seattle University", "Seattle Pacific University", "Seattle Central College", "South Seattle College", "Central Washington University", "Western Washington University"]
+}
+
