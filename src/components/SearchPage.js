@@ -9,7 +9,6 @@ export function SearchPage(props) {
     function getSearchQuery(query) {
         setParam({ "search_query": [query] });
     }
-    console.log(searchParam.get('search_query'))
     return (
         <div className="bg-dark">
             <NavBar/>

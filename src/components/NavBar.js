@@ -2,9 +2,9 @@ import React from "react";
 import {  Link } from "react-router-dom";
 
 function NavBar(){
-    return ( 
+    return (
     <nav className="navbar" style={{backgroundColor: "black"}} aria-label="navigation">
-        <a className="logo" href="#"><img src="img/logo.png" className="img-responsive ml-3 p-2" 
+        <a className="logo" href="#"><img src="img/logo.png" className="img-responsive ml-3 p-2"
         alt="MusicRoom logo" width="60" height="60"/></a>
         <ul className="d-none d-md-flex nav justify-content-end" aria-label="navigation">
             <li>

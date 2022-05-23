@@ -12,7 +12,7 @@ export default function ProfilePage(props) {
   let artist = parseInt(prms.artistId);
 
   let releases = RELEASES.filter(elem => elem.artistId === artist);
-  console.log(releases);
+  // console.log(releases);
   let posts = POSTS.filter(elem => elem.user === artist);
   let profileInfo = PROFILES.find(elem => elem.id === artist);
   let tags = (profileInfo.skill).concat(profileInfo.genre);
