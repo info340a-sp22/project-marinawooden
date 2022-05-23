@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import USERS from "../data/users.json";
 
-import "../index.css";
-
 export function Login(props) {
     // States
     const [errorMessages, setErrorMessages] = useState({});
