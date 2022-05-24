@@ -21,7 +21,7 @@ function NavBar(){
         {path:"/login", text:userLogin},
         {path:"/*", text:"Search"},
         {path:"/profile", text:"Profile"}
-    ]
+    ] //style={{ textDecoration: 'none' }}
     return (
     <nav className="navbar" style={{backgroundColor: "black"}} aria-label="navigation">
         <a className="logo" href="#"><img src="img/logo.png" className="img-responsive ml-3 p-2"
@@ -31,16 +31,16 @@ function NavBar(){
         </div>
         <ul className="d-none d-md-flex nav justify-content-end" aria-label="navigation">
             <li>
-            <Link to="/profile" className="nav-item mx-2 mt-2 p-1" style={{color:"white"}}>Profile</Link>
+            <Link to="/profile" className="nav-item mx-2 mt-2 p-1" style={{color:"white", textDecoration: 'none' }}>Profile</Link>
             </li>
             <li>
-            <Link to="/login" className="nav-item mx-2 mt-2 p-1" style={{color:"white"}}>{userLogin}</Link>
+            <Link to="/login" className="nav-item mx-2 mt-2 p-1" style={{color:"white", textDecoration: 'none' }}>{userLogin}</Link>
             </li>
             <li>
-            <Link to="/*" className="nav-item mx-2 mt-2 p-1" style={{color:"white"}}>Search</Link>
+            <Link to="/*" className="nav-item mx-2 mt-2 p-1" style={{color:"white", textDecoration: 'none' }}>Search</Link>
             </li>
             <li>
-            <Link to="/about" className="nav-item mx-2 mt-2 p-1" style={{color:"white"}}>About</Link>
+            <Link to="/about" className="nav-item mx-2 mt-2 p-1" style={{color:"white", textDecoration: 'none' }}>About</Link>
             </li>
         </ul>
     </nav>

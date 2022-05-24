@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Navbar } from "react-bootstrap";
-//import { Navbar } from "react-bootstrap";
 import NavBar from "./NavBar";
 
 
 export default function AboutPage(){
     return (   
+    <div>
+        <NavBar/>
         <div id="aboutPage">
-            <Navbar/>
             <header className="container-fluid text-white py-5" style={{backgroundColor:"#5D3FD3"}}>
                 <a className="logo"><img src="img/logo.png" className="img-responsive position-relative top-0 start-50 translate-middle-x mb-4" alt="MusicRoom logo" width="100" height="100"/></a>
                 <h1 className="text-center">MusicRoom</h1>
@@ -43,6 +42,7 @@ export default function AboutPage(){
                 </div>
             </main>
         </div>
+    </div>
     );
 }
     

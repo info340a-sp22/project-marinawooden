@@ -263,7 +263,7 @@ input[type="submit"]:hover {
 #aboutPage {
     background-color: #000;
     box-sizing: border-box;
-    margin: 0;
+    margin: 3;
     padding: 0;
 }
 
