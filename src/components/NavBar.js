@@ -20,7 +20,6 @@ function NavBar(){
         {path:"/about", text:"About"},
         {path:"/login", text:userLogin},
         {path:"/*", text:"Search"},
-        {path:"/profile", text:"Profile"}
     ] //style={{ textDecoration: 'none' }}
     return (
     <nav className="navbar" style={{backgroundColor:"#5D3FD3"}} aria-label="navigation">
@@ -30,9 +29,6 @@ function NavBar(){
             <HamBurgerNav paths={paths}/>
         </div>
         <ul className="d-none d-md-flex nav justify-content-end" aria-label="navigation">
-            <li>
-            <Link to="/profile" className="nav-item mx-2 mt-2 p-1" style={{color:"white", textDecoration: 'none' }}>Profile</Link>
-            </li>
             <li>
             <Link to="/login" className="nav-item mx-2 mt-2 p-1" style={{color:"white", textDecoration: 'none' }}>{userLogin}</Link>
             </li>
