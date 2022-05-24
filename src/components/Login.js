@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import USERS from "../data/users.json";
-import NavBar from "./NavBar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../index.css";
 
 let loggedIn = false;
 

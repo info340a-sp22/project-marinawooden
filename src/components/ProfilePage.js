@@ -72,7 +72,7 @@ export default function ProfilePage(props) {
         <h2>Snippets</h2>
         <div className='d-flex flex-wrap justify-content-center'>{releaseDiscs}</div>
       </section>
-      <section className="px-m-5 py-2">
+      <section  className="px-m-5 py-2">
         <h2>Recent Posts</h2>
         <div className='d-flex justify-content-center flex-wrap flex-shrink-1 flex-grow-1 px-m-5'>
           {postCards}
@@ -114,7 +114,7 @@ export function PostCard(props) {
   let myPost = props.post;
 
   return (
-    <div className='card post p-3 m-3'>
+    <div className='card post p-3 m-3' style={{backgroundColor:"rgb(93, 62, 211)"}}>
       <h3>
         {myPost.title}
       </h3>

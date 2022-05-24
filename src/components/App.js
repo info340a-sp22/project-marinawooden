@@ -7,6 +7,7 @@ import { Login } from "./Login";
 import { AboutUs } from "./StaticPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../index.css";
+import AboutPage from "./AboutPage";
 
 
 export default function App(props) {
@@ -16,6 +17,7 @@ export default function App(props) {
     }
     return (
         <Routes>
+            <Route path="/about" element={<AboutUs />} />
             <Route path="/login" element={userId !== null ? <Navigate to={"/profile/" + userId} /> : <Login uname={props.uname} loginCallback={handleLogin}/>} />
             <Route path="/profile/:artistId" element={<ProfilePage />} />
             <Route path="/" element={<AboutUs />} />
