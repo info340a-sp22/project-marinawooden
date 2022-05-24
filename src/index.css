@@ -258,3 +258,16 @@ input[type="submit"]:hover {
         border: none;
     }
 }
+
+/* About Page */
+#aboutPage {
+    background-color: #000;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+em {
+    color:gold;
+    font-style: normal;
+}

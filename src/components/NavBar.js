@@ -5,6 +5,7 @@ import Popper from "popper.js";
 import { loggedIn } from "./Login";
 
 
+
 function NavBar(){
     // set login button
     var userLogin = "";
@@ -16,7 +17,7 @@ function NavBar(){
 
     // paths for hamburger menu
     const paths = [
-        {path:"/", text:"About"},
+        {path:"/about", text:"About"},
         {path:"/login", text:userLogin},
         {path:"/*", text:"Search"},
         {path:"/profile", text:"Profile"}
@@ -39,7 +40,7 @@ function NavBar(){
             <Link to="/*" className="nav-item mx-2 mt-2 p-1" style={{color:"white"}}>Search</Link>
             </li>
             <li>
-            <Link to="/" className="nav-item mx-2 mt-2 p-1" style={{color:"white"}}>About</Link>
+            <Link to="/about" className="nav-item mx-2 mt-2 p-1" style={{color:"white"}}>About</Link>
             </li>
         </ul>
     </nav>
