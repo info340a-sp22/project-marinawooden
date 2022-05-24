@@ -9,7 +9,7 @@
 body {
     width: 100%;
     font-size: 1.25rem;
-    /* background-color: #000; */
+    background-color: black;
     color: #fff;
 }
 
@@ -64,7 +64,7 @@ header {
     display: inline-block;
     padding: 0 1rem;
     border-color: #393254;
-    /* background-color: #393254; */
+    background-color: #393254;
 }
 
 .tags li a {
@@ -75,7 +75,7 @@ header {
     transform: scale(1.1);
 }
 #profile {
-    /* background-color: #000; */
+    background-color: #000;
     color: white;
 }
 
@@ -220,7 +220,7 @@ input[type="submit"]:hover {
 
 .login-form {
     width: 300px;
-    /* background-color: rgb(81, 81, 81); */
+    background-color: rgb(81, 81, 81);
     padding: 2rem;
     box-shadow: 0 4px 8px 0 rgba(105, 0, 126, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

@@ -78,7 +78,7 @@ export function SearchResult({ queryString, dataSet, criteria }) {
 
     return (
         <div className="container">
-            <h3 className="text-white mb-3">Results</h3>
+            <h3 className="text-white mb-3">{(resultList.len > 0) ? "Result":""}</h3>
             {resultList}
         </div>
     )

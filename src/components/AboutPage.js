@@ -1,3 +1,4 @@
+// not using for about page. Consider removal.
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 
@@ -18,7 +19,7 @@ export default function AboutPage(){
                 </p>
             </header>
             <main>
-                <div className="container bg-primary bg-gradient">
+                <div className="container">
                 {/* Introductory Section */}
                 <section className="row align-items-center hello-box" style={{backgroundColor:"black"}}e>
                     <div className="container py-4">
