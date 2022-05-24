@@ -230,7 +230,6 @@ function FeaturesAboutUs() {
             <div className="container py-4">
                 <div className="row">
                     <h2 className="text-center mb-4 d-md-none" style={{ color: "gold" }}>Search Filters</h2>
-
                     <div className="col">
                         <div className="row d-md-none">
                             <img src="img/searchfilters.png" className="img-fluid" width="250" height="500" alt="Phone User Interface for the Search and Filter Page" />
@@ -241,8 +240,8 @@ function FeaturesAboutUs() {
                     </div>
                     <div className="col text-md-left d-none d-md-block">
                         <div className="pt-3 pt-md-0 col-12">
-                            <h2 style={{ color: "gold" }}>Search Filters</h2>
-                            <p>
+                            <h2 className="text-center" style={{ color: "gold" }}>Search Filters</h2>
+                            <p className="text-center">
                                 Users can search for other musicians using search categories such as skills, genre, and school since these criteria would fit their demands when looking for other musicians.
                             </p>
                         </div>
