@@ -14,9 +14,9 @@ export function AboutUs(props) {
                 <h1 className="text-center">MusicRoom</h1>
                 <p className="lead text-center" id="motto">
                     Where
-                    <span className="text-secondary">collaboration</span>
+                    <span className="text-secondary"> collaboration </span>
                     creates
-                    <span className="text-secondary">innovation.</span>
+                    <span className="text-secondary"> innovation.</span>
                 </p>
             </header>
             <main>
@@ -56,7 +56,7 @@ function IntroAboutUs() {
                     <div className="pt-3 pt-md-0 col-12">
                         <h2 style={{ color: "gold" }}>What is MusicRoom?</h2>
                         <p className="d-none d-md-block">
-                            Welcome to <em>MusicRoom</em>! We're a <em>music-sharing platform</em> for <em>college creatives</em>
+                            Welcome to <em>MusicRoom</em>! We're a <em>music-sharing platform</em> for <em>college creatives </em>
                             looking to share their music and collaborate with other musicians in
                             their area! We know how hard it can be to find other musicians and network. We aim to provide a <em>user-friendly interface</em> and platform to provoke collaboration — after all, <em>collaboration creates innovation.</em>
                         </p>
@@ -143,7 +143,7 @@ function PurposeAboutUs() {
                         Current music-sharing social media platforms suffer from the oversaturation of
                         posts. For example, <em>20%</em> of Spotify’s catalog has no streams whatsoever
                         (Eriksson 2019). This poses the question — <em>how many songs are there that have the
-                            potential to be successful but are not due to being overshadowed on the platform?</em>
+                            potential to be successful but are not due to being overshadowed on the platform? </em>
                         Furthermore, current music streaming platforms focus more on broadcasting music
                         rather than driving collaboration and building a community of musicians. <em>How can
                             we provide more exposure for beginning and young artists?</em> To address both issues,
@@ -153,7 +153,7 @@ function PurposeAboutUs() {
                     <p className="d-none d-md-block">
                         Our idea was also motivated by our firsthand experiences. We are more than just
                         students and developers — we have <em>personal hobbies</em> and one of which is
-                        <em>creating</em> music. However, <em>as people who are not actively pursuing a
+                        <em> creating</em> music. However, <em>as people who are not actively pursuing a
                             career in music or musical education</em>, we have <em>found it hard to create
                                 the same network</em> as we have in the fields that we are studying. We have
                         found that currently <em>there are few social networking platforms that
@@ -161,7 +161,7 @@ function PurposeAboutUs() {
                         either much <em>too specialized</em> or <em>have a poor interface design</em>
                         that is hard to use. Because of this, our focus was to create a platform that
                         young musicians would want to use, whose design was easy to use, and
-                        <em>aesthetically ambiguous</em>, so as not to inadvertently prioritize a
+                        <em> aesthetically ambiguous</em>, so as not to inadvertently prioritize a
                         certain style of musician over another.
                     </p>
                     <p className="d-md-none">
@@ -213,7 +213,9 @@ function FeaturesAboutUs() {
                         <div className="row d-md-none">
                             <img src="img/userprofile.png" className="img-fluid" width="250" height="500" alt="Phone User Interaface for a profile page" />
                         </div>
-                        <img src="img/userprofile.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interaface for a profile page" />
+                        <div className="row d-none d-md-block">
+                            <img src="img/userprofile.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interaface for a profile page" />
+                        </div>
                     </div>
                     <div className="col order-md-0 text-center text-md-left d-none d-md-block">
                         <div className="pt-3 pt-md-0 col-12">
@@ -233,7 +235,9 @@ function FeaturesAboutUs() {
                         <div className="row d-md-none">
                             <img src="img/searchfilters.png" className="img-fluid" width="250" height="500" alt="Phone User Interface for the Search and Filter Page" />
                         </div>
-                        <img src="img/searchfilters.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interface for the Search and Filter Page" />
+                        <div className="row d-none d-md-block">
+                            <img src="img/searchfilters.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interface for the Search and Filter Page" />
+                        </div>
                     </div>
                     <div className="col text-md-left d-none d-md-block">
                         <div className="pt-3 pt-md-0 col-12">
@@ -252,7 +256,9 @@ function FeaturesAboutUs() {
                         <div className="row d-md-none">
                             <img src="img/justforyou.png" className="img-fluid d-md-none" width="250" height="500" alt="Phone User Interface for the For You Page" />
                         </div>
-                        <img src="img/justforyou.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interface for the For You Page" />
+                        <div className="row d-none d-md-block">
+                            <img src="img/justforyou.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interface for the For You Page" />
+                        </div>
                     </div>
                     <div className="col order-md-0 text-center text-md-left d-none d-md-block">
                         <div className="pt-3 pt-md-0 col-12">
@@ -271,7 +277,9 @@ function FeaturesAboutUs() {
                         <div className="row d-md-none">
                             <img src="/img/snippets.png" className="img-fluid d-md-none" width="250" height="500" alt="Phone User Interface for uploading music" />
                         </div>
-                        <img src="/img/snippets.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interface for uploading music" />
+                        <div className="row d-none d-md-block">
+                            <img src="/img/snippets.png" className="img-fluid d-none d-md-block" width="250" height="500" alt="Phone User Interface for uploading music" />
+                        </div>
                     </div>
                     <div className="col text-center text-md-left d-none d-md-block">
                         <div className="pt-3 pt-md-0 col-12">

@@ -5,6 +5,7 @@ import RELEASES from "../data/releases.json";
 import PROFILES from "../data/profiles.json";
 import POSTS from "../data/posts.json"
 import NavBar from './NavBar';
+import { Footer } from './Footer';
 
 export default function ProfilePage(props) {
 
@@ -84,6 +85,7 @@ export default function ProfilePage(props) {
           {profileInfo.desc}
         </p>
       </section>
+      <Footer/>
     </div>
   )
 };
