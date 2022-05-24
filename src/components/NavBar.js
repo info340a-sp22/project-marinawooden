@@ -23,7 +23,7 @@ function NavBar(){
         {path:"/profile", text:"Profile"}
     ] //style={{ textDecoration: 'none' }}
     return (
-    <nav className="navbar" style={{backgroundColor: "black"}} aria-label="navigation">
+    <nav className="navbar" style={{backgroundColor:"#5D3FD3"}} aria-label="navigation">
         <a className="logo" href="#"><img src="img/logo.png" className="img-responsive ml-3 p-2"
         alt="MusicRoom logo" width="60" height="60"/></a>
         <div className="d-md-none">
