@@ -5,7 +5,7 @@ export function SearchResult({ queryString, dataSet, criteria }) {
 
     const termList = queryString.split(" ");
     let fullTerm = "";
-    const searchTerms = termList.map((term) => {
+    const searchTerms = termList.map((term, index) => {
         if (fullTerm.length > 0) {
             fullTerm += (" " + term);
         } else {
@@ -20,6 +20,11 @@ export function SearchResult({ queryString, dataSet, criteria }) {
                     return result;
                 }
             }
+        }
+        if ((index === (termList.length - 1)) && (fullTerm !== "")) {
+            let result = {};
+            result['name'] = fullTerm;
+            return result;
         }
         return null;
     }).filter((e) => {
@@ -88,7 +93,7 @@ function SearchItem({ profile }) {
             <div className="row no-gutters">
                 <div className="col-4 col-md-2">
                     <div className="d-flex flex-column align-items-center justify-md-content-between">
-                        <Link to="profile">
+                        <Link to={"profile/" + profile.id}>
                             <div className="profile-img profile-img-small my-3" style={img}>
                             </div>
                         </Link>
@@ -111,7 +116,11 @@ function SearchItem({ profile }) {
 
 function SearchTagList({ skills }) {
     const skillItems = skills.map((skill) => {
-        return <li className="ms-0" key={skill}><a className="filter-item" href="">{skill}</a></li>
+        return (
+        <li className="ms-0" key={skill}>
+            <Link to={"/search?search_query=" + skill} className="filter-item">{skill}</Link>
+        </li>
+        )
     })
     return (
         <ul className="tags tags-skill mb-3 ps-0">
