@@ -16,7 +16,7 @@ export function SearchPage(props) {
                 <div className="container">
                     <div className="justify-content-md-start">
                         <h1>Search</h1>
-                        <SearchBar placeholder="Search skills, genres, or schools..."  getSearchQueryCallback={getSearchQuery} />
+                        <SearchBar placeholder="Search skills, genres, or schools..." initalSearchTerm={searchParam.get('search_query')} getSearchQueryCallback={getSearchQuery} />
                     </div>
                 </div>
             </header>

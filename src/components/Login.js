@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import USERS from "../data/users.json";
-import NavBar from "./NavBar";
 
 let loggedIn = false;
 
@@ -11,7 +10,6 @@ export function Login(props) {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [username, setUsername] = useState(null);
 
-    
     const errors = {
         uname: "invalid username",
         pass: "invalid password"

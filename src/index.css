@@ -9,7 +9,7 @@
 body {
     width: 100%;
     font-size: 1.25rem;
-    background-color: #000;
+    background-color: black;
     color: #fff;
 }
 
@@ -74,7 +74,10 @@ header {
 .tags li:hover {
     transform: scale(1.1);
 }
-
+#profile {
+    background-color: #000;
+    color: white;
+}
 
 .profile-img {
     display: inline-block;
@@ -118,6 +121,8 @@ header {
     background-image: linear-gradient(0deg, rgba(0, 50, 126, 1) 0%, rgba(0, 209, 255, 1) 100%);
     border: none;
 }
+
+
 
 .post {
     width: 45%;
@@ -257,4 +262,17 @@ input[type="submit"]:hover {
         background-color: rgb(var(--bs-primary-rgb));
         border: none;
     }
+}
+
+/* About Page */
+#aboutPage {
+    /* background-color: #000; */
+    box-sizing: border-box;
+    margin: 3;
+    padding: 0;
+}
+
+em {
+    color:gold;
+    font-style: normal;
 }
