@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import PlaySong from "./TestAudio";
+
+
 
 import RELEASES from "../data/releases.json";
 import PROFILES from "../data/profiles.json";
@@ -8,6 +11,7 @@ import NavBar from './NavBar';
 import { Footer } from './Footer';
 
 export default function ProfilePage(props) {
+
 
   let prms = useParams();
   let artist = parseInt(prms.artistId);
@@ -49,6 +53,7 @@ export default function ProfilePage(props) {
     }
   })
 
+  
   return (
     <div id="profile">
       <NavBar/>
@@ -79,6 +84,12 @@ export default function ProfilePage(props) {
           {postCards}
         </div>
       </section>
+      
+      {/* Testing Album upload */}
+      <section className="d-flex align-items-center">
+        <PlaySong />
+      </section>
+
       <section className="px-m-5 py-2">
         <h2>About Me</h2>
         <p>
@@ -89,6 +100,38 @@ export default function ProfilePage(props) {
     </div>
   )
 };
+
+// export function AudioPlay(props) {
+//   let a;
+//   const AudioPlay = () => {
+//     const [buttonName, setButtonName] = useState("Play");
+  
+//     const [audio, setAudio] = useState();
+  
+//     useEffect(() => {
+//       if (a) {
+//         a.pause();
+//         a = null;
+//         setButtonName("Play");
+//       }
+//       if (audio) {
+//         a = new Audio(audio);
+//         a.onended = () => {
+//           setButtonName("Play");
+//         };
+//       }
+//     }, [audio]);
+  
+//     const handleClick = () => {
+//       if (buttonName === "Play") {
+//         a.play();
+//         setButtonName("Pause");
+//       } else {
+//         a.pause();
+//         setButtonName("Play");
+//       }
+//     };
+// }
 
 export function AlbumDisc(props) {
   /* Find the release data in the forms {"likes": "", "listeners": ""} */
