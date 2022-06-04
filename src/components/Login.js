@@ -73,7 +73,7 @@ export function Login(props) {
   );
 
   return (
-    <div className="app">
+    <div className="app d-flex align-items-center justify-content-center">
       <div className="login-form">
         <div className="title">Sign In</div>
         {isSubmitted ? <Navigate to={"/profile/" + username} />  : renderForm} 

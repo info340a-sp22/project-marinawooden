@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import PlaySong from "./TestAudio";
-
-
+import { getDatabase, ref, onValue, set } from "firebase/database";
 
 import RELEASES from "../data/releases.json";
 import PROFILES from "../data/profiles.json";
-import POSTS from "../data/posts.json"
 import NavBar from './NavBar';
 import { Footer } from './Footer';
 
 export default function ProfilePage(props) {
 
+  const [posts, setPosts] = useState([]);
+  const [releases, setReleases] = useState([]);
 
   let prms = useParams();
   let artist = parseInt(prms.artistId);
 
-  let releases = RELEASES.filter(elem => elem.artistId === artist);
+  useEffect(() => {
+    const db = getDatabase();
+    const postsRef = ref(db, 'posts'); // get all posts reference
+    const releaseRef = ref(db, 'releases'); // get all
+
+    onValue(postsRef, (snapshot) => {
+      setPosts(snapshot.val().filter(elem => elem.user === artist));
+    });
+
+    onValue(releaseRef, (snapshot) => {
+      setReleases(snapshot.val().filter(elem => elem.artistId === artist));
+    });
+  }, [artist]);
+
   // console.log(releases);
-  let posts = POSTS.filter(elem => elem.user === artist);
   let profileInfo = PROFILES.find(elem => elem.id === artist);
   let tags = (profileInfo.skill).concat(profileInfo.genre);
   let postCards = posts.map((elem) => {
