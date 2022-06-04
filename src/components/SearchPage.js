@@ -23,7 +23,7 @@ export function SearchPage(props) {
             </header>
             <main>
                 <section className="container-fluid">
-                    <SearchResult queryString={searchParam.get('search_query')} dataSet={props.dataSet} criteria={props.criteria}/>
+                    <SearchResult queryString={searchParam.get('search_query')} />
                 </section>
             </main>
             <Footer/>
