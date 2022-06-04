@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 import { SearchResult } from "./SearchResult";
 import NavBar from "./NavBar";
+import { Footer } from "./Footer";
 
 export function SearchPage(props) {
     const [searchParam, setParam] = useSearchParams({ "search_query": "" });
@@ -16,7 +17,7 @@ export function SearchPage(props) {
                 <div className="container">
                     <div className="justify-content-md-start">
                         <h1>Search</h1>
-                        <SearchBar placeholder="Search skills, genres, or schools..."  getSearchQueryCallback={getSearchQuery} />
+                        <SearchBar placeholder="Search skills, genres, or schools..." initalSearchTerm={searchParam.get('search_query')} getSearchQueryCallback={getSearchQuery} />
                     </div>
                 </div>
             </header>
@@ -25,6 +26,7 @@ export function SearchPage(props) {
                     <SearchResult queryString={searchParam.get('search_query')} dataSet={props.dataSet} criteria={props.criteria}/>
                 </section>
             </main>
+            <Footer/>
         </div>
     )
 }
