@@ -22,7 +22,6 @@ export function SearchResult({ queryString}) {
         const unregisterListenerCriteria = onValue(criteriaRef, (snapshot) =>{
             const critSnapshot = snapshot.val();
             const hasKey = Object.keys(critSnapshot);
-            const critKey = Object.keys(critSnapshot[hasKey]);
             let critObj = {};
             for (const key in critSnapshot[hasKey]) {
                 critObj[key] = critSnapshot[hasKey][key];
