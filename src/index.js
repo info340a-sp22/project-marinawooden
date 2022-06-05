@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
+import { getAuth } from "firebase/auth";
 
 //imported css
 import 'bootstrap/dist/css/bootstrap.css';
@@ -27,6 +28,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 //render root
 const root = ReactDOM.createRoot(document.getElementById('root'));

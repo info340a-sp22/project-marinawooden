@@ -1,50 +1,63 @@
-import React, { useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, Link } from "react-router-dom";
 import USERS from "../data/users.json";
 import Cookies from 'universal-cookie';
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, onValue, ref } from "firebase/database";
 
 let loggedIn = false;
 
 export function Login(props) {
+    const cookies = new Cookies();
     // States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [username, setUsername] = useState(null);
+    const [userId, setUserId] = useState(cookies.get("loggedIn"));
+    const [users, setUsers] = useState([]);
 
     const errors = {
         uname: "invalid username",
         pass: "invalid password"
     };
 
+    useEffect(() => {
+      const db = getDatabase();
+      const userRef = ref(db, "/profiles");
+
+      onValue(userRef, (snapshot) => {
+        setUsers(snapshot.val());
+      })
+    }, [])
+
     const handleSubmit = (event) => {
         //Prevent page reload
         event.preventDefault();
 
-        var { uname, pass } = document.forms[0];
+        var { email, pass } = document.forms[0];
 
-        // Find user login info
-        const userData = USERS.find((user) => user.username === uname.value);
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email.value, pass.value)
+          .then((userCredential) => {
+            /** CORRECT CREDENTIALS CASE */
+            const user = userCredential["user"];
+            return user.email;
+          })
+          .then((mail) => {
+            const userInfo = Object.values(users).find(elem => elem["email"] === mail);
+            console.log(userInfo["id"]);
+            let now = new Date();
+            now.setTime(now.getTime() + 1 * 3600 * 1000);
+            cookies.set('loggedIn', userInfo["id"], { path: '/' , expires: now});
 
-        // Compare user info
-        if (userData) {
-          if (userData.password !== pass.value) {
-              // Invalid password
-              setErrorMessages({ name: "pass", message: errors.pass });
-          } else {
-              setUsername(userData.userid);
-              const cookies = new Cookies();
-              let now = new Date();
-              now.setTime(now.getTime() + 1 * 3600 * 1000);
-              cookies.set('loggedIn', userData.userid, { path: '/' , expires: now});
-
-              setIsSubmitted(true);
-              props.loginCallback(userData.userid);
-              loggedIn = true;
-          }
-        } else {
-        // Username not found
-        setErrorMessages({ name: "uname", message: errors.uname });
-        }
+            setIsSubmitted(true);
+            setUserId(userInfo["id"]);
+          })
+          .catch((error) => {
+            /** WRONG CREDENTIALS CASE */
+            console.log(error);
+            alert(error.message);
+          });
     };
 
   // Generate JSX code for error message
@@ -54,13 +67,13 @@ export function Login(props) {
     );
 
   // JSX code for login form
-    const renderForm = (
+  const renderForm = (
     <div className="form">
 
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username </label>
-          <input type="text" name="uname" required />
+          <label>Email </label>
+          <input type="text" name="email" required />
           {renderErrorMessage("uname")}
         </div>
         <div className="input-container">
@@ -71,6 +84,10 @@ export function Login(props) {
         <div className="button-container">
           <input type="submit" />
         </div>
+        <p>
+          Don't have and account?    
+          <Link to='/register'>Create one here</Link>
+        </p>
       </form>
       
     </div>
@@ -80,7 +97,7 @@ export function Login(props) {
     <div className="app d-flex align-items-center justify-content-center">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <Navigate to={"/profile/" + username} /> : renderForm} 
+        {isSubmitted ? <Navigate to={"/profile/" + userId} /> : renderForm} 
       </div>
     </div>
   );

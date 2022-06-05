@@ -4,6 +4,7 @@ import PlaySong from "./Snippet";
 import { getDatabase, ref, onValue, set as firebaseSet, child } from "firebase/database";
 import Cookies from "universal-cookie";
 import {UploadSnippet} from "./Snippet";
+import USER_DEFAULTS from "../data/userdefaults.json";
 
 import NavBar from './NavBar';
 import { Footer } from './Footer';
@@ -11,19 +12,7 @@ import { Footer } from './Footer';
 export default function ProfilePage(props) {
   const [posts, setPosts] = useState([]);
   const [releases, setReleases] = useState([]);
-  const [user, setUser] = useState({
-    "genre": [],
-    "header": "header.jpeg",
-    "img": null,
-    "id": null,
-    "name": null,
-    "school": null,
-    "desc": null,
-    "skill": [],
-    "follower": 0,
-    "follow": [],
-    "isVerified": false
-  });
+  const [user, setUser] = useState(USER_DEFAULTS);
 
   let prms = useParams();
   let artist = parseInt(prms.artistId);
@@ -47,14 +36,14 @@ export default function ProfilePage(props) {
     })
   }, [artist]);
 
-  let tags = (user.skill).concat(user.genre);
+  let tags = (!user.skill ? [] : (user.skill).concat(user.genre) );
   let postCards = posts.map((elem) => {
     return (
       <PostCard key={elem.id} post={elem} loggedIn={props.loggedIn}/>
     )
   });
 
-  if (!postCards.length) {
+  if (postCards.length === 0) {
     postCards = "This user has no posts!";
   }
 
