@@ -17,13 +17,7 @@ export default function App(props) {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/login" element={userId !== null ? <Navigate to={"/profile/" + userId} /> : <Login uname={props.uname} loginCallback={handleLogin}/>} />
             <Route path="/profile/:artistId" element={<ProfilePage />} />
-            <Route path="/register" element={
-                    !userId?.emailVerified 
-                    ? <Register/>
-                    : <Navigate to='/' replace/>
-                }
-            />
-            {/* <Route path='/verify-email' element={<VerifyEmail/>} />  */}
+            <Route path="/register"/>
             <Route path="/" element={<AboutUs />} />
             <Route path="*" element={
                 <SearchPage criteria={props.criteria} dataSet={props.dataSet} />

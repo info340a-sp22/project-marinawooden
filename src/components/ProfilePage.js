@@ -36,7 +36,18 @@ export default function ProfilePage(props) {
     })
   }, [artist]);
 
-  let tags = (!user.skill ? [] : (user.skill).concat(user.genre) );
+  let tags = [];
+  if (!user.skill) {
+    if (!user.genre) {
+      tags = [];
+    } else {
+      tags = user.skill;
+    }
+  } else if (!user.genre) {
+    tags = user.skill;
+  } else {
+    (user.skill).concat(user.genre);
+  }
   let postCards = posts.map((elem) => {
     return (
       <PostCard key={elem.id} post={elem} loggedIn={props.loggedIn}/>

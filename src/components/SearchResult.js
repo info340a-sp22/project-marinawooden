@@ -81,17 +81,22 @@ export function SearchResult({ queryString}) {
                 const obj = searchTerms[index];
                 const key = Object.keys(obj)[0];
                 const value = obj[key];
-                if (key === "skill") {
-                    categories['skill'] = e[key].includes(value);
-                }
-                if (key === "genre") {
-                    categories['genre'] = e[key].includes(value)
-                }
-                if (key === "name") {
-                    categories['name'] = (e[key] === value);
-                }
-                if (key === "school") {
-                    categories['school'] = (e[key] === value);
+                console.log(e[key]);
+                console.log(value);
+
+                if (e[key]) {
+                    if (key === "skill") {
+                        categories['skill'] = e[key].includes(value);
+                    }
+                    if (key === "genre") {
+                        categories['genre'] = e[key].includes(value)
+                    }
+                    if (key === "name") {
+                        categories['name'] = (e[key] === value);
+                    }
+                    if (key === "school") {
+                        categories['school'] = (e[key] === value);
+                    }
                 }
             }
         }
