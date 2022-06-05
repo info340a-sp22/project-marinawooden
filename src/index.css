@@ -193,7 +193,7 @@ header {
     flex-direction: column;
     height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-    color: #7316ff;
+    color: rgb(93, 62, 211);
 }
 
 input[type="text"],
@@ -208,7 +208,7 @@ input[type="submit"] {
     margin-top: 10px;
     cursor: pointer;
     font-size: 15px;
-    background: #7316ff;
+    background: rgb(93, 62, 211);
     border: 2px solid #000000;
     color: #fff;
     padding: 10px 20px;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import PlaySong from "./TestAudio";
+import {UploadSnippet} from "./Snippet";
 import { getDatabase, ref, onValue, set } from "firebase/database";
 
 import RELEASES from "../data/releases.json";
@@ -98,8 +98,8 @@ export default function ProfilePage(props) {
       </section>
       
       {/* Testing Album upload */}
-      <section className="d-flex align-items-center">
-        <PlaySong />
+      <section className="d-flex justify-content-center">
+        <UploadSnippet profileInfo={profileInfo} />
       </section>
 
       <section className="px-m-5 py-2">

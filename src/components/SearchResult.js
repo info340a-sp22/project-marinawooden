@@ -7,6 +7,7 @@ export function SearchResult({ queryString}) {
     const termList = queryString.split(" ");
     const [profData, setProfData] = useState([]);
     const [critData, setCritData] = useState({});
+    // fetching data from firebase database.
     useEffect(() => {
         const db = getDatabase();
         const profRef = ref(db, "profiles");
@@ -65,8 +66,8 @@ export function SearchResult({ queryString}) {
     }).filter((e) => {
         return e != null;
     });
-    // compare data from criteria data from given term to profiles in database
-    // if a match 
+    // compare data from criteria data to given term to find profiles 
+    // in database. if a match, keep the profile in the result
     const searchResultData = profData.filter((e) => {
         let categories = {
             skill: null,
@@ -121,7 +122,11 @@ export function SearchResult({ queryString}) {
 // d-flex flex-column align-items-center justify-md-content-between
 function SearchItem({ profile }) {
     const img = {
-        backgroundImage: "url('img/" + profile.img + "')"
+        // backgroundImage: "url('img/" + profile.img + "')";
+        borderRadius: "50%",
+        objectFit: "cover",
+        height: "100px",
+        width: "100px"
     }
     return (
         <div className="item container mb-3">
@@ -129,8 +134,9 @@ function SearchItem({ profile }) {
                 <div className="col-4 col-md-2">
                     <div className="d-flex flex-column align-items-center justify-md-content-between">
                         <Link to={"profile/" + profile.id}>
-                            <div className="profile-img profile-img-small my-3" style={img}>
-                            </div>
+                            {/* <div className="profile-img profile-img-small my-3" style={img}>
+                            </div> */}
+                            <img src={"img/" + profile.img + ""} alt={profile.name + "'s profile"} style={img} className="my-3 mb-4"/>
                         </Link>
                         <button className="col-auto btn btn-light" type="button">Follow</button>
                     </div>
