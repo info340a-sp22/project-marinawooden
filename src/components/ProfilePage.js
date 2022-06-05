@@ -114,7 +114,7 @@ export default function ProfilePage(props) {
       
       {/* Testing Album upload */}
       <section className="d-flex justify-content-center">
-        <UploadSnippet profileInfo={user} />
+        <UploadSnippet profileInfo={user} artist={artist}/>
       </section>
 
       <section className="px-m-5 py-2">

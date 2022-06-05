@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref as storageRef, uploadBytes } from "firebase/storage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUpFromBracket} from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { getDatabase, ref as databaseRef, push as databasePush } from "firebase/database";
 
 function DisplayFName({ inputFile }) {
   if (inputFile) {
@@ -55,8 +56,9 @@ export function PlaySong({ profileInfo, genres }) {
 }
 
 // upload an audio file to the firebase database
-export function UploadSnippet({ profileInfo }) {
+export function UploadSnippet({ profileInfo, artist }) {
   const [inputFile, setFile] = useState();
+  const [inputImage, setImage] = useState();
   const [errorMessage, setErrorMessage] = useState('');
   // check if file type excepted
   const isValidFileUploaded = (file) => {
@@ -72,54 +74,86 @@ export function UploadSnippet({ profileInfo }) {
     event.target.value = "";
   };
 
+  const addImage = (event) => {
+    setImage(event.target.files[0]);
+  }
+  console.log(inputImage);
   // if audio file is in an accepted format,
   // upload the file to firebase storage along sides
   // metadata about the songs
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (inputFile) {
+    if (inputFile && inputImage) {
       if (isValidFileUploaded(inputFile)) {
+        const imagePath = "img/" + inputImage.name;
         setErrorMessage('');
         const metaData = {
           customMetadata: {
-            userId: profileInfo.id,
+            artistId: artist,
             title: event.target.title.value,
             artist: profileInfo.name,
-            genres: event.target.genres.value
+            genres: event.target.genres.value,
+            img: imagePath
           }
         }
         const storage = getStorage();
-        const path = "snippets/" + event.target.title.value;
+        const snipPath = "snippets/" + artist + "/" + event.target.title.value;
         event.target.title.value = "";
         event.target.genres.value = "";
-        const snippetsRef = ref(storage, path);
+        const snippetsRef = storageRef(storage, snipPath);
         uploadBytes(snippetsRef, inputFile, metaData)
           .then((snapshot) => {
             setFile();
           }).catch((error) => {
             setErrorMessage(error.code);
           })
+        const imagesRef = storageRef(storage, imagePath);
+        uploadBytes(imagesRef, imagePath)
+        .then((snapshot) => {
+          setImage();
+        }).catch((error) => {
+          setErrorMessage(error.code);
+        })
+        updateRelease(metaData);
       }
       else {
-        setErrorMessage('Please input correct file type');
+        setErrorMessage('Missing Required Inputs/Files');
         setFile();
       }
     }
     setFile();
   }
-  console.log(inputFile);
+
+  function updateRelease(metadata) {
+    const db = getDatabase();
+    const releasesRef = databaseRef(db, "releases");
+    const releasesMetadata = {
+      artistId: metadata.customMetadata.artistId,
+      img: metadata.customMetadata.img,
+      like: 0,
+      listeners: 0,
+      title: metadata.customMetadata.title
+    }
+    databasePush(releasesRef, releasesMetadata)
+  }
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className="d-flex justify-content-center">
           <label htmlFor="file-input" aria-label="upload button">
-            <FontAwesomeIcon icon={faArrowUpFromBracket} size="2x"/>
+            <FontAwesomeIcon icon={faArrowUpFromBracket} size="2x" />
           </label>
-          <input id="file-input" style={{ display: "none" }} type="file" onChange={addFile} accept="audio/*"/>
+          <input id="file-input" style={{ display: "none" }} type="file" onChange={addFile} accept="audio/*" />
         </div>
         <div style={inputFile ? { display: "block" } : { display: "none" }}>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex flex-column align-item-center">
             <MetaDataForm />
+            <div className="row justify-content-center">
+              <div className="col-auto">
+                <label htmlFor="file-thumbnail">Upload thumbnail</label>
+                <input name="file-thumbnail" type="file" className="form-control" onChange={addImage} aira-lablel="snippet image input" accept="image/*" />
+              </div>
+            </div>
           </div>
         </div>
         <DisplayFName inputFile={inputFile} />
@@ -133,14 +167,14 @@ export function UploadSnippet({ profileInfo }) {
 }
 
 /*Form to add title and genre metadata*/
-function MetaDataForm() {
+function MetaDataForm({ setImageCallback }) {
   return (
     <div className="">
       <div className="row justify-content-center">
         <div className="col-auto">
           <label>Title</label>
           <div className="input-group mb-3">
-            <input name="title" type="text" aira-lablel="snippet title input" />
+            <input name="title" type="text" aria-label="snippet title input" />
           </div>
         </div>
       </div>
@@ -148,10 +182,11 @@ function MetaDataForm() {
         <div className="col-auto">
           <label>Genre(s)</label>
           <div className="input-group mb-3">
-            <input name="genres" type="text" aira-lablel="snippet genre(s) input" />
+            <input name="genres" type="text" aria-label="snippet genre(s) input" />
           </div>
         </div>
       </div>
     </div>
   )
 }
+
