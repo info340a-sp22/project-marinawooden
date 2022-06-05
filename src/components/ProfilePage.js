@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import PlaySong from "./TestAudio";
-import { getDatabase, ref, onValue, set as firebaseSet } from "firebase/database";
+import { getDatabase, ref, onValue, set as firebaseSet, child } from "firebase/database";
+import Cookies from "universal-cookie";
 
 import NavBar from './NavBar';
 import { Footer } from './Footer';
 
 export default function ProfilePage(props) {
-
   const [posts, setPosts] = useState([]);
   const [releases, setReleases] = useState([]);
   const [user, setUser] = useState({
@@ -203,27 +203,47 @@ export function PostCard(props) {
 }
 
 export function LikeButton(props) {
-  let myPost = props.post;
-  let [liked, setLiked] = useState(false);
-  let [likes, setLikes] = useState(myPost.like);
+  const cookie = new Cookies();
+  const loggedIn = cookie.get("loggedIn");
+  const myPost = props.post;
+  
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(myPost.like);
+  const [likedBy, setLikedBy] = useState([]);
   const db = getDatabase();
-  const likeCount = ref(db, `posts/${myPost.id}/likes`);
+  let path = (myPost["releaseId"] ? `releases/${myPost.releaseId - 1}/` : `posts/${myPost.id - 1}/`);
   
   useEffect(() => {
-    onValue(likeCount, (snapshot) => {
+    const postRef = ref(db, path);
+    const likesRef = child(postRef, "like");
+    const likedByRef = child(postRef, "likedBy");
+
+    onValue(likesRef, (snapshot) => {
       setLikes(snapshot.val());
     });
-  }, [likeCount]);
+
+    onValue(likedByRef, (snapshot) => {
+      setLikedBy(snapshot.val());
+      (Object.values(snapshot.val()).includes(parseInt(loggedIn)) ? setLiked(true) : setLiked(false));
+    });
+  }, [db, path, loggedIn]);
 
   let handleLike = () => {
-    if (!liked) {
-      firebaseSet(likeCount, likes + 1);
-      setLikes(likes + 1);
-      setLiked(true);
+    if (loggedIn) {
+      if (!liked) {
+        setLikedBy([...likedBy, loggedIn]);
+        firebaseSet(ref(db, `${path}like`), likes + 1);
+        firebaseSet(ref(db, `${path}likedBy`), [...likedBy, parseInt(loggedIn)]);
+        setLikes(likes + 1);
+        setLiked(true);
+      } else {
+        firebaseSet(ref(db, `${path}like`), likes - 1);
+        firebaseSet(ref(db, `${path}likedBy`), [...likedBy].filter(elem => elem !== parseInt(loggedIn)));
+        setLikes(likes - 1);
+        setLiked(false);
+      }
     } else {
-      setLikes(likes - 1);
-      firebaseSet(likeCount, likes - 1)
-      setLiked(false);
+      alert("You must be logged in to like a post!");
     }
   }
 

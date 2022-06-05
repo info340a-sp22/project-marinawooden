@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import USERS from "../data/users.json";
+import Cookies from 'universal-cookie';
 
 let loggedIn = false;
 
@@ -31,11 +32,14 @@ export function Login(props) {
               setErrorMessages({ name: "pass", message: errors.pass });
           } else {
               setUsername(userData.userid);
+              const cookies = new Cookies();
+              let now = new Date();
+              now.setTime(now.getTime() + 1 * 3600 * 1000);
+              cookies.set('loggedIn', userData.userid, { path: '/' , expires: now});
+
               setIsSubmitted(true);
               props.loginCallback(userData.userid);
               loggedIn = true;
-             
-              
           }
         } else {
         // Username not found
@@ -76,7 +80,7 @@ export function Login(props) {
     <div className="app d-flex align-items-center justify-content-center">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <Navigate to={"/profile/" + username} />  : renderForm} 
+        {isSubmitted ? <Navigate to={"/profile/" + username} /> : renderForm} 
       </div>
     </div>
   );

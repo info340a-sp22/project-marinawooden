@@ -3,12 +3,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Popper from "popper.js";
 import { loggedIn } from "./Login";
+import Cookies from "universal-cookie";
 
 
 function NavBar() {
     // set login button
+    const cookie = new Cookies();
+    let loggedIn = cookie.get("loggedIn");
+    
     var userLogin = "";
-    if (loggedIn != true) {
+    if (!loggedIn) {
         userLogin = "Login";
     } else {
         userLogin = "Account";
@@ -17,7 +21,7 @@ function NavBar() {
     // paths for hamburger menu
     const paths = [
         { path: "/about", text: "About" },
-        { path: "/login", text: userLogin },
+        { path: (loggedIn ? `profile/${loggedIn}` : "/login"), text: userLogin },
         { path: "/*", text: "Search" }
     ]
     return (
@@ -30,7 +34,7 @@ function NavBar() {
             </div>
             <ul className="d-none d-md-flex nav justify-content-end" aria-label="navigation">
                 <li>
-                    <Link to="/login" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>{userLogin}</Link>
+                    <Link to={loggedIn ? `/profile/${loggedIn}` : "/login"} className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>{userLogin}</Link>
                 </li>
                 <li>
                     <Link to="/*" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>Search</Link>
