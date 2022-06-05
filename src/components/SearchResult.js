@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getDatabase, ref, onValue } from 'firebase/database';
 
-export function SearchResult({ queryString, dataSet, criteria }) {
+export function SearchResult({ queryString}) {
 
     const termList = queryString.split(" ");
+    const [profData, setProfData] = useState([]);
+    const [critData, setCritData] = useState({});
+    useEffect(() => {
+        const db = getDatabase();
+        const profRef = ref(db, "profiles");
+        const unregisterListenerProfile = onValue(profRef, (snapshot) => {
+            const profSnapshot = snapshot.val();
+            const profKeys = Object.keys(profSnapshot);
+            const newProfArray = profKeys.map((keyString) => {
+                return profSnapshot[keyString];
+            })
+            setProfData(newProfArray);
+        })
+        const criteriaRef = ref(db, "criteria");
+        const unregisterListenerCriteria = onValue(criteriaRef, (snapshot) =>{
+            const critSnapshot = snapshot.val();
+            const hasKey = Object.keys(critSnapshot);
+            let critObj = {};
+            for (const key in critSnapshot[hasKey]) {
+                critObj[key] = critSnapshot[hasKey][key];
+            }
+            setCritData(critObj);
+        })
+        function cleanup() {
+            unregisterListenerProfile();
+            unregisterListenerCriteria();
+        }
+        return cleanup;
+    }, [setProfData, setCritData]);
+
+    // build up term until term matches up with a criteria
+    // however, if term is full build without finding a criteria
+    // a 'name' criteria is given to the term. Filter out any null
+    // return.
     let fullTerm = "";
     const searchTerms = termList.map((term, index) => {
         if (fullTerm.length > 0) {
@@ -11,8 +46,8 @@ export function SearchResult({ queryString, dataSet, criteria }) {
         } else {
             fullTerm = term;
         }
-        for (const key in criteria) {
-            for (const item of criteria[key]) {
+        for (const key in critData) {
+            for (const item of critData[key]) {
                 if (item.toLocaleLowerCase() === fullTerm.toLocaleLowerCase()) {
                     fullTerm = "";
                     let result = {};
@@ -30,9 +65,9 @@ export function SearchResult({ queryString, dataSet, criteria }) {
     }).filter((e) => {
         return e != null;
     });
-
-    console.log(searchTerms);
-    const searchResultData = dataSet.filter((e) => {
+    // compare data from criteria data from given term to profiles in database
+    // if a match 
+    const searchResultData = profData.filter((e) => {
         let categories = {
             skill: null,
             school: null,
