@@ -8,5 +8,6 @@
   "name": "Musicroom User",
   "school": "Unknown",
   "desc": "This user has not provided a description yet!",
-  "isVerified": false
+  "isVerified": false,
+  "releases": 0
 }
