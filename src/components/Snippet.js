@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getStorage, ref as storageRef, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref as storageRef, uploadBytes } from "firebase/storage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { getDatabase, ref as databaseRef, push as databasePush } from "firebase/database";
+import { getDatabase, ref as databaseRef, push as databasePush, onValue } from "firebase/database";
 
 function DisplayFName({ inputFile }) {
   if (inputFile) {
@@ -15,41 +15,50 @@ function DisplayFName({ inputFile }) {
   )
 }
 
-export function PlaySong({ profileInfo, genres }) {
+export function PlaySong() {
   let upload;
   const [buttonName, setButtonName] = useState("Play");
   const [disable, setDisable] = useState(true);
   const [audio, setAudio] = useState();
-  const [inputFile, setFile] = useState();
   const [errorMessage, setErrorMessage] = useState('');
-  useEffect(() => {
-    if (upload) {
-      upload.pause();
-      upload = null;
-      setButtonName("Play");
-    }
-    if (audio) {
-      upload = new Audio(audio);
-      upload.onended = () => {
-        setButtonName("Play");
-      };
-    }
-  }, [audio]);
+  // useEffect(() => {
+  //   if (upload) {
+  //     upload.pause();
+  //     upload = null;
+  //     setButtonName("Play");
+  //   }
+  //   if (audio) {
+  //     upload = new Audio(audio);
+  //     upload.onended = () => {
+  //       setButtonName("Play");
+  //     };
+  //   }
+  // }, [audio]);
 
   const handleClick = () => {
     if (buttonName === "Play") {
-      upload.play();
+      audio.play();
       setButtonName("Pause");
     } else {
-      upload.pause();
+      audio.pause();
       setButtonName("Play");
     }
   };
-
-
+  useEffect(() => {
+    const storage = getStorage();
+    const pathReference = storageRef(storage, 'snippets/test1');
+    getDownloadURL(pathReference)
+      .then((url) => {
+        setAudio(new Audio(url));
+      })
+      .catch((error) => {
+        setErrorMessage(error.code);
+      })
+  }, [setAudio, setErrorMessage])
   return (
     <div>
-      {/* <button disabled={disable} onClick={handleClick}>{buttonName}</button> */}
+      <button onClick={handleClick}>{buttonName}</button>
+      <p>{upload}</p>
       {errorMessage && (<p className="error"> {errorMessage} </p>)}
     </div>
   )
@@ -77,7 +86,7 @@ export function UploadSnippet({ profileInfo, artist }) {
   const addImage = (event) => {
     setImage(event.target.files[0]);
   }
-  console.log(inputImage);
+  // console.log(inputImage);
   // if audio file is in an accepted format,
   // upload the file to firebase storage along sides
   // metadata about the songs
@@ -109,11 +118,11 @@ export function UploadSnippet({ profileInfo, artist }) {
           })
         const imagesRef = storageRef(storage, imagePath);
         uploadBytes(imagesRef, imagePath)
-        .then((snapshot) => {
-          setImage();
-        }).catch((error) => {
-          setErrorMessage(error.code);
-        })
+          .then((snapshot) => {
+            setImage();
+          }).catch((error) => {
+            setErrorMessage(error.code);
+          })
         updateRelease(metaData);
       }
       else {
@@ -126,7 +135,8 @@ export function UploadSnippet({ profileInfo, artist }) {
 
   function updateRelease(metadata) {
     const db = getDatabase();
-    const releasesRef = databaseRef(db, "releases");
+    const path = "releases/" + metadata.customMetadata.artistId;
+    const releasesRef = databaseRef(db, path);
     const releasesMetadata = {
       artistId: metadata.customMetadata.artistId,
       img: metadata.customMetadata.img,
