@@ -68,10 +68,16 @@ export default function ProfilePage(props) {
   if (postCards.length === 0) {
     postCards = "This user has no posts!";
   }
-
+  const [isPlaying, setIsPlaying] = useState(false);
+  const playingSnippet = (play) => {
+    setIsPlaying(play);
+  }
+  const getPlayingStatus = () => {
+    return isPlaying;
+  }
   let releaseDiscs = Object.values(releases).map((elem, i) => {
     return (
-      <AlbumDisc key={i} release={elem}/>
+      <AlbumDisc key={i} release={elem} id={artist} setPlayingCall={playingSnippet} getPlayingCall={getPlayingStatus}/>
     )
   });
 
@@ -91,7 +97,6 @@ export default function ProfilePage(props) {
     }
   })
 
-  
   return (
     <div id="profile">
       <NavBar/>
@@ -125,8 +130,7 @@ export default function ProfilePage(props) {
       
       {/* Testing Album upload */}
       <section className="d-flex justify-content-center">
-        <UploadSnippet profileInfo={user} artist={artist}/>
-        <PlaySong />
+        <UploadSnippet profileInfo={user} artist={artist} />
       </section>
 
       <section className="px-m-5 py-2">
@@ -174,11 +178,14 @@ export default function ProfilePage(props) {
 
 export function AlbumDisc(props) {
   /* Find the release data in the forms {"likes": "", "listeners": ""} */
+  console.log(props);
   let myRelease = props.release;
+  let myId = props.id;
   return (
     <div className="album flex-grow-1 flex-shrink-1 p-3">
       <div>
-        <DiscCircle imageSrc={myRelease.img} imageDesc={myRelease.title} />
+        {/* <DiscCircle imageSrc={myRelease.img} imageDesc={myRelease.title} /> */}
+        <PlaySong snippet={myId + "/" + myRelease.title} imageSrc={myRelease.img} imageDesc={myRelease.title} setPlayingCall={props.setPlayingCall} getPlayingCall={props.getPlayingCall}/>
         <p>{myRelease.title}</p>
       </div>
       <div className='desc'>
@@ -230,7 +237,7 @@ export function LikeButton(props) {
     const db = getDatabase();
     const path = (myPost["text"] ? `profiles/${myPost.artistId}/posts/${myPost.id}/` : `profiles/${myPost.artistId}/releases/${myPost.id}/`);
     const postRef = ref(db, path);
-    
+
     if (likedBy.includes(userHash)) {
       setLiked(true);
     }
