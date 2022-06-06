@@ -46,13 +46,10 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
       .then((url) => {
         console.log(url);
         setAudio(new Audio(url));
+        setErrorMessage("");
       })
       .catch((error) => {
-        if (error.code === "storage/object-not-found") {
-          window.location.reload(false);
-        } else {
-          setErrorMessage(error.code);
-        }
+        setErrorMessage(error.message);
       });
     
   }, [setAudio, setErrorMessage, snippet, artist]);
@@ -134,20 +131,21 @@ export function UploadSnippet({ profileInfo }) {
           const imagesRef = storageRef(storage, imagePath);
           uploadBytes(imagesRef, imagePath)
             .then((snapshot) => {
+              updateRelease(metaData, userHash);
               setImage();
             }).catch((error) => {
               setErrorMessage(error.code);
             })
-          updateRelease(metaData, userHash);
           
         } else {
-          setErrorMessage('Missing Required Inputs/Files');
+          setErrorMessage('File type is unsupported');
           setFile();
         }
       }
       setFile();
     } else {
-      alert("You must be logged in to upload a snippet!");
+      setErrorMessage("You must be logged in to upload a snippet!");
+      setFile();
     }
   }
 
@@ -165,7 +163,7 @@ export function UploadSnippet({ profileInfo }) {
     databasePush(releasesRef, releasesMetadata);
   }
   return (
-    <div className="action p-3 d-flex justify-content-center align-items-center flex-direction-column">
+    <div className="action p-3 d-flex justify-content-center align-items-center flex-column">
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="file-input" aria-label="upload button">
