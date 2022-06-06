@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getDownloadURL, getStorage, ref as storageRef, uploadBytes } from "firebase/storage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpFromBracket, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase, ref as databaseRef, push as databasePush, onValue } from "firebase/database";
 
 function DisplayFName({ inputFile }) {
@@ -15,7 +15,7 @@ function DisplayFName({ inputFile }) {
   )
 }
 
-export function PlaySong({snippet, imageSrc}) {
+export function PlaySong({snippet, imageSrc, imageDesc, setPlayingCall, getPlayingCall}) {
   let upload;
   const [buttonName, setButtonName] = useState("Play");
   const [disable, setDisable] = useState(true);
@@ -35,15 +35,7 @@ export function PlaySong({snippet, imageSrc}) {
   //   }
   // }, [audio]);
 
-  const handleClick = () => {
-    if (buttonName === "Play") {
-      audio.play();
-      setButtonName("Pause");
-    } else {
-      audio.pause();
-      setButtonName("Play");
-    }
-  };
+
   useEffect(() => {
     const storage = getStorage();
     const snippetPath = 'snippets/' + snippet
@@ -58,7 +50,7 @@ export function PlaySong({snippet, imageSrc}) {
   }, [setAudio, setErrorMessage, snippet])
   return (
     <div>
-      <button onClick={handleClick}>{buttonName}</button>
+      <DiscCircle audio={audio}imageSrc={imageSrc} imageDesc={imageDesc} setPlayingCall={setPlayingCall} getPlayingCall={getPlayingCall}/>
       <p>{upload}</p>
       {errorMessage && (<p className="error"> {errorMessage} </p>)}
     </div>
@@ -77,7 +69,7 @@ export function UploadSnippet({ profileInfo, artist }) {
     const fileExtension = file.name.split('.').pop();
     return validExtensions.includes(fileExtension)
   }
-
+  console.log(artist);
   // add new File to Input File State
   const addFile = (event) => {
     setFile(event.target.files[0]);
@@ -202,7 +194,29 @@ function MetaDataForm({ setImageCallback }) {
 }
 
 function DiscCircle(props) {
+  const [amIPlaying, setMe] = useState(false)
+  const handleClick = () => {
+    if (!props.getPlayingCall() && !amIPlaying) {
+      console.log(props.getPlayingCall());
+      props.audio.play();
+      props.setPlayingCall(true);
+      setMe(true);
+    }
+    if (props.getPlayingCall() && amIPlaying){
+      props.audio.pause();
+      props.setPlayingCall(false);
+      setMe(false);
+    }
+  };
+  const style = {backgroundImage: "url('../img/" + props.imageSrc + "')", filter: amIPlaying === true ? "":"blur(2px)"}
   return (
-    <div className="circle" role="img" alt={props.title} style={{backgroundImage: "url('../img/" + props.imageSrc + "')"}}/>
+    <div onClick={handleClick}>
+      <div className="circle" role="img" alt={props.title} style={style}>
+      </div>
+      {/* <div className="row align-items-center">
+        <div className="col">
+        </div>
+      </div> */}
+    </div>
   );
 }
