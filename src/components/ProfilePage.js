@@ -138,7 +138,7 @@ export default function ProfilePage(props) {
       </section>
       <section  className="px-m-5 py-2 text-center text-lg-start">
         <h2>Recent Posts</h2>
-        <div className='d-flex justify-content-center flex-wrap flex-shrink-1 flex-grow-1 px-m-5'>
+        <div className='d-flex justify-content-center justify-content-lg-start flex-wrap flex-shrink-1 flex-grow-1 px-m-5'>
           {postCards}
         </div>
       </section>

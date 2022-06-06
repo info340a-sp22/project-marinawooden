@@ -42,14 +42,19 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
     const snippetPath = `snippets/${artist}/${snippet}`;
     const pathReference = storageRef(storage, snippetPath);
 
-    
     getDownloadURL(pathReference)
       .then((url) => {
+        console.log(url);
         setAudio(new Audio(url));
       })
       .catch((error) => {
-        setErrorMessage(error.code);
-      })
+        if (error.code === "storage/object-not-found") {
+          window.location.reload(false);
+        } else {
+          setErrorMessage(error.code);
+        }
+      });
+    
   }, [setAudio, setErrorMessage, snippet, artist]);
 
   return (
@@ -112,7 +117,17 @@ export function UploadSnippet({ profileInfo }) {
           const snippetsRef = storageRef(storage, snipPath);
           uploadBytes(snippetsRef, inputFile, metaData)
             .then((snapshot) => {
-              setFile();
+              // const newPath = storageRef(storage, snapshot.metadata.fullPath);
+
+              // getDownloadURL(newPath)
+              //   .then((url) => {
+              //     console.log(url); // The location of the new file
+              //   })
+              //   .catch((err) => {
+              //     console.error(err.message);
+              //   })
+
+              setFile(); // clear file
             }).catch((error) => {
               setErrorMessage(error.code);
             })
