@@ -1,26 +1,46 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { LogOut } from "./Login";
 
 
 function NavBar() {
     // set login button
     const cookie = new Cookies();
     let userHash = cookie.get("userHash");
-    
+    let logged = false;
+    let paths = []
+
     let userLogin = "";
     if (!userHash) {
         userLogin = "Login";
     } else {
         userLogin = "Account";
+        logged = true;
     }
 
     // paths for hamburger menu
-    const paths = [
-        { path: "/about", text: "About" },
-        { path: (userHash ? `profile/${userHash}` : "/login"), text: userLogin },
-        { path: "/*", text: "Search" }
-    ]
+    if (logged === true) {
+        paths = [
+            { path: "/about", text: "About" },
+            { path: (userHash ? `profile/${userHash}` : "/login"), text: userLogin },
+            { path: "/*", text: "Search" },
+            { path: "/logout", text: "Sign Out" }
+        ]  
+        //return paths;
+    } else {
+        paths = [
+            { path: "/about", text: "About" },
+            { path: (userHash ? `profile/${userHash}` : "/login"), text: userLogin },
+            { path: "/*", text: "Search" }
+        ]
+       // return paths;
+    }
+    // const paths = [
+    //     { path: "/about", text: "About" },
+    //     { path: (userHash ? `profile/${userHash}` : "/login"), text: userLogin },
+    //     { path: "/*", text: "Search" }
+    // ]
     return (
         <nav className="navbar" style={{ backgroundColor: "black" }} aria-label="navigation">
             <a href="/" className="logo">

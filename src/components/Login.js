@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 let loggedIn = false;
 
@@ -100,9 +101,22 @@ export function Login() {
       <div className="login-form">
         <div className="title">Sign In</div>
         {isSubmitted ? <Navigate to={"/profile/" + userId} /> : renderForm} 
+        {/* <LogOut userID={userId} /> */}
       </div>
     </div>
   );
 }
 
 export {loggedIn};
+
+export function LogOut(props) {
+  let cookie = new Cookies();
+  return (
+    <div>
+      <button onClick={cookie.remove("userHash")}>
+        log out
+      <Navigate to={"/about"} />  
+      </button>
+    </div>
+  )
+}
