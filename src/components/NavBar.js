@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { LogOut } from "./Login";
 
 
 function NavBar() {
@@ -10,6 +9,7 @@ function NavBar() {
     let userHash = cookie.get("userHash");
     let logged = false;
     let paths = []
+    let path = "";
 
     let userLogin = "";
     if (!userHash) {
@@ -17,6 +17,7 @@ function NavBar() {
     } else {
         userLogin = "Account";
         logged = true;
+        path = <a href="/logout" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>Sign Out</a>
     }
 
     // paths for hamburger menu
@@ -36,11 +37,7 @@ function NavBar() {
         ]
        // return paths;
     }
-    // const paths = [
-    //     { path: "/about", text: "About" },
-    //     { path: (userHash ? `profile/${userHash}` : "/login"), text: userLogin },
-    //     { path: "/*", text: "Search" }
-    // ]
+
     return (
         <nav className="navbar" style={{ backgroundColor: "black" }} aria-label="navigation">
             <a href="/" className="logo">
@@ -58,6 +55,9 @@ function NavBar() {
                 </li>
                 <li>
                     <a href="/about" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>About Us</a>
+                </li>
+                <li>
+                    {path}
                 </li>
             </ul>
         </nav>

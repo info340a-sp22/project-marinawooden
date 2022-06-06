@@ -101,7 +101,6 @@ export function Login() {
       <div className="login-form">
         <div className="title">Sign In</div>
         {isSubmitted ? <Navigate to={"/profile/" + userId} /> : renderForm} 
-        {/* <LogOut userID={userId} /> */}
       </div>
     </div>
   );
