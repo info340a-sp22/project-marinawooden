@@ -1,7 +1,5 @@
 import React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import Popper from "popper.js";
 import Cookies from "universal-cookie";
 
 
@@ -25,21 +23,21 @@ function NavBar() {
     ]
     return (
         <nav className="navbar" style={{ backgroundColor: "black" }} aria-label="navigation">
-            <Link to="/*" className="logo" href="#">
+            <a href="/" className="logo">
                 <img src="/img/logo.png" className="img-responsive ml-3 p-2" alt="MusicRoom logo" width="60" height="60" />
-            </Link>
+            </a>
             <div className="d-md-none">
                 <HamBurgerNav paths={paths} />
             </div>
             <ul className="d-none d-md-flex nav justify-content-end" aria-label="navigation">
                 <li>
-                    <Link to={userHash ? `/profile/${userHash}` : "/login"} className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>{userLogin}</Link>
+                    <a href={userHash ? `/profile/${userHash}` : "/login"} className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>{userLogin}</a>
                 </li>
                 <li>
-                    <Link to="/*" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>Search</Link>
+                    <a href="/search" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>Search</a>
                 </li>
                 <li>
-                    <Link to="/about" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>About Us</Link>
+                    <a href="/about" className="nav-item mx-2 mt-2 p-1" style={{ color: "white", textDecoration: "none"}}>About Us</a>
                 </li>
             </ul>
         </nav>

@@ -51,7 +51,6 @@ export function Login() {
             now.setTime(now.getTime() + 1 * 3600 * 1000);
             
             cookies.set('userHash', userHash, { path: '/' , expires: now});
-            cookies.set('loggedIn', userInfo["id"], { path: '/' , expires: now});
 
             setIsSubmitted(true);
             setUserId(userHash);
