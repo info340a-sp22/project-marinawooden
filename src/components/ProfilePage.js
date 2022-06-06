@@ -190,6 +190,7 @@ export default function ProfilePage(props) {
 export function AlbumDisc(props) {
   /* Find the release data in the forms {"likes": "", "listeners": ""} */
   let myRelease = props.release;
+  console.log(myRelease);
 
   return (
     <div className="album p-3">
