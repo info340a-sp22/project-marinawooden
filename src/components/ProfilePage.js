@@ -13,39 +13,41 @@ export default function ProfilePage(props) {
   const [releases, setReleases] = useState([]);
   const [user, setUser] = useState(USER_DEFAULTS);
   const [tags, setTags] = useState([]);
-  const [userHash, setUserHash] = useState(undefined);
 
   let prms = useParams();
   let artist = parseInt(prms.artistId);
 
   useEffect(() => {
     const db = getDatabase();
-    const postsRef = ref(db, 'posts'); // get all posts reference
     const profileRef = ref(db, 'profiles'); // get all profiles
-
-    onValue(postsRef, (snapshot) => {
-      setPosts(snapshot.val().filter(elem => elem.user === artist));
-    });
 
     onValue(profileRef, (snapshot) => {
       const profile = Object.values(snapshot.val()).find(elem => elem.id === artist);
       setUser(profile);
 
-      console.log(Object.keys(snapshot.val()).find(key => snapshot.val()[key] === profile));
+      const releaseKey = Object.keys(profile["releases"]);
+      const postsKey = Object.keys(profile["posts"]);
 
-      const keyValue = Object.keys(profile["releases"]);
-      let newArr = [...Object.values(profile["releases"])].map((elem, i) => {
+      let releaseArr = [...Object.values(profile["releases"])].map((elem, i) => {
         return {
-          id: keyValue[i],
-          ...profile["releases"][keyValue[i]]
+          id: releaseKey[i],
+          artistId: Object.keys(snapshot.val()).find(key => snapshot.val()[key]["id"] === profile["id"]),
+          ...profile["releases"][releaseKey[i]]
         }
       });
 
-      setReleases(newArr);
+      let postsArr = [...Object.values(profile["posts"])].map((elem, i) => {
+        return {
+          id: postsKey[i],
+          artistId: Object.keys(snapshot.val()).find(key => snapshot.val()[key]["id"] === profile["id"]),
+          ...profile["posts"][postsKey[i]]
+        }
+      });
+
+      setReleases(releaseArr);
+      setPosts(postsArr);
     });
   }, []);
-
-  console.log(releases);
 
   if (!user.skill) {
     if (user.genre) {
@@ -123,12 +125,8 @@ export default function ProfilePage(props) {
       
       {/* Testing Album upload */}
       <section className="d-flex justify-content-center">
-<<<<<<< HEAD
-        <UploadSnippet profileInfo={user} />
-=======
         <UploadSnippet profileInfo={user} artist={artist}/>
         <PlaySong />
->>>>>>> 1b03eb1c9c33c67157d788155cf8ddf32d84223c
       </section>
 
       <section className="px-m-5 py-2">
@@ -184,7 +182,7 @@ export function AlbumDisc(props) {
         <p>{myRelease.title}</p>
       </div>
       <div className='desc'>
-        <LikeButton post={myRelease} />
+        <LikeButton post={myRelease}/>
       </div>
       <div className='desc'>
         <div className='d-flex align-items-center'>
@@ -220,45 +218,43 @@ export function PostCard(props) {
 export function LikeButton(props) {
   const cookie = new Cookies();
   const loggedIn = cookie.get("loggedIn");
+  const userHash = cookie.get("userHash");
+
   const myPost = props.post;
-  
+
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(myPost.like);
-  const [likedBy, setLikedBy] = useState([]);
-  const db = getDatabase();
-  let path = `releases/${myPost.id - 1}/`;
-  
+  const [likedBy, setLikedBy] = useState(Object.keys(myPost.likedBy));
+
   useEffect(() => {
+    const db = getDatabase();
+    const path = (myPost["text"] ? `profiles/${myPost.artistId}/posts/${myPost.id}/` : `profiles/${myPost.artistId}/releases/${myPost.id}/`);
     const postRef = ref(db, path);
-    const likesRef = child(postRef, "like");
-    const likedByRef = child(postRef, "likedBy");
+    
+    if (likedBy.includes(userHash)) {
+      setLiked(true);
+    }
 
-    onValue(likesRef, (snapshot) => {
-      setLikes(snapshot.val());
-    });
+    firebaseSet(child(postRef, "like"), likes);
+    firebaseSet(child(postRef, "likedBy"), likedBy);
+  }, [likedBy, userHash]);
 
-    onValue(likedByRef, (snapshot) => {
-      setLikedBy(snapshot.val());
-      (Object.values(snapshot.val()).includes(parseInt(loggedIn)) ? setLiked(true) : setLiked(false));
-    });
-  }, [db, path, loggedIn]);
+  console.log(myPost);
 
-  let handleLike = () => {
-    if (loggedIn) {
-      if (!liked) {
-        setLikedBy([...likedBy, loggedIn]);
-        firebaseSet(ref(db, `${path}like`), likes + 1);
-        firebaseSet(ref(db, `${path}likedBy`), [...likedBy, parseInt(loggedIn)]);
-        setLikes(likes + 1);
-        setLiked(true);
-      } else {
-        firebaseSet(ref(db, `${path}like`), likes - 1);
-        firebaseSet(ref(db, `${path}likedBy`), [...likedBy].filter(elem => elem !== parseInt(loggedIn)));
-        setLikes(likes - 1);
-        setLiked(false);
-      }
+  function handleLike() {
+    if (!liked) {
+      setLiked(true);
+      setLikes(likes + 1);
+      let addedArray = [...likedBy, userHash];
+      setLikedBy(addedArray);
     } else {
-      alert("You must be logged in to like a post!");
+      setLiked(false);
+      setLikes(likes - 1);
+
+      let removedArray = [...likedBy].filter((elem) => {
+        return elem !== userHash;
+      })
+      setLikedBy(removedArray);
     }
   }
 

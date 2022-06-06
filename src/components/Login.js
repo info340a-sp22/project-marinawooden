@@ -45,9 +45,12 @@ export function Login(props) {
           })
           .then((mail) => {
             const userInfo = Object.values(users).find(elem => elem["email"] === mail);
-            console.log(userInfo["id"]);
+            const userHash = Object.keys(users).find(key => users[key] === userInfo);
+
             let now = new Date();
             now.setTime(now.getTime() + 1 * 3600 * 1000);
+            
+            cookies.set('userHash', userHash, { path: '/' , expires: now});
             cookies.set('loggedIn', userInfo["id"], { path: '/' , expires: now});
 
             setIsSubmitted(true);
