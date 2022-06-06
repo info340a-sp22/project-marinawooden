@@ -9,10 +9,14 @@ import NavBar from './NavBar';
 import { Footer } from './Footer';
 
 export default function ProfilePage(props) {
+  const cookie = new Cookies();
+  const userHash = cookie.get("userHash");
+
   const [posts, setPosts] = useState([]);
   const [releases, setReleases] = useState([]);
   const [user, setUser] = useState(USER_DEFAULTS);
   const [tags, setTags] = useState([]);
+  const [artistHash, setArtistHash] = useState("");
 
   let prms = useParams();
   let artist = parseInt(prms.artistId);
@@ -23,7 +27,9 @@ export default function ProfilePage(props) {
 
     onValue(profileRef, (snapshot) => {
       const profile = Object.values(snapshot.val()).find(elem => elem.id === artist);
+      const hash = Object.keys(snapshot.val()).find(key => (snapshot.val())[key]["id"] === artist);
       setUser(profile);
+      setArtistHash(hash);
 
       const releaseKey = (profile["releases"] ? Object.keys(profile["releases"]) : []);
       const postsKey = (profile["posts"] ? Object.keys(profile["posts"]) : []);
@@ -97,7 +103,16 @@ export default function ProfilePage(props) {
         <LinkTag key={elem} isFeatured={false} tag={elem} />
       )
     }
-  })
+  });
+
+  const uploadsSection = (
+    <section className="px-m-5 py-2 text-center">
+      <h2>Actions</h2>
+      <section className="d-flex justify-content-center align-items-center">
+        <UploadSnippet profileInfo={user} artist={artist} />
+      </section>
+    </section>
+  )
 
   return (
     <div id="profile">
@@ -119,23 +134,20 @@ export default function ProfilePage(props) {
           {interestTags}
         </ul>
       </header>
+      {artistHash === userHash ? uploadsSection : <></>}
       <section className="px-m-5 py-2 text-center">
         <h2>Snippets</h2>
         <div className='d-flex flex-wrap justify-content-center'>{releaseDiscs}</div>
       </section>
-      <section  className="px-m-5 py-2">
+      <section  className="px-m-5 py-2 text-center text-lg-start">
         <h2>Recent Posts</h2>
         <div className='d-flex justify-content-center flex-wrap flex-shrink-1 flex-grow-1 px-m-5'>
           {postCards}
         </div>
       </section>
       
-      {/* Testing Album upload */}
-      <section className="d-flex justify-content-center">
-        <UploadSnippet profileInfo={user} artist={artist} />
-      </section>
 
-      <section className="px-m-5 py-2">
+      <section className="px-m-5 py-2 text-center text-lg-start">
         <h2>About Me</h2>
         <p>
           {user.desc}
@@ -207,7 +219,7 @@ export function PostCard(props) {
   let myPost = props.post;
 
   return (
-    <div className='card post p-3 m-3' style={{backgroundColor:"rgb(93, 62, 211)"}}>
+    <div className='card post p-3 m-3 text-start' style={{backgroundColor:"rgb(93, 62, 211)"}}>
       <h3>
         {myPost.title}
       </h3>
@@ -226,7 +238,6 @@ export function PostCard(props) {
 
 export function LikeButton(props) {
   const cookie = new Cookies();
-  const loggedIn = cookie.get("loggedIn");
   const userHash = cookie.get("userHash");
 
 
@@ -246,8 +257,6 @@ export function LikeButton(props) {
     if (likedBy.includes(userHash)) {
       setLiked(true);
     }
-
-    console.log(likedBy);
 
     firebaseSet(child(postRef, "like"), likes);
     firebaseSet(child(postRef, "likedBy"), likedBy);
@@ -272,8 +281,6 @@ export function LikeButton(props) {
       setLikedBy(removedArray);
     }
   }
-
-  console.log(likedBy);
 
   return (
     <div className="d-flex align-items-center">

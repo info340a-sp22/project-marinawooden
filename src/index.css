@@ -79,9 +79,15 @@ header {
 .tags li:hover {
     transform: scale(1.1);
 }
+
 #profile {
     background-color: #000;
     color: white;
+}
+
+#profile > section {
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .profile-img {
@@ -125,16 +131,6 @@ header {
 .tags li.bg-feature {
     background-image: linear-gradient(0deg, rgba(0, 50, 126, 1) 0%, rgba(0, 209, 255, 1) 100%);
     border: none;
-}
-
-
-
-.post {
-    width: 45%;
-    max-width: 500px;
-    overflow: hidden;
-    background-color: rgb(var(--bs-dark-rgb));
-    border: 1px solid;
 }
 
 .post-text {
@@ -254,14 +250,27 @@ input[type="submit"]:hover, .btn-thumbnail:hover {
     margin: 10px;
 }
 
-@media (max-width: 768px) {
-    .profile-img-small {
-        width: 4em;
-        height: 4em;
+.profile-img-small {
+    width: 4em;
+    height: 4em;
+}
+
+.post {
+    width: 100%;
+    overflow: hidden;
+    background-color: rgb(var(--bs-dark-rgb));
+    border: 1px solid;
+}
+
+@media (min-width: 768px) {
+    .post {
+        width: 45%;
+        max-width: 500px;
     }
 
-    .post {
+    .profile-img-small {
         width: 100%;
+        height: 100%;
     }
 }
 

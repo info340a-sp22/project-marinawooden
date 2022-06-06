@@ -152,9 +152,10 @@ export function UploadSnippet({ profileInfo, artist }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className="d-flex justify-content-center">
+        <div>
           <label htmlFor="file-input" aria-label="upload button">
             <FontAwesomeIcon icon={faArrowUpFromBracket} size="2x" />
+            <p>Upload</p>
           </label>
           <input id="file-input" style={{ display: "none" }} type="file" onChange={addFile} accept="audio/*" />
         </div>
