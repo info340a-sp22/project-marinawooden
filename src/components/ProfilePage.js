@@ -14,6 +14,7 @@ export default function ProfilePage(props) {
   const [releases, setReleases] = useState([]);
   const [user, setUser] = useState(USER_DEFAULTS);
   const [tags, setTags] = useState([]);
+  const [userHash, setUserHash] = useState(undefined);
 
   let prms = useParams();
   let artist = parseInt(prms.artistId);
@@ -21,22 +22,31 @@ export default function ProfilePage(props) {
   useEffect(() => {
     const db = getDatabase();
     const postsRef = ref(db, 'posts'); // get all posts reference
-    const releaseRef = ref(db, 'releases'); // get all releases
     const profileRef = ref(db, 'profiles'); // get all profiles
 
     onValue(postsRef, (snapshot) => {
       setPosts(snapshot.val().filter(elem => elem.user === artist));
     });
 
-    onValue(releaseRef, (snapshot) => {
-      setReleases(snapshot.val().filter(elem => elem.artistId === artist));
-    });
-
     onValue(profileRef, (snapshot) => {
       const profile = Object.values(snapshot.val()).find(elem => elem.id === artist);
       setUser(profile);
+
+      console.log(Object.keys(snapshot.val()).find(key => snapshot.val()[key] === profile));
+
+      const keyValue = Object.keys(profile["releases"]);
+      let newArr = [...Object.values(profile["releases"])].map((elem, i) => {
+        return {
+          id: keyValue[i],
+          ...profile["releases"][keyValue[i]]
+        }
+      });
+
+      setReleases(newArr);
     });
-  }, [artist, releases]);
+  }, []);
+
+  console.log(releases);
 
   if (!user.skill) {
     if (user.genre) {
@@ -58,9 +68,9 @@ export default function ProfilePage(props) {
     postCards = "This user has no posts!";
   }
 
-  let releaseDiscs = releases.map((elem) => {
+  let releaseDiscs = Object.values(releases).map((elem, i) => {
     return (
-      <AlbumDisc key={elem["releaseId"]} release={elem}/>
+      <AlbumDisc key={i} release={elem}/>
     )
   });
 
@@ -114,7 +124,7 @@ export default function ProfilePage(props) {
       
       {/* Testing Album upload */}
       <section className="d-flex justify-content-center">
-        <UploadSnippet profileInfo={user} artist={artist}/>
+        <UploadSnippet profileInfo={user} />
       </section>
 
       <section className="px-m-5 py-2">
@@ -212,7 +222,7 @@ export function LikeButton(props) {
   const [likes, setLikes] = useState(myPost.like);
   const [likedBy, setLikedBy] = useState([]);
   const db = getDatabase();
-  let path = (myPost["releaseId"] ? `releases/${myPost.releaseId - 1}/` : `posts/${myPost.id - 1}/`);
+  let path = `releases/${myPost.id - 1}/`;
   
   useEffect(() => {
     const postRef = ref(db, path);
