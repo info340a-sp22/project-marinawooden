@@ -12,12 +12,17 @@ export function SearchResult({ queryString}) {
         const db = getDatabase();
         const profRef = ref(db, "profiles");
         const unregisterListenerProfile = onValue(profRef, (snapshot) => {
-            const profSnapshot = snapshot.val();
-            const profKeys = Object.keys(profSnapshot);
-            const newProfArray = profKeys.map((keyString) => {
-                return profSnapshot[keyString];
-            })
-            setProfData(newProfArray);
+            let allProfiles = Object.values(snapshot.val());
+            let allHashes = Object.keys(snapshot.val());
+
+            allProfiles = allProfiles.map((elem, i) => {
+                return {
+                    artistId: allHashes[i],
+                    ...elem,
+                }
+            });
+
+            setProfData(allProfiles);
         })
         const criteriaRef = ref(db, "criteria");
         const unregisterListenerCriteria = onValue(criteriaRef, (snapshot) =>{
@@ -81,21 +86,13 @@ export function SearchResult({ queryString}) {
                 const obj = searchTerms[index];
                 const key = Object.keys(obj)[0];
                 const value = obj[key];
-                console.log(e[key]);
-                console.log(value);
 
                 if (e[key]) {
-                    if (key === "skill") {
-                        categories['skill'] = e[key].includes(value);
-                    }
-                    if (key === "genre") {
-                        categories['genre'] = e[key].includes(value)
-                    }
-                    if (key === "name") {
-                        categories['name'] = (e[key] === value);
-                    }
-                    if (key === "school") {
-                        categories['school'] = (e[key] === value);
+                    
+                    if (key === "skill" || key === "genre") {
+                        categories[key] = e[key].includes(value);
+                    } else if (key === "name" || key === "school") {
+                        categories[key] = (e[key] === value);
                     }
                 }
             }
@@ -138,7 +135,7 @@ function SearchItem({ profile }) {
             <div className="row no-gutters">
                 <div className="col-4 col-md-2">
                     <div className="d-flex flex-column align-items-center justify-md-content-between">
-                        <Link to={"profile/" + profile.id}>
+                        <Link to={"profile/" + profile.artistId}>
                             {/* <div className="profile-img profile-img-small my-3" style={img}>
                             </div> */}
                             <img src={"img/" + profile.img + ""} alt={profile.name + "'s profile"} style={img} className="my-3 mb-4"/>

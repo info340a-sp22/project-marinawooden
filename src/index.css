@@ -86,8 +86,16 @@ header {
 }
 
 #profile > section {
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+.action {
+    max-width: 100px;
+}
+
+.small-text {
+    font-size: .8em;
 }
 
 .profile-img {

@@ -15,7 +15,7 @@ export default function App(props) {
     return (
         <Routes>
             <Route path="/about" element={<AboutUs />} />
-            <Route path="/login" element={userId !== null ? <Navigate to={"/profile/" + userId} /> : <Login uname={props.uname} loginCallback={handleLogin}/>} />
+            <Route path="/login" element={userId !== null ? <Navigate to={"/profile/" + userId} /> : <Login />} />
             <Route path="/profile/:artistId" element={<ProfilePage />} />
             <Route path="/register" element={<Register />}/>
             <Route path="/" element={<AboutUs />} />

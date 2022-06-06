@@ -8,12 +8,12 @@ import { getDatabase, onValue, ref } from "firebase/database";
 
 let loggedIn = false;
 
-export function Login(props) {
+export function Login() {
     const cookies = new Cookies();
     // States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [userId, setUserId] = useState(cookies.get("loggedIn"));
+    const [userId, setUserId] = useState(cookies.get("userHash"));
     const [users, setUsers] = useState([]);
 
     const errors = {
@@ -54,7 +54,7 @@ export function Login(props) {
             cookies.set('loggedIn', userInfo["id"], { path: '/' , expires: now});
 
             setIsSubmitted(true);
-            setUserId(userInfo["id"]);
+            setUserId(userHash);
           })
           .catch((error) => {
             /** WRONG CREDENTIALS CASE */

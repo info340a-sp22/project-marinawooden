@@ -62,7 +62,7 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
 }
 
 // upload an audio file to the firebase database
-export function UploadSnippet({ profileInfo, artist }) {
+export function UploadSnippet({ profileInfo }) {
   const [inputFile, setFile] = useState();
   const [inputImage, setImage] = useState();
   const [errorMessage, setErrorMessage] = useState('');
@@ -150,12 +150,12 @@ export function UploadSnippet({ profileInfo, artist }) {
     databasePush(releasesRef, releasesMetadata);
   }
   return (
-    <div>
+    <div className="action p-3 d-flex justify-content-center align-items-center flex-direction-column">
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="file-input" aria-label="upload button">
             <FontAwesomeIcon icon={faArrowUpFromBracket} size="2x" />
-            <p>Upload</p>
+            <p className="small-text">Upload Snippets</p>
           </label>
           <input id="file-input" style={{ display: "none" }} type="file" onChange={addFile} accept="audio/*" />
         </div>
