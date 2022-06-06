@@ -217,10 +217,10 @@ function DiscCircle(props) {
       setMe(false);
     }
   };
-  const style = {backgroundImage: "url('../" + props.imageSrc + "')", filter: amIPlaying === true ? "":"blur(2px)"}
+  const style = {backgroundImage: "url('../" + props.imageSrc + "')"}
   return (
     <div onClick={handleClick}>
-      <div className="circle" role="img" alt={props.title} style={style}>
+      <div className={(amIPlaying ? "playing " : "") + "circle"} role="img" alt={props.title} style={style}>
       </div>
       {/* <div className="row align-items-center">
         <div className="col">
