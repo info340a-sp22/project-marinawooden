@@ -15,7 +15,7 @@ function DisplayFName({ inputFile }) {
   )
 }
 
-export function PlaySong() {
+export function PlaySong({snippet, imageSrc}) {
   let upload;
   const [buttonName, setButtonName] = useState("Play");
   const [disable, setDisable] = useState(true);
@@ -46,7 +46,8 @@ export function PlaySong() {
   };
   useEffect(() => {
     const storage = getStorage();
-    const pathReference = storageRef(storage, 'snippets/test1');
+    const snippetPath = 'snippets/' + snippet
+    const pathReference = storageRef(storage, snippetPath);
     getDownloadURL(pathReference)
       .then((url) => {
         setAudio(new Audio(url));
@@ -54,7 +55,7 @@ export function PlaySong() {
       .catch((error) => {
         setErrorMessage(error.code);
       })
-  }, [setAudio, setErrorMessage])
+  }, [setAudio, setErrorMessage, snippet])
   return (
     <div>
       <button onClick={handleClick}>{buttonName}</button>
@@ -200,3 +201,8 @@ function MetaDataForm({ setImageCallback }) {
   )
 }
 
+function DiscCircle(props) {
+  return (
+    <div className="circle" role="img" alt={props.title} style={{backgroundImage: "url('../img/" + props.imageSrc + "')"}}/>
+  );
+}
