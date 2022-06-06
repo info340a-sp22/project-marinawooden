@@ -25,10 +25,12 @@ export default function ProfilePage(props) {
       const profile = Object.values(snapshot.val()).find(elem => elem.id === artist);
       setUser(profile);
 
-      const releaseKey = Object.keys(profile["releases"]);
-      const postsKey = Object.keys(profile["posts"]);
+      const releaseKey = (profile["releases"] ? Object.keys(profile["releases"]) : []);
+      const postsKey = (profile["posts"] ? Object.keys(profile["posts"]) : []);
+      const releaseVals = (profile["releases"] ? [...Object.values(profile["releases"])] : []);
+      const postsVals = (profile["posts"] ? [...Object.values(profile["posts"])] : []);
 
-      let releaseArr = [...Object.values(profile["releases"])].map((elem, i) => {
+      let releaseArr = releaseVals.map((elem, i) => {
         return {
           id: releaseKey[i],
           artistId: Object.keys(snapshot.val()).find(key => snapshot.val()[key]["id"] === profile["id"]),
@@ -36,7 +38,7 @@ export default function ProfilePage(props) {
         }
       });
 
-      let postsArr = [...Object.values(profile["posts"])].map((elem, i) => {
+      let postsArr = postsVals.map((elem, i) => {
         return {
           id: postsKey[i],
           artistId: Object.keys(snapshot.val()).find(key => snapshot.val()[key]["id"] === profile["id"]),
@@ -44,20 +46,20 @@ export default function ProfilePage(props) {
         }
       });
 
+      if (!profile.skill) {
+        if (profile.genre) {
+          setTags(profile.skill);
+        }
+      } else if (!profile.genre) {
+        setTags(profile.skill);
+      } else {
+        setTags((profile.skill).concat(profile.genre));
+      }
+
       setReleases(releaseArr);
       setPosts(postsArr);
     });
   }, []);
-
-  if (!user.skill) {
-    if (user.genre) {
-      setTags(user.skill);
-    }
-  } else if (!user.genre) {
-    setTags(user.skill);
-  } else {
-    (user.skill).concat(user.genre);
-  }
 
   let postCards = posts.map((elem) => {
     return (
@@ -178,14 +180,14 @@ export default function ProfilePage(props) {
 
 export function AlbumDisc(props) {
   /* Find the release data in the forms {"likes": "", "listeners": ""} */
-  console.log(props);
   let myRelease = props.release;
   let myId = props.id;
+
   return (
-    <div className="album flex-grow-1 flex-shrink-1 p-3">
+    <div className="album p-3">
       <div>
         {/* <DiscCircle imageSrc={myRelease.img} imageDesc={myRelease.title} /> */}
-        <PlaySong snippet={myId + "/" + myRelease.title} imageSrc={myRelease.img} imageDesc={myRelease.title} setPlayingCall={props.setPlayingCall} getPlayingCall={props.getPlayingCall}/>
+        <PlaySong artist={myRelease.artistId} snippet={myRelease.title} imageSrc={myRelease.img} imageDesc={myRelease.title} setPlayingCall={props.setPlayingCall} getPlayingCall={props.getPlayingCall}/>
         <p>{myRelease.title}</p>
       </div>
       <div className='desc'>
@@ -227,11 +229,14 @@ export function LikeButton(props) {
   const loggedIn = cookie.get("loggedIn");
   const userHash = cookie.get("userHash");
 
-  const myPost = props.post;
 
-  const [liked, setLiked] = useState(false);
+  const myPost = props.post;
+  const whoLiked = (myPost.likedBy ? Object.values(myPost.likedBy) : []);
+
+  const [liked, setLiked] = useState(whoLiked.includes(userHash) ? true : false);
   const [likes, setLikes] = useState(myPost.like);
-  const [likedBy, setLikedBy] = useState(Object.keys(myPost.likedBy));
+  const [likedBy, setLikedBy] = useState(whoLiked);
+
 
   useEffect(() => {
     const db = getDatabase();
@@ -242,17 +247,18 @@ export function LikeButton(props) {
       setLiked(true);
     }
 
+    console.log(likedBy);
+
     firebaseSet(child(postRef, "like"), likes);
     firebaseSet(child(postRef, "likedBy"), likedBy);
-  }, [likedBy, userHash]);
-
-  console.log(myPost);
+  }, [likedBy, userHash, likes, myPost]);
 
   function handleLike() {
     if (!liked) {
       setLiked(true);
       setLikes(likes + 1);
       let addedArray = [...likedBy, userHash];
+      // console.log(addedArray);
       setLikedBy(addedArray);
     } else {
       setLiked(false);
@@ -261,9 +267,13 @@ export function LikeButton(props) {
       let removedArray = [...likedBy].filter((elem) => {
         return elem !== userHash;
       })
+
+      // console.log(removedArray);
       setLikedBy(removedArray);
     }
   }
+
+  console.log(likedBy);
 
   return (
     <div className="d-flex align-items-center">

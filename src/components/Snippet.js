@@ -3,6 +3,7 @@ import { getDownloadURL, getStorage, ref as storageRef, uploadBytes } from "fire
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUpFromBracket, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase, ref as databaseRef, push as databasePush, onValue } from "firebase/database";
+import Cookies from "universal-cookie";
 
 function DisplayFName({ inputFile }) {
   if (inputFile) {
@@ -15,7 +16,7 @@ function DisplayFName({ inputFile }) {
   )
 }
 
-export function PlaySong({snippet, imageSrc, imageDesc, setPlayingCall, getPlayingCall}) {
+export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, getPlayingCall}) {
   let upload;
   const [buttonName, setButtonName] = useState("Play");
   const [disable, setDisable] = useState(true);
@@ -38,8 +39,10 @@ export function PlaySong({snippet, imageSrc, imageDesc, setPlayingCall, getPlayi
 
   useEffect(() => {
     const storage = getStorage();
-    const snippetPath = 'snippets/' + snippet
+    const snippetPath = `snippets/${artist}/${snippet}`;
     const pathReference = storageRef(storage, snippetPath);
+
+    
     getDownloadURL(pathReference)
       .then((url) => {
         setAudio(new Audio(url));
@@ -47,10 +50,11 @@ export function PlaySong({snippet, imageSrc, imageDesc, setPlayingCall, getPlayi
       .catch((error) => {
         setErrorMessage(error.code);
       })
-  }, [setAudio, setErrorMessage, snippet])
+  }, [setAudio, setErrorMessage, snippet, artist]);
+
   return (
     <div>
-      <DiscCircle audio={audio}imageSrc={imageSrc} imageDesc={imageDesc} setPlayingCall={setPlayingCall} getPlayingCall={getPlayingCall}/>
+      <DiscCircle audio={audio} imageSrc={imageSrc} imageDesc={imageDesc} setPlayingCall={setPlayingCall} getPlayingCall={getPlayingCall}/>
       <p>{upload}</p>
       {errorMessage && (<p className="error"> {errorMessage} </p>)}
     </div>
@@ -69,7 +73,6 @@ export function UploadSnippet({ profileInfo, artist }) {
     const fileExtension = file.name.split('.').pop();
     return validExtensions.includes(fileExtension)
   }
-  console.log(artist);
   // add new File to Input File State
   const addFile = (event) => {
     setFile(event.target.files[0]);
@@ -79,65 +82,72 @@ export function UploadSnippet({ profileInfo, artist }) {
   const addImage = (event) => {
     setImage(event.target.files[0]);
   }
-  // console.log(inputImage);
   // if audio file is in an accepted format,
   // upload the file to firebase storage along sides
   // metadata about the songs
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (inputFile && inputImage) {
-      if (isValidFileUploaded(inputFile)) {
-        const imagePath = "img/" + inputImage.name;
-        setErrorMessage('');
-        const metaData = {
-          customMetadata: {
-            artistId: artist,
-            title: event.target.title.value,
-            artist: profileInfo.name,
-            genres: event.target.genres.value,
-            img: imagePath
+
+    const cookie = new Cookies();
+    const userHash = cookie.get("userHash");
+
+    if (userHash) {
+      if (inputFile && inputImage) {
+        if (isValidFileUploaded(inputFile)) {
+          const imagePath = "img/" + inputImage.name;
+          setErrorMessage('');
+          const metaData = {
+            customMetadata: {
+              title: event.target.title.value,
+              filename: inputFile.name,
+              artist: profileInfo.name,
+              genres: event.target.genres.value,
+              img: imagePath
+            }
           }
+          const storage = getStorage();
+          const snipPath = "snippets/" + userHash + "/" + event.target.title.value;
+          event.target.title.value = "";
+          event.target.genres.value = "";
+          const snippetsRef = storageRef(storage, snipPath);
+          uploadBytes(snippetsRef, inputFile, metaData)
+            .then((snapshot) => {
+              setFile();
+            }).catch((error) => {
+              setErrorMessage(error.code);
+            })
+          const imagesRef = storageRef(storage, imagePath);
+          uploadBytes(imagesRef, imagePath)
+            .then((snapshot) => {
+              setImage();
+            }).catch((error) => {
+              setErrorMessage(error.code);
+            })
+          updateRelease(metaData, userHash);
+          
+        } else {
+          setErrorMessage('Missing Required Inputs/Files');
+          setFile();
         }
-        const storage = getStorage();
-        const snipPath = "snippets/" + artist + "/" + event.target.title.value;
-        event.target.title.value = "";
-        event.target.genres.value = "";
-        const snippetsRef = storageRef(storage, snipPath);
-        uploadBytes(snippetsRef, inputFile, metaData)
-          .then((snapshot) => {
-            setFile();
-          }).catch((error) => {
-            setErrorMessage(error.code);
-          })
-        const imagesRef = storageRef(storage, imagePath);
-        uploadBytes(imagesRef, imagePath)
-          .then((snapshot) => {
-            setImage();
-          }).catch((error) => {
-            setErrorMessage(error.code);
-          })
-        updateRelease(metaData);
       }
-      else {
-        setErrorMessage('Missing Required Inputs/Files');
-        setFile();
-      }
+      setFile();
+    } else {
+      alert("You must be logged in to upload a snippet!");
     }
-    setFile();
   }
 
-  function updateRelease(metadata) {
+  function updateRelease(metadata, userHash) {
     const db = getDatabase();
-    const path = "releases/" + metadata.customMetadata.artistId;
+    const path = `profiles/${userHash}/releases`;
     const releasesRef = databaseRef(db, path);
     const releasesMetadata = {
-      artistId: metadata.customMetadata.artistId,
       img: metadata.customMetadata.img,
       like: 0,
       listeners: 0,
-      title: metadata.customMetadata.title
+      title: metadata.customMetadata.title,
+      filename: metadata.customMetadata.filename
     }
-    databasePush(releasesRef, releasesMetadata)
+    databasePush(releasesRef, releasesMetadata);
   }
   return (
     <div>
@@ -197,7 +207,6 @@ function DiscCircle(props) {
   const [amIPlaying, setMe] = useState(false)
   const handleClick = () => {
     if (!props.getPlayingCall() && !amIPlaying) {
-      console.log(props.getPlayingCall());
       props.audio.play();
       props.setPlayingCall(true);
       setMe(true);
@@ -208,7 +217,7 @@ function DiscCircle(props) {
       setMe(false);
     }
   };
-  const style = {backgroundImage: "url('../img/" + props.imageSrc + "')", filter: amIPlaying === true ? "":"blur(2px)"}
+  const style = {backgroundImage: "url('../" + props.imageSrc + "')", filter: amIPlaying === true ? "":"blur(2px)"}
   return (
     <div onClick={handleClick}>
       <div className="circle" role="img" alt={props.title} style={style}>

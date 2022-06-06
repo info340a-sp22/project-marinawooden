@@ -152,6 +152,9 @@ header {
 
 #profile .album {
     max-width: 275px;
+    min-width: 175px;
+    width: 100%;
+    flex: 1;
 }
 
 #profile .desc>div {
