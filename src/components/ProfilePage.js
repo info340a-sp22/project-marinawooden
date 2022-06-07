@@ -112,7 +112,7 @@ export default function ProfilePage(props) {
       </section>
     </section>
   )
-
+    
   return (
     <div id="profile">
       <NavBar/>

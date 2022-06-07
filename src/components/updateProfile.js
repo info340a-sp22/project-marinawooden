@@ -2,36 +2,20 @@
 import { text } from "@fortawesome/fontawesome-svg-core";
 import { getAuth, updateProfile } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
+import { getDatabase, ref, onValue, set as firebaseSet, child } from "firebase/database";
 
 const handleUpdate = (event) => {
 
-    event.preventDefault();
+    const cookie = new Cookies();
+    const userHash = cookie.get("userHash");
 
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const db = getDatabase();
+    const path = `profiles/${userHash}`
 
-    // if (user !== null) {
-    //     user.providerData.forEach((profile) => {
-    //     console.log("Sign-in provider: " + profile.providerId);
-    //     console.log("  Provider-specific UID: " + profile.uid);
-    //     console.log("  Name: " + profile.displayName);
-    //     console.log("  Email: " + profile.email);
-    //     console.log("  Photo URL: " + profile.photoURL);
-    //     });
-    // }
+    const userRef = ref(db, path);
 
-    console.log(user.password);
-
-    updateProfile(user, {
-        displayName: event.target[0].value, photoURL: event.target[1].value
-      }).then(() => {
-        // Profile updated!
-        // ...
-      }).catch((error) => {
-        //error.message
-      });
-    
-      console.log("  Name: " + user.displayName);
+    firebaseSet(child(userRef, "name"), event.target.name.value);
 
 }
 
@@ -53,12 +37,16 @@ export function UserUpdate () {
             <form onSubmit={handleUpdate}>
                 <div className="input-container">
                     <label>Username </label>
-                    <input type="text" name="email" required />
+                    <input type="text" name="name" required />
                 </div>
                 <div className="input-container">
-                    <label>Image </label>
-                    <input type="file" value={selectedFile} onChange={(e) => setSelectedFile(e.target.files[0])} />
+                    <label>Bio </label>
+                    <input type="text" name="Bio" />
                 </div>
+                <div className="button-container">
+                <input type="submit" />
+                </div>
+
             </form> 
         )}
       </div>
