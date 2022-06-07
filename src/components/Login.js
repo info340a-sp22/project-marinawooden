@@ -58,8 +58,7 @@ export function Login() {
           })
           .catch((error) => {
             /** WRONG CREDENTIALS CASE */
-            console.log(error);
-            alert(error.message);
+            alert("Those were the wrong credentials");
           });
     };
 
@@ -87,10 +86,12 @@ export function Login() {
         <div className="button-container">
           <input type="submit" />
         </div>
-        <p>
-          Don't have an account?    
-          <Link to='/register'>Create one here</Link>
-        </p>
+        <div className="mt-3">
+          <p className="small-text text-center">
+            Don't have an account?
+            <Link to='/register'> Create one here</Link>
+          </p>
+        </div>
       </form>
       
     </div>
