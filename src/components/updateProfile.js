@@ -29,9 +29,7 @@ export function UserUpdate () {
   
     return (
       <div>
-        <form>
-          <button onClick={sdisplayForm}>click</button>
-        </form>
+        <button onClick={sdisplayForm}>click</button>
   
         {displayForm && (
             <form onSubmit={handleUpdate}>

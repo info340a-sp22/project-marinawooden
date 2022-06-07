@@ -246,7 +246,7 @@ function DiscCircle(props) {
   const style = {backgroundImage: "url('" + props.imageSrc + "')"}
   return (
     <div onClick={handleClick}>
-      <div className={(amIPlaying ? "playing " : "") + "circle"} role="img" alt={props.title} style={style}>
+      <div className={(amIPlaying ? "playing " : "") + "circle"} role="img" aria-label={props.imageDesc} style={style}>
       </div>
       {/* <div className="row align-items-center">
         <div className="col">
