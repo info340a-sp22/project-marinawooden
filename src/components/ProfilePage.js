@@ -4,7 +4,7 @@ import { getDatabase, ref, onValue, set as firebaseSet, child } from "firebase/d
 import Cookies from "universal-cookie";
 import {UploadSnippet, PlaySong} from "./Snippet";
 import USER_DEFAULTS from "../data/userdefaults.json";
-import { UserUpdate } from "./updateProfile";
+import { UserUpdate } from "./UpdateProfile";
 
 
 import NavBar from './NavBar';
@@ -112,7 +112,7 @@ export default function ProfilePage(props) {
       </section>
     </section>
   )
-
+    
   return (
     <div id="profile">
       <NavBar/>
@@ -132,8 +132,8 @@ export default function ProfilePage(props) {
         <ul className='tags p-0 d-flex justify-content-center'>
           {interestTags}
         </ul>
+        <UserUpdate user={userHash}/>
       </header>
-      <UserUpdate />
       {artistHash === userHash ? uploadsSection : <></>}
       
       <section className="px-m-5 py-2 text-center">
@@ -278,7 +278,6 @@ export function LikeButton(props) {
         return elem !== userHash;
       })
 
-      // console.log(removedArray);
       setLikedBy(removedArray);
     }
   }

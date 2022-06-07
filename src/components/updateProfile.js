@@ -1,60 +1,66 @@
 
 import { text } from "@fortawesome/fontawesome-svg-core";
-import { getAuth, updateProfile } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Cookies from "universal-cookie";
+import { getDatabase, ref, set as firebaseSet, child } from "firebase/database";
 
-const handleUpdate = (event) => {
-    event.preventDefault();
+const cookie = new Cookies();
+const userHash = cookie.get("userHash");
 
-    const auth = getAuth();
-    const user = auth.currentUser;
 
-    // if (user !== null) {
-    //     user.providerData.forEach((profile) => {
-    //     console.log("Sign-in provider: " + profile.providerId);
-    //     console.log("  Provider-specific UID: " + profile.uid);
-    //     console.log("  Name: " + profile.displayName);
-    //     console.log("  Email: " + profile.email);
-    //     console.log("  Photo URL: " + profile.photoURL);
-    //     });
-    // }
 
-    console.log(user.password);
-
-    updateProfile(user, {
-        displayName: event.target[0].value, photoURL: event.target[1].value
-      }).then(() => {
-        // Profile updated!
-        // ...
-      }).catch((error) => {
-        //error.message
-      });
-    
-      console.log("  Name: " + user.displayName);
-
-}
-
-export function UserUpdate () {
+export function UserUpdate (props) {
     const [displayForm, setForm] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
+    let cookie = new Cookies();
+    const userHash = cookie.get("userHash");
+    const [displayName, setName] = useState('Update Profile');
+    
+    const handleUpdate = (event) => {
+
+        
+
+        const db = getDatabase();
+        const path = `profiles/${userHash}`;
+        const userRef = ref(db, path);
+    
+        firebaseSet(child(userRef, "name"), event.target.name.value);
+        firebaseSet(child(userRef, "desc"), event.target.bio.value);
+        firebaseSet(child(userRef, "email"), event.target.email.value);
+        firebaseSet(child(userRef, "school"), event.target.school.value);
+    
+    }
 
     let sdisplayForm = () => {
+        setName('enter')
         setForm(!displayForm);
     }
-  
+
+    
+
     return (
       <div>
-        <button onClick={sdisplayForm}>click</button>
+        <button className="button-container" onClick={sdisplayForm}>{displayName}</button>
   
         {displayForm && (
             <form onSubmit={handleUpdate}>
                 <div className="input-container">
-                    <label>Username </label>
-                    <input type="text" name="email" required />
+                    <label>Username</label>
+                    <input type="text" name="name" />
                 </div>
                 <div className="input-container">
-                    <label>Image </label>
-                    <input type="file" onChange={(e) => {setSelectedFile(e.target.files[0])}} />
+                    <label>About me</label>
+                    <input type="text" name="bio" />
+                </div>
+                <div className="input-container">
+                    <label>Email</label>
+                    <input type="text" name="email" />
+                </div>
+                <div className="input-container">
+                    <label>School</label> 
+                    <input type="text" name="school" />
+                </div>
+                    <div className="button-container">
+                    <input type="submit" />
                 </div>
             </form> 
         )}
