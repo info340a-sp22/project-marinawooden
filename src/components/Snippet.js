@@ -22,6 +22,7 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
   const [disable, setDisable] = useState(true);
   const [audio, setAudio] = useState();
   const [errorMessage, setErrorMessage] = useState('');
+  const [cover, setCover] = useState("");
   // useEffect(() => {
   //   if (upload) {
   //     upload.pause();
@@ -41,22 +42,33 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
     const storage = getStorage();
     const snippetPath = `snippets/${artist}/${snippet}`;
     const pathReference = storageRef(storage, snippetPath);
+    const imageReference = storageRef(storage, imageSrc);
+
+    console.log(imageSrc);
 
     getDownloadURL(pathReference)
       .then((url) => {
-        console.log(url);
         setAudio(new Audio(url));
         setErrorMessage("");
       })
       .catch((error) => {
         setErrorMessage(error.message);
       });
+
+    getDownloadURL(imageReference)
+      .then((url) => {
+        setCover(url);
+        setErrorMessage("");
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      })
     
-  }, [setAudio, setErrorMessage, snippet, artist]);
+  }, [setAudio, setErrorMessage, snippet, artist, imageSrc, setCover]);
 
   return (
     <div>
-      <DiscCircle audio={audio} imageSrc={imageSrc} imageDesc={imageDesc} setPlayingCall={setPlayingCall} getPlayingCall={getPlayingCall}/>
+      <DiscCircle audio={audio} imageSrc={cover} imageDesc={imageDesc} setPlayingCall={setPlayingCall} getPlayingCall={getPlayingCall}/>
       <p>{upload}</p>
       {errorMessage && (<p className="error"> {errorMessage} </p>)}
     </div>
@@ -96,7 +108,7 @@ export function UploadSnippet({ profileInfo }) {
     if (userHash) {
       if (inputFile && inputImage) {
         if (isValidFileUploaded(inputFile)) {
-          const imagePath = "img/" + inputImage.name;
+          const imagePath = "img/" + userHash + "/" + inputImage.name;
           setErrorMessage('');
           const metaData = {
             customMetadata: {
@@ -129,7 +141,7 @@ export function UploadSnippet({ profileInfo }) {
               setErrorMessage(error.code);
             })
           const imagesRef = storageRef(storage, imagePath);
-          uploadBytes(imagesRef, imagePath)
+          uploadBytes(imagesRef, inputImage)
             .then((snapshot) => {
               updateRelease(metaData, userHash);
               setImage();
@@ -231,7 +243,7 @@ function DiscCircle(props) {
       setMe(false);
     }
   };
-  const style = {backgroundImage: "url('../" + props.imageSrc + "')"}
+  const style = {backgroundImage: "url('" + props.imageSrc + "')"}
   return (
     <div onClick={handleClick}>
       <div className={(amIPlaying ? "playing " : "") + "circle"} role="img" alt={props.title} style={style}>
