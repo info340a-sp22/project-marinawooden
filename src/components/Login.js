@@ -88,7 +88,7 @@ export function Login() {
           <input type="submit" />
         </div>
         <p>
-          Don't have and account?    
+          Don't have an account?    
           <Link to='/register'>Create one here</Link>
         </p>
       </form>

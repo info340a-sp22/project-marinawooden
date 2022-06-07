@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-
 function NavBar() {
     // set login button
     const cookie = new Cookies();
@@ -76,6 +75,7 @@ function HamBurgerNav({ paths }) {
             </li>
         )
     })
+
     return (
         <div className="dropdown">
             <button className="btn border-0 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="true">
