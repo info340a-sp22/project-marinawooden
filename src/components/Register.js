@@ -38,7 +38,8 @@ export default function Register() {
           }).catch((err) => alert(err.message))
       })
       .catch((error) => {
-        console.error(error);
+        alert("Those credentials are already in use")
+        navigate("/login");
       });
   }
 
@@ -57,12 +58,12 @@ export default function Register() {
               <input type="password" name="pass" required />
             </div>
             <div className="button-container">
-              <button>Submit</button>
+              <input type="submit" />
             </div>
             <div className="mt-3">
               <p className="small-text text-center">
                 Already signed up?
-                <Link to='/login'>Log in here</Link>
+                <Link to='/login'> Log in here</Link>
               </p>
             </div>
           </form>

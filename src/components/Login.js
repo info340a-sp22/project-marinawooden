@@ -89,7 +89,7 @@ export function Login() {
         <div className="mt-3">
           <p className="small-text text-center">
             Don't have an account?
-            <Link to='/register'>Create one here</Link>
+            <Link to='/register'> Create one here</Link>
           </p>
         </div>
       </form>
