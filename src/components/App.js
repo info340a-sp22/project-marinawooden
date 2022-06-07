@@ -6,7 +6,6 @@ import { Login, LogOut } from "./Login";
 import { AboutUs } from "./StaticPage";
 import Register from "./Register";
 
-
 export default function App(props) {
     const [userId, setUserId] = useState(null);
     const handleLogin = (user) => {
