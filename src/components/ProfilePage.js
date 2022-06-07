@@ -132,8 +132,8 @@ export default function ProfilePage(props) {
         <ul className='tags p-0 d-flex justify-content-center'>
           {interestTags}
         </ul>
+        <UserUpdate user={userHash}/>
       </header>
-      <UserUpdate user={userHash}/>
       {artistHash === userHash ? uploadsSection : <></>}
       
       <section className="px-m-5 py-2 text-center">
