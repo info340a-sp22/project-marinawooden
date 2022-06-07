@@ -114,7 +114,6 @@ export function LogOut(props) {
   return (
     <div>
       <button onClick={cookie.remove("userHash")}>
-        log out
       <Navigate to={"/about"} />  
       </button>
     </div>

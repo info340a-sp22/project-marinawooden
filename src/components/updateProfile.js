@@ -1,15 +1,8 @@
-
-import { text } from "@fortawesome/fontawesome-svg-core";
 import React, { useState } from "react";
 import Cookies from "universal-cookie";
 import { getDatabase, ref, set as firebaseSet, child } from "firebase/database";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit} from "@fortawesome/free-solid-svg-icons";
-
-const cookie = new Cookies();
-const userHash = cookie.get("userHash");
-
-
 
 export function UserUpdate (props) {
     const [displayForm, setForm] = useState(false);

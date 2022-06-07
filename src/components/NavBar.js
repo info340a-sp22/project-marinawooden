@@ -25,7 +25,7 @@ function NavBar() {
             { path: "/about", text: "About" },
             { path: (userHash ? `profile/${userHash}` : "/login"), text: userLogin },
             { path: "/*", text: "Search" },
-            { path: "/logout", text: "Sign Out" }
+            { path: "/logout", text: "Log Out" }
         ]  
         //return paths;
     } else {

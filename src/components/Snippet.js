@@ -177,7 +177,7 @@ export function UploadSnippet({ profileInfo }) {
         <div style={inputFile ? { display: "block" } : { display: "none" }}>
           <div className="d-flex flex-column align-item-center">
             <MetaDataForm />
-            <div className="row justify-content-center">
+            <div>
               <div className="col-auto">
                 <label htmlFor="file-thumbnail">Upload thumbnail</label>
                 <input name="file-thumbnail" type="file" className="form-control" onChange={addImage} aira-lablel="snippet image input" accept="image/*" />
