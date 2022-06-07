@@ -150,7 +150,7 @@ export function UploadSnippet({ profileInfo }) {
             })
           
         } else {
-          setErrorMessage('File type is unsupported');
+          setErrorMessage('Please add a supported file type');
           setFile();
         }
       }

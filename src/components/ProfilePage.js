@@ -4,6 +4,8 @@ import { getDatabase, ref, onValue, set as firebaseSet, child } from "firebase/d
 import Cookies from "universal-cookie";
 import {UploadSnippet, PlaySong} from "./Snippet";
 import USER_DEFAULTS from "../data/userdefaults.json";
+import { UserUpdate } from "./updateProfile";
+
 
 import NavBar from './NavBar';
 import { Footer } from './Footer';
@@ -131,7 +133,9 @@ export default function ProfilePage(props) {
           {interestTags}
         </ul>
       </header>
+      <UserUpdate />
       {artistHash === userHash ? uploadsSection : <></>}
+      
       <section className="px-m-5 py-2 text-center">
         <h2>Snippets</h2>
         <div className='d-flex flex-wrap justify-content-center'>{releaseDiscs}</div>
