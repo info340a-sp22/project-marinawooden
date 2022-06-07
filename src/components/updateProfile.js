@@ -3,6 +3,8 @@ import { text } from "@fortawesome/fontawesome-svg-core";
 import React, { useState } from "react";
 import Cookies from "universal-cookie";
 import { getDatabase, ref, set as firebaseSet, child } from "firebase/database";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit} from "@fortawesome/free-solid-svg-icons";
 
 const cookie = new Cookies();
 const userHash = cookie.get("userHash");
@@ -16,8 +18,6 @@ export function UserUpdate (props) {
     const [displayName, setName] = useState('Update Profile');
     
     const handleUpdate = (event) => {
-
-        
 
         const db = getDatabase();
         const path = `profiles/${userHash}`;
@@ -35,11 +35,16 @@ export function UserUpdate (props) {
         setForm(!displayForm);
     }
 
-    
+    if (userHash) {
+        
+    }
 
     return (
       <div>
-        <button className="button-container" onClick={sdisplayForm}>{displayName}</button>
+        <label className="input-container" onClick={sdisplayForm}>
+            <FontAwesomeIcon icon={faEdit} size="2x" /> 
+            <p className="small-text"> {displayName}</p>
+        </label>
   
         {displayForm && (
             <form onSubmit={handleUpdate}>

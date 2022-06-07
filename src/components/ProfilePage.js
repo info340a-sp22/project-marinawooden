@@ -104,11 +104,14 @@ export default function ProfilePage(props) {
     }
   });
 
+  
+
   const uploadsSection = (
     <section className="px-m-5 py-2 text-center">
       <h2>Actions</h2>
       <section className="d-flex justify-content-center align-items-center">
         <UploadSnippet profileInfo={user} />
+        <UserUpdate />
       </section>
     </section>
   )
@@ -132,7 +135,7 @@ export default function ProfilePage(props) {
         <ul className='tags p-0 d-flex justify-content-center'>
           {interestTags}
         </ul>
-        <UserUpdate user={userHash}/>
+        
       </header>
       {artistHash === userHash ? uploadsSection : <></>}
       

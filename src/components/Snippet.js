@@ -126,16 +126,6 @@ export function UploadSnippet({ profileInfo }) {
           const snippetsRef = storageRef(storage, snipPath);
           uploadBytes(snippetsRef, inputFile, metaData)
             .then((snapshot) => {
-              // const newPath = storageRef(storage, snapshot.metadata.fullPath);
-
-              // getDownloadURL(newPath)
-              //   .then((url) => {
-              //     console.log(url); // The location of the new file
-              //   })
-              //   .catch((err) => {
-              //     console.error(err.message);
-              //   })
-
               setFile(); // clear file
             }).catch((error) => {
               setErrorMessage(error.code);
