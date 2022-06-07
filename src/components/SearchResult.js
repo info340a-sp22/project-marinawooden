@@ -123,6 +123,7 @@ export function SearchResult({ queryString}) {
 }
 // d-flex flex-column align-items-center justify-md-content-between
 function SearchItem({ profile }) {
+    console.log(profile);
     const img = {
         // backgroundImage: "url('img/" + profile.img + "')";
         borderRadius: "50%",
@@ -158,13 +159,17 @@ function SearchItem({ profile }) {
 }
 
 function SearchTagList({ skills }) {
-    const skillItems = skills.map((skill) => {
-        return (
-        <li className="ms-0" key={skill}>
-            <Link to={"/search?search_query=" + skill} className="filter-item">{skill}</Link>
-        </li>
-        )
-    })
+    let skillItems = [];
+    if (skills) {
+        skillItems = skills.map((skill) => {
+            return (
+            <li className="ms-0" key={skill}>
+                <Link to={"/search?search_query=" + skill} className="filter-item">{skill}</Link>
+            </li>
+            )
+        })
+    }
+    
     return (
         <ul className="tags tags-skill mb-3 ps-0">
             {skillItems}
