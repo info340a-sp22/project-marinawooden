@@ -22,13 +22,9 @@ export function UserUpdate (props) {
         const fields = ["name", "email", "desc", "school"];
         const values = [userName, userEmail, userDesc, userSchool];
 
-        console.log(event.target);
-        console.log(values);
-
         values.forEach((elem, i) => {
 
             if (elem) {
-                console.log("reached! for: " + elem);
                 firebaseSet(child(userRef, fields[i]), elem);
             }
         });

@@ -131,9 +131,7 @@ export function LogOut() {
   const sessionRef = ref(db, `/sessions/${sessionHash}/userHash`);
 
   removeFromDb(sessionRef);
-
-  cookie.remove("userHash");
-  cookie.remove("sessionHash");
+  cookie.remove("sessionHash", { path: '/' });
 
   return (
     <Navigate to={"/about"} />

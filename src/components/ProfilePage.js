@@ -171,7 +171,6 @@ export default function ProfilePage(props) {
 export function AlbumDisc(props) {
   /* Find the release data in the forms {"likes": "", "listeners": ""} */
   let myRelease = props.release;
-  console.log(myRelease);
 
   return (
     <div className="album p-3">
@@ -244,7 +243,6 @@ export function LikeButton(props) {
         setLiked(true);
         setLikes(likes + 1);
         let addedArray = [...likedBy, userHash];
-        // console.log(addedArray);
         setLikedBy(addedArray);
       } else {
         setLiked(false);

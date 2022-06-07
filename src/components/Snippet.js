@@ -43,8 +43,6 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
     const pathReference = storageRef(storage, snippetPath);
     const imageReference = storageRef(storage, imageSrc);
 
-    console.log(imageSrc);
-
     getDownloadURL(pathReference)
       .then((url) => {
         setAudio(new Audio(url));
@@ -84,7 +82,6 @@ export function UploadSnippet({ profileInfo, uploader }) {
   // check if file type excepted
   const isValidFileUploaded = (file) => {
     const validExtensions = ['m4a', 'mp3', 'wav']
-    // console.log(file);
     const fileExtension = file.name.split('.').pop();
     return validExtensions.includes(fileExtension)
   }
