@@ -6,30 +6,37 @@ import { faEdit} from "@fortawesome/free-solid-svg-icons";
 
 export function UserUpdate (props) {
     const [displayForm, setForm] = useState(false);
-    let cookie = new Cookies();
-    const userHash = cookie.get("userHash");
     const [displayName, setName] = useState('Update Profile');
     
-    const handleUpdate = (event) => {
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userDesc, setUserDesc] = useState("");
+    const [userSchool, setUserSchool] = useState("");
 
+    const userHash = props.uploader;
+    
+    const handleUpdate = (event) => {
         const db = getDatabase();
         const path = `profiles/${userHash}`;
         const userRef = ref(db, path);
-    
-        firebaseSet(child(userRef, "name"), event.target.name.value);
-        firebaseSet(child(userRef, "desc"), event.target.bio.value);
-        firebaseSet(child(userRef, "email"), event.target.email.value);
-        firebaseSet(child(userRef, "school"), event.target.school.value);
-    
+        const fields = ["name", "email", "desc", "school"];
+        const values = [userName, userEmail, userDesc, userSchool];
+
+        console.log(event.target);
+        console.log(values);
+
+        values.forEach((elem, i) => {
+
+            if (elem) {
+                console.log("reached! for: " + elem);
+                firebaseSet(child(userRef, fields[i]), elem);
+            }
+        });
     }
 
     let sdisplayForm = () => {
         setName('enter')
         setForm(!displayForm);
-    }
-
-    if (userHash) {
-        
     }
 
     return (
@@ -43,19 +50,19 @@ export function UserUpdate (props) {
             <form onSubmit={handleUpdate}>
                 <div className="input-container">
                     <label>Username</label>
-                    <input type="text" name="name" />
+                    <input type="text" name="name" onChange={(event) => setUserName(event.target.value)} />
                 </div>
                 <div className="input-container">
                     <label>About me</label>
-                    <input type="text" name="bio" />
+                    <input type="text" name="bio" onChange={(event) => setUserDesc(event.target.value)}/>
                 </div>
                 <div className="input-container">
                     <label>Email</label>
-                    <input type="text" name="email" />
+                    <input type="text" name="email" onChange={(event) => setUserEmail(event.target.value)}/>
                 </div>
                 <div className="input-container">
                     <label>School</label> 
-                    <input type="text" name="school" />
+                    <input type="text" name="school" onChange={(event) => setUserSchool(event.target.value)}/>
                 </div>
                     <div className="button-container">
                     <input type="submit" />

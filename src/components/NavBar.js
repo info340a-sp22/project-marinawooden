@@ -1,11 +1,21 @@
-import React from "react";
+import { getDatabase, onValue, ref } from "@firebase/database";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 function NavBar() {
-    // set login button
     const cookie = new Cookies();
-    let userHash = cookie.get("userHash");
+    let sessionHash = cookie.get("sessionHash");
+    const [userHash, setUserHash] = useState(null);
+
+    useEffect(() => {
+        const db = getDatabase();
+        const userRef = ref(db, `sessions/${sessionHash}/userHash`);
+        onValue(userRef, (snapshot) => {
+            setUserHash(snapshot.val());
+        });
+    }, [])
+
     let logged = false;
     let paths = []
     let path = "";

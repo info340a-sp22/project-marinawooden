@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import USERS from "../data/users.json";
 import Cookies from 'universal-cookie';
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, onValue, ref } from "firebase/database";
-import { propTypes } from "react-bootstrap/esm/Image";
+import { getDatabase, onValue, ref, push as databasePush, remove as removeFromDb } from "firebase/database";
 
 let loggedIn = false;
 
@@ -34,6 +33,7 @@ export function Login() {
     const handleSubmit = (event) => {
         //Prevent page reload
         event.preventDefault();
+        let now = new Date();
 
         var { email, pass } = document.forms[0];
 
@@ -45,14 +45,29 @@ export function Login() {
             return user.email;
           })
           .then((mail) => {
+            /** Push session info to database */
             const userInfo = Object.values(users).find(elem => elem["email"] === mail);
             const userHash = Object.keys(users).find(key => users[key] === userInfo);
 
-            let now = new Date();
-            now.setTime(now.getTime() + 1 * 3600 * 1000);
-            
-            cookies.set('userHash', userHash, { path: '/' , expires: now});
+            // now.setTime(now.getTime() + 1 * 3600 * 1000);
+            // cookies.set('userHash', userHash, { path: '/' , expires: now}); // in the future- remove this in favor of session
 
+            return userHash
+          })
+          .then((userHash) => {
+            const db = getDatabase();
+            const sessionRef = ref(db, `sessions`); // structure will be /sessions/${sessionid}/userHash
+            const sessionInfo = {
+              "userHash" : userHash
+            }
+
+            const postKey = databasePush(sessionRef, sessionInfo).key;
+            // cookies.set('sessionHash', postKey, { path: '/' , expires: now});
+            cookies.set('sessionHash', postKey, { path: '/' });
+            
+            return userHash;
+          })
+          .then((userHash) => {
             setIsSubmitted(true);
             setUserId(userHash);
           })
@@ -109,13 +124,18 @@ export function Login() {
 
 export {loggedIn};
 
-export function LogOut(props) {
-  let cookie = new Cookies();
+export function LogOut() {
+  const cookie = new Cookies();
+  const db = getDatabase();
+  const sessionHash = cookie.get("sessionHash");
+  const sessionRef = ref(db, `/sessions/${sessionHash}/userHash`);
+
+  removeFromDb(sessionRef);
+
+  cookie.remove("userHash");
+  cookie.remove("sessionHash");
+
   return (
-    <div>
-      <button onClick={cookie.remove("userHash")}>
-      <Navigate to={"/about"} />  
-      </button>
-    </div>
+    <Navigate to={"/about"} />
   )
 }

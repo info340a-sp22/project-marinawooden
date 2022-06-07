@@ -12,22 +12,28 @@ import { Footer } from './Footer';
 
 export default function ProfilePage(props) {
   const cookie = new Cookies();
-  const userHash = cookie.get("userHash");
+  const sessionHash = cookie.get("sessionHash");
 
   const [posts, setPosts] = useState([]);
   const [releases, setReleases] = useState([]);
   const [user, setUser] = useState(USER_DEFAULTS);
   const [tags, setTags] = useState([]);
+  const [userHash, setUserHash] = useState(null);
 
   let prms = useParams();
   let artistHash = prms.artistId;
 
   useEffect(() => {
     const db = getDatabase();
-    const profileRef = ref(db, 'profiles'); // get all profiles
+    const profileRef = ref(db, `profiles/${artistHash}`); // get  profiles
+    const viewerRef = ref(db, `sessions/${sessionHash}/userHash`);
+
+    onValue(viewerRef, (snapshot) => {
+      setUserHash(snapshot.val());
+    });
 
     onValue(profileRef, (snapshot) => {
-      const profile = snapshot.val()[artistHash];
+      const profile = snapshot.val();
       setUser(profile);
 
       const releaseKey = (profile["releases"] ? Object.keys(profile["releases"]) : []);
@@ -68,7 +74,7 @@ export default function ProfilePage(props) {
 
   let postCards = posts.map((elem) => {
     return (
-      <PostCard key={elem.id} post={elem} loggedIn={props.loggedIn}/>
+      <PostCard initiator={userHash} key={elem.id} post={elem} loggedIn={props.loggedIn}/>
     )
   });
 
@@ -84,7 +90,7 @@ export default function ProfilePage(props) {
   }
   let releaseDiscs = Object.values(releases).map((elem, i) => {
     return (
-      <AlbumDisc key={i} release={elem} id={artistHash} setPlayingCall={playingSnippet} getPlayingCall={getPlayingStatus}/>
+      <AlbumDisc initiator={userHash} key={i} release={elem} id={artistHash} setPlayingCall={playingSnippet} getPlayingCall={getPlayingStatus}/>
     )
   });
 
@@ -110,8 +116,8 @@ export default function ProfilePage(props) {
     <section className="px-m-5 py-2 text-center">
       <h2>Actions</h2>
       <section className="d-flex justify-content-center align-items-center">
-        <UserUpdate />
-        <UploadSnippet profileInfo={user} />
+        <UserUpdate uploader={userHash}/>
+        <UploadSnippet profileInfo={user} uploader={userHash}/>
       </section>
     </section>
   )
@@ -175,7 +181,7 @@ export function AlbumDisc(props) {
         <p>{myRelease.title}</p>
       </div>
       <div className='desc'>
-        <LikeButton post={myRelease}/>
+        <LikeButton post={myRelease} initiator={props.initiator}/>
       </div>
       <div className='desc'>
         <div className='d-flex align-items-center'>
@@ -201,7 +207,7 @@ export function PostCard(props) {
         </div> : ""}
         <div className='post-text col d-flex flex-column justify-content-between'>
           <p className="small-text">{myPost.text.substring(0, 120) + (myPost.text.length > 100 ? "..." : "")}</p>
-          <LikeButton post={myPost} loggedIn={props.LoggedIn} />
+          <LikeButton post={myPost} loggedIn={props.LoggedIn} initiator={props.initiator}/>
         </div>
       </div>
     </div>
@@ -209,9 +215,7 @@ export function PostCard(props) {
 }
 
 export function LikeButton(props) {
-  const cookie = new Cookies();
-  const userHash = cookie.get("userHash");
-
+  const userHash = props.initiator;
 
   const myPost = props.post;
   const whoLiked = (myPost.likedBy ? Object.values(myPost.likedBy) : []);
@@ -235,21 +239,25 @@ export function LikeButton(props) {
   }, [likedBy, userHash, likes, myPost]);
 
   function handleLike() {
-    if (!liked) {
-      setLiked(true);
-      setLikes(likes + 1);
-      let addedArray = [...likedBy, userHash];
-      // console.log(addedArray);
-      setLikedBy(addedArray);
+    if (userHash) {
+      if (!liked) {
+        setLiked(true);
+        setLikes(likes + 1);
+        let addedArray = [...likedBy, userHash];
+        // console.log(addedArray);
+        setLikedBy(addedArray);
+      } else {
+        setLiked(false);
+        setLikes(likes - 1);
+
+        let removedArray = [...likedBy].filter((elem) => {
+          return elem !== userHash;
+        })
+
+        setLikedBy(removedArray);
+      }
     } else {
-      setLiked(false);
-      setLikes(likes - 1);
-
-      let removedArray = [...likedBy].filter((elem) => {
-        return elem !== userHash;
-      })
-
-      setLikedBy(removedArray);
+      alert("You must be logged in to like a post!");
     }
   }
 

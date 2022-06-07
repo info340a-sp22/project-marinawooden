@@ -3,7 +3,6 @@ import { getDownloadURL, getStorage, ref as storageRef, uploadBytes } from "fire
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUpFromBracket, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase, ref as databaseRef, push as databasePush, onValue } from "firebase/database";
-import Cookies from "universal-cookie";
 
 function DisplayFName({ inputFile }) {
   if (inputFile) {
@@ -76,10 +75,12 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
 }
 
 // upload an audio file to the firebase database
-export function UploadSnippet({ profileInfo }) {
+export function UploadSnippet({ profileInfo, uploader }) {
   const [inputFile, setFile] = useState();
   const [inputImage, setImage] = useState();
   const [errorMessage, setErrorMessage] = useState('');
+
+
   // check if file type excepted
   const isValidFileUploaded = (file) => {
     const validExtensions = ['m4a', 'mp3', 'wav']
@@ -102,13 +103,10 @@ export function UploadSnippet({ profileInfo }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const cookie = new Cookies();
-    const userHash = cookie.get("userHash");
-
-    if (userHash) {
+    if (uploader && uploader !== null) {
       if (inputFile && inputImage) {
         if (isValidFileUploaded(inputFile)) {
-          const imagePath = "img/" + userHash + "/" + inputImage.name;
+          const imagePath = "img/" + uploader + "/" + inputImage.name;
           setErrorMessage('');
           const metaData = {
             customMetadata: {
@@ -120,7 +118,7 @@ export function UploadSnippet({ profileInfo }) {
             }
           }
           const storage = getStorage();
-          const snipPath = "snippets/" + userHash + "/" + event.target.title.value;
+          const snipPath = "snippets/" + uploader + "/" + event.target.title.value;
           event.target.title.value = "";
           event.target.genres.value = "";
           const snippetsRef = storageRef(storage, snipPath);
@@ -133,7 +131,7 @@ export function UploadSnippet({ profileInfo }) {
           const imagesRef = storageRef(storage, imagePath);
           uploadBytes(imagesRef, inputImage)
             .then((snapshot) => {
-              updateRelease(metaData, userHash);
+              updateRelease(metaData, uploader);
               setImage();
             }).catch((error) => {
               setErrorMessage(error.code);
