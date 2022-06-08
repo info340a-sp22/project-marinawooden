@@ -4,22 +4,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUpFromBracket, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase, ref as databaseRef, push as databasePush, onValue } from "firebase/database";
 
+const DEF_IMAGE = "https://firebasestorage.googleapis.com/v0/b/musicroom-196ba.appspot.com/o/img%2Fdefault_record.png?alt=media&token=436317b5-20d6-4b28-8d95-3b9e2efba34b";
+
 function DisplayFName({ inputFile }) {
   if (inputFile) {
     return (
-      <p className="text-center text-break fs-4">{inputFile.name}</p>
+      <p className="text-center text-break small-text">{inputFile.name}</p>
+    )
+  } else {
+    return (
+      <></>
     )
   }
-  return (
-    <></>
-  )
 }
 
 export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, getPlayingCall}) {
   let upload;
   const [buttonName, setButtonName] = useState("Play");
   const [disable, setDisable] = useState(true);
-  const [audio, setAudio] = useState();
+  const [audio, setAudio] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
   const [cover, setCover] = useState("");
   // useEffect(() => {
@@ -74,14 +77,16 @@ export function PlaySong({artist, snippet, imageSrc, imageDesc, setPlayingCall, 
 
 // upload an audio file to the firebase database
 export function UploadSnippet({ profileInfo, uploader }) {
-  const [inputFile, setFile] = useState();
-  const [inputImage, setImage] = useState();
+  const [inputFile, setFile] = useState("");
+  const [inputImage, setImage] = useState("");
+  const [imageSrc, setImageSrc] = useState(DEF_IMAGE);
   const [errorMessage, setErrorMessage] = useState('');
 
 
   // check if file type excepted
   const isValidFileUploaded = (file) => {
     const validExtensions = ['m4a', 'mp3', 'wav']
+    // console.log(file);
     const fileExtension = file.name.split('.').pop();
     return validExtensions.includes(fileExtension)
   }
@@ -133,12 +138,14 @@ export function UploadSnippet({ profileInfo, uploader }) {
             }).catch((error) => {
               setErrorMessage(error.code);
             })
-          
         } else {
-          setErrorMessage('Please add a supported file type');
-          setFile();
+          alert("That file type is not supported!");
         }
       }
+      event.target.title.value = "";
+      event.target.genres.value = "";
+      setImage();
+      setImageSrc(DEF_IMAGE);
       setFile();
     } else {
       setErrorMessage("You must be logged in to upload a snippet!");
@@ -159,56 +166,68 @@ export function UploadSnippet({ profileInfo, uploader }) {
     }
     databasePush(releasesRef, releasesMetadata);
   }
+
+  function changeSrc(e) {
+    if (e.target.files && e.target.files[0]) {
+      let img = e.target.files[0];
+      setImageSrc(URL.createObjectURL(img));
+      addImage(e);
+    }
+  }
+
+  const uploadIcon = (
+    <div>
+      <label htmlFor="file-input" aria-label="upload button">
+        <FontAwesomeIcon icon={faArrowUpFromBracket} size="2x" />
+        <p className="small-text">Upload Snippets</p>
+      </label>
+      <input id="file-input" style={{ display: "none" }} type="file" onChange={addFile} accept="audio/*" />
+    </div>
+  );
   return (
-    <div className="action p-3 d-flex justify-content-center align-items-center flex-column">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="file-input" aria-label="upload button">
-            <FontAwesomeIcon icon={faArrowUpFromBracket} size="2x" />
-            <p className="small-text">Upload Snippets</p>
-          </label>
-          <input id="file-input" style={{ display: "none" }} type="file" onChange={addFile} accept="audio/*" />
-        </div>
-        <div style={inputFile ? { display: "block" } : { display: "none" }}>
-          <div className="d-flex flex-column align-item-center">
+      <>
+        {!inputFile ? uploadIcon : <></>}
+        <div className={(!inputFile ? "d-none " : "d-flex ") + "profile-edit justify-content-center align-items-center text-start"}>
+          <form onSubmit={handleSubmit} className="d-inline-flex flex-column justify-content-between mh-75">
+            <div className="d-flex justify-content-between">
+              <h2>Upload a Snippet</h2>
+              <svg className="close" onClick={() => {setFile()}} clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 3.998c0-.478-.379-1-1-1h-16c-.62 0-1 .519-1 1v16c0 .621.52 1 1 1h16c.478 0 1-.379 1-1zm-16.5.5h15v15h-15zm7.491 6.432 2.717-2.718c.146-.146.338-.219.53-.219.404 0 .751.325.751.75 0 .193-.073.384-.22.531l-2.717 2.717 2.728 2.728c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-2.728-2.728-2.728 2.728c-.147.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l2.728-2.728-2.722-2.722c-.146-.147-.219-.338-.219-.531 0-.425.346-.749.75-.749.192 0 .384.073.53.219z" fill-rule="nonzero"/></svg>
+            </div>
             <MetaDataForm />
-            <div>
-              <div className="col-auto">
-                <label htmlFor="file-thumbnail">Upload thumbnail</label>
-                <input name="file-thumbnail" type="file" className="form-control" onChange={addImage} aira-lablel="snippet image input" accept="image/*" />
+            <div className="snippet-prev mx-auto">
+              <div className="circle" style={{backgroundImage: `url('${imageSrc}')`}}></div>
+              <div>
+                <div className="image-upload">
+                  <label for="thumb-input" className="mw-3 d-flex justify-content-between align-items-center">
+                  <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 24c6.627 0 12-5.373 12-12s-5.373-12-12-12-12 5.373-12 12 5.373 12 12 12zm-2-9h4v1h-4v-1zm0 3v-1h4v1h-4zm2-13l6 6h-4v3h-4v-3h-4l6-6z"/></svg>
+                    <p className="m-2">Upload Thumbnail</p>
+                  </label>
+                  <input className="d-none" id="thumb-input" name="file-thumbnail" type="file" onChange={changeSrc} aria-label="snippet image input" accept="image/*" />
+                </div>
+              </div>
+              <DisplayFName inputFile={inputFile} />
+              <div className="d-flex justify-content-center">
+                <input type="submit" style={inputFile ? { display: "block" } : { display: "none" }} />
               </div>
             </div>
-          </div>
+          </form>
+          {errorMessage && (<p className="error"> {errorMessage} </p>)}
         </div>
-        <DisplayFName inputFile={inputFile} />
-        <div className="d-flex justify-content-center">
-          <input type="submit" style={inputFile ? { display: "block" } : { display: "none" }} />
-        </div>
-      </form>
-      {errorMessage && (<p className="error"> {errorMessage} </p>)}
-    </div>
+      </>
   )
 }
 
 /*Form to add title and genre metadata*/
 function MetaDataForm({ setImageCallback }) {
   return (
-    <div className="">
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <label>Title</label>
-          <div className="input-group mb-3">
-            <input name="title" type="text" aria-label="snippet title input" />
-          </div>
-        </div>
+    <div className="mb-4">
+      <div className="d-flex flex-column mb-3">
+        <label>Title</label>
+        <input name="title" type="text" aria-label="snippet title input" />
       </div>
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <label>Genre(s)</label>
-          <div className="input-group mb-3">
-            <input name="genres" type="text" aria-label="snippet genre(s) input" />
-          </div>
-        </div>
+      <div className="d-flex flex-column mb-2">
+        <label>Genre(s)</label>
+        <input name="genres" type="text" aria-label="snippet genre(s) input" />
       </div>
     </div>
   )
@@ -233,10 +252,6 @@ function DiscCircle(props) {
     <div onClick={handleClick}>
       <div className={(amIPlaying ? "playing " : "") + "circle"} role="img" aria-label={props.imageDesc} style={style}>
       </div>
-      {/* <div className="row align-items-center">
-        <div className="col">
-        </div>
-      </div> */}
     </div>
   );
 }
